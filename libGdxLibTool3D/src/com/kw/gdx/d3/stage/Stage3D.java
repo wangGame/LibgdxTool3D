@@ -21,7 +21,6 @@ public class Stage3D {
     public Environment environment;
     public PerspectiveCamera camera;
     public LightManager lightManager;
-    private ArrayList<Actor> actorList;
     private ArrayList<BaseActor3D> actorList3D;
     private final ModelBatch modelBatch;
     private float intervalCounter;
@@ -47,7 +46,7 @@ public class Stage3D {
         modelBatch = new ModelBatch(shaderProvider);
 
         actorList3D = new ArrayList();
-        actorList = new ArrayList();
+
     }
 
     public void act(float dt) {
@@ -62,10 +61,8 @@ public class Stage3D {
         modelBatch.begin(camera);
         visibleCount = 0;
         for (int i = 0; i < actorList3D.size(); i++) {
-            if (actorList3D.get(i).modelData.isVisible(camera) && actorList3D.get(i).isVisible) {
-                actorList3D.get(i).draw(modelBatch, environment);
-                visibleCount++;
-            }
+            BaseActor3D actor3D = actorList3D.get(i);
+            actor3D.draw(camera,modelBatch,environment);
         }
         modelBatch.end();
     }
@@ -76,27 +73,21 @@ public class Stage3D {
 
     public void addActor(BaseActor3D ba) {
         actorList3D.add(ba);
+        ba.setStage3D(this);
     }
 
-    public void addActor(Actor a) {
-        actorList.add(a);
-    }
 
     public void removeActor(BaseActor3D ba) {
         actorList3D.remove(ba);
     }
 
-    public void removeActor(Actor a) {
-        actorList.remove(a);
-    }
+
 
     public ArrayList<BaseActor3D> getActors3D() {
         return actorList3D;
     }
 
-    public ArrayList<Actor> getActors() {
-        return actorList;
-    }
+
 
     public void setCameraPosition(float x, float y, float z) {
         camera.position.set(x, y, z);

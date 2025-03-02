@@ -2,6 +2,7 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
@@ -43,9 +44,7 @@ public class BaseActor3D {
     protected final Quaternion rotation;
     protected final Vector3 scale;
 
-    public BaseActor3D(float x, float y, float z, Stage3D stage3D) {
-        this.stage3D = stage3D;
-        this.stage3D.addActor(this);
+    public BaseActor3D(float x, float y, float z) {
         modelData = null;
         position = new Vector3(x, y, z);
         rotation = new Quaternion();
@@ -63,12 +62,24 @@ public class BaseActor3D {
 
     //更新位置
     public void act(float dt) {
-        if (!isPause)
-            modelData.transform.set(calculateTransform());
+        if (!isPause){
+            if (modelData!=null) {
+                modelData.transform.set(calculateTransform());
+            }
+        }
+    }
+
+    public void draw(PerspectiveCamera camera,ModelBatch modelBatch,Environment environment){
+        if (modelData == null)return;
+        if (modelData.isVisible(camera) && isVisible) {
+            draw(modelBatch, environment);
+        }
     }
 
     public void draw(ModelBatch batch, Environment env) {
-        batch.render(modelData, env);
+        if (modelData!=null) {
+            batch.render(modelData, env);
+        }
     }
 
     public void setColor(Color c) {
@@ -197,7 +208,9 @@ public class BaseActor3D {
     }
 
     public void remove() {
-        stage3D.removeActor(this);
+        if (stage3D!=null) {
+            stage3D.removeActor(this);
+        }
     }
 
     public void buildModel(float width, float height, float depth, boolean blending) {
@@ -220,7 +233,8 @@ public class BaseActor3D {
         instance.shape = new Box(bounds);
     }
 
-    public static void main(String[] args) {
 
+    public void setStage3D(Stage3D stage3D) {
+        this.stage3D = stage3D;
     }
 }

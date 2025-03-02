@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.kw.gdx.BaseGame;
+import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.screen.BaseScreen;
@@ -17,8 +18,8 @@ import com.kw.gdx.screen.BaseScreen;
  */
 public class LibGdxTestMain extends BaseGame {
 
-    private Stage3D modelStage;
-    private Stage uiStage;
+    protected Stage3D modelStage;
+    protected Stage uiStage;
 
     @Override
     protected void loadingView() {
@@ -54,7 +55,7 @@ public class LibGdxTestMain extends BaseGame {
 
     }
 
-    public void addModelActor(Actor actor){
+    public void addModelActor(BaseActor3D actor){
         modelStage.addActor(actor);
     }
 
