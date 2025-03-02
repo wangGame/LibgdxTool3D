@@ -1,7 +1,7 @@
 # LibGdxTool
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool/actions)
-[![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool3D/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool3D/actions)
+[![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool3D)
 
 
 ## 添加忽略
@@ -57,6 +57,8 @@ implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release1.0.0'
 - upgrade：升级版
 
 
-## 适配
+## 3D
+
+目前计划使用两个相机，一个2D一个3D两个相机，3D渲染游戏物体  2D渲染ui
 
 
