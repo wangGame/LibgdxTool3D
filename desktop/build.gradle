@@ -1,0 +1,34 @@
+apply plugin: "java"
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.wangGame'
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../android/assets"]
+sourceCompatibility = 1.8
+
+dependencies {
+
+    implementation files('libs/gdx-backend-lwjgl.jar')
+    implementation files('libs/gdx-backend-lwjgl-natives.jar')
+    implementation files('libs/gdx-natives.jar')
+    implementation 'com.github.wangGame.LibGdxTool:libGdx:release1.1.4'
+    implementation 'com.github.wangGame.LibGdxTool:libGdxLib:release1.1.4'
+    implementation 'com.github.wangGame.LibGdxTool:desktop:release1.1.4'
+    implementation project(":libGdxLibTool3D")
+    implementation 'junit:junit:4.12'
+}
+
+project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
+project.ext.assetsDir = new File("../android/assets");
+
+task dist(type: Jar) {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    manifest {
+        attributes 'Main-Class': project.mainClassName
+    }
+    dependsOn configurations.runtimeClasspath
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
