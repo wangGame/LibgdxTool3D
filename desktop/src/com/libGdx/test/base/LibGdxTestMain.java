@@ -74,7 +74,7 @@ public class LibGdxTestMain extends BaseGame {
         config.stencil=8;
         config.y = 0;
         config.height = (int) (1920 * 0.5f);
-        config.width = (int) (1080 * 0.5f);
+        config.width = (int) (1080 * 0.8f);
 //        Gdx.isJiami = true;
         new LwjglApplication(test, config);
     }
