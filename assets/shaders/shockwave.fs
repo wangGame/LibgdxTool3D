@@ -2,7 +2,7 @@
 precision highp float;
 #endif
 
-uniform sampler2D sceneTex; // 0
+uniform sampler2D sceneTexq; // 0
 uniform vec2 u_center; // Mouse position
 uniform float u_time; // effect elapsed time
 uniform vec3 u_shockParams; // 10.0, 0.8, 0.1
@@ -24,5 +24,5 @@ void main()
     	vec2 diffUV = normalize(v_texCoords-u_center);
     	l_texCoords = v_texCoords + (diffUV * diffTime);
 	}
-	gl_FragColor = texture2D(sceneTex, l_texCoords);
+	gl_FragColor = texture2D(sceneTexq, l_texCoords);
 }

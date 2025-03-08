@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kw.gdx.constant.Constant;
-import com.kw.gdx.listener.OrdinaryButtonListener;
 
 public class ShockwaveBackground extends BaseActor {
     public ShaderProgram shaderProgram;
@@ -20,11 +19,11 @@ public class ShockwaveBackground extends BaseActor {
     private float shockWavePositionX = -5f;
     private float shockWavePositionY = -5f;
 
-    public ShockwaveBackground(String texturePath, Stage stage) {
-        super(0, 0, stage);
-
+    public ShockwaveBackground(String texturePath) {
+        super(0, 0);
+        //给一张图片， 然后传递给父类加载
         loadTexture(texturePath);
-        setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
+//        setSize(Constant.GAMEWIDTH, Constant.GAMEHIGHT);
         setDebug(true);
         shaderProgram = new ShaderProgram(
                 Gdx.files.internal("shaders/default.vs"),
@@ -34,11 +33,9 @@ public class ShockwaveBackground extends BaseActor {
         addListener(new ClickListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
                 float xNormalized = Gdx.input.getX() / (float) Gdx.graphics.getWidth();
                 float yNormalized = Gdx.input.getY() / (float) Gdx.graphics.getHeight();
                 start(xNormalized, yNormalized);
-
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

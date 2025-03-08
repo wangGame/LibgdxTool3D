@@ -10,26 +10,21 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-
-
 
 public class BaseActor extends Group {
     public boolean pause = false;
     public boolean isFacingRight = true;
     public float animationWidth = getWidth();
     public float animationHeight = getWidth();
-
     private Animation<TextureRegion> animation;
     private float animationTime;
     private boolean animationPaused;
 
-    public BaseActor(float x, float y, Stage stage) {
+    public BaseActor(float x, float y) {
         super();
-
         setPosition(x, y);
-        stage.addActor(this);
-
         animation = null;
         animationTime = 0;
         animationPaused = false;
@@ -111,25 +106,29 @@ public class BaseActor extends Group {
         return loadAnimationFromFiles(fileNames, 1f, true);
     }
 
-    private Animation<TextureRegion> loadAnimationFromFiles(Array<String> fileNames, Float frameDuration, Boolean loop) {
+    /**
+     * 好多年没见过这种写法了
+     * @param fileNames
+     * @param frameDuration
+     * @param loop
+     * @return
+     */
+    private Animation<TextureRegion> loadAnimationFromFiles(Array<String> fileNames, float frameDuration, Boolean loop) {
         Array<TextureRegion> textureArray = new Array();
-
         for (int i = 0; i < fileNames.size; i++) {
             Texture texture = new Texture(Gdx.files.internal(fileNames.get(i)));
             texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             textureArray.add(new TextureRegion(texture));
         }
-
         Animation<TextureRegion> anim = new Animation(frameDuration, textureArray);
-
-        if (loop)
+        if (loop) {
             anim.setPlayMode(Animation.PlayMode.LOOP);
-        else
+        }else {
             anim.setPlayMode(Animation.PlayMode.NORMAL);
-
-        if (animation == null)
+        }
+        if (animation == null) {
             setAnimation(anim);
-
+        }
         return anim;
     }
 
@@ -139,23 +138,30 @@ public class BaseActor extends Group {
         float w = tr.getRegionWidth();
         float h = tr.getRegionHeight();
         setSize(w, h);
-        setOrigin(w / 2, h / 2);
+        setOrigin(Align.center);
     }
 
-    public void loadImage(String name) {
-
-    }
-
-    // miscellaneous -------------------------------------------------------------------------------------------
-    public void centerAtPosition(Float x, Float y) {
-        setPosition(x - getWidth() / 2, y - getHeight() / 2);
+    /**
+     * set middle
+     * @param x
+     * @param y
+     */
+    public void centerAtPosition(float x, float y) {
+        setPosition(x, y,Align.center);
     }
 
     public void centerAtActor(BaseActor baseActor) {
-        centerAtPosition(baseActor.getX() + baseActor.getWidth() / 2, baseActor.getY() + baseActor.getHeight() / 2);
+        centerAtPosition(baseActor.getX(Align.center), baseActor.getY(Align.center));
     }
 
-    public void setOpacity(Float opacity) {
+    public void setOpacity(float opacity) {
         this.getColor().a = opacity;
+    }
+
+    public void loadImage(TextureRegion region) {
+        if (region == null) {
+            Gdx.app.error(getClass().getSimpleName(), "Error: region is null. Are you sure the image '" + name + "' exists?");
+        }
+        setAnimation(new Animation(1f, region));
     }
 }

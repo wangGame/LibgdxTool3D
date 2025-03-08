@@ -26,13 +26,12 @@ import com.kw.gdx.d3.utils.Box;
  * model Actor
  */
 public class BaseActor3D {
-    public boolean isPause = false;
-    public boolean isVisible = true;
-    public boolean isCollisionEnabled = true;
-    public boolean isPreventOverlapEnabled = true;
-    public GameObject modelData;
-    public final Vector3 position;
-    public final float VOCAL_RANGE = 20;
+    protected boolean isPause = false;
+    protected boolean isVisible = true;
+    protected boolean isCollisionEnabled = true;
+    protected boolean isPreventOverlapEnabled = true;
+    protected GameObject modelData;
+    protected final Vector3 position;
 
     protected float width;
     protected float height;
