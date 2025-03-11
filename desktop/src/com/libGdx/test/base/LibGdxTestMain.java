@@ -18,7 +18,7 @@ import com.kw.gdx.screen.BaseScreen;
  */
 public class LibGdxTestMain extends BaseGame {
 
-    protected Stage3D modelStage;
+    public Stage3D modelStage;
     protected Stage uiStage;
 
     @Override
