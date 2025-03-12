@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
+import com.badlogic.gdx.graphics.g3d.environment.SpotLight;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.particles.ParticleController;
@@ -44,7 +45,8 @@ public class MahjGame extends Game {
     private PerspectiveCamera perspectiveCamera;
     private RotationalCameraInputController rotationalCameraInputController;
     private ModelInstance teaInstance;
-
+    private ModelInstance teacupModelInstance;
+    private ModelInstance mahjongTile;
     @Override
     public void create() {
         assets = new AssetManager();
@@ -66,10 +68,12 @@ public class MahjGame extends Game {
         perspectiveCamera.far = 1000f;
         perspectiveCamera.update();
 
+
         rotationalCameraInputController = new RotationalCameraInputController(perspectiveCamera, 1.0f,
                 1.0f, 1.0f, 1.0f, 4.0f);
         rotationalCameraInputController.setZoom(3.0f);
         rotationalCameraInputController.getRotation().x = -30.0f;
+
 
         Gdx.input.setInputProcessor(new InputMultiplexer(rotationalCameraInputController, new InputAdapter() {
             @Override
@@ -108,23 +112,52 @@ public class MahjGame extends Game {
                 TextureAttribute.createDiffuse(woodTexture)
         );
         tableEnvironment = new Environment();
-        tableEnvironment.add(new PointLight().set(1.0f, 0.96f, 0.83f, 0.0f, 25.0f, 0.0f, 1000.0f));
-
+//        tableEnvironment.add(new PointLight().set(1.0f, 0.96f, 0.83f, 0.0f, 25.0f, 0.0f, 1000.0f));
+//        tableEnvironment.add(new DirectionalLight().set(1.0f, 0.96f, 0.83f, 0.0f, -1, 0));
+        SpotLight spotLight = new SpotLight();
+        spotLight.setPosition(0.0f, -1, 0);
+        spotLight.setDirection(0f, 0f, -0f); // 光源向下
+        spotLight.setColor(1f, 1f, 1f, 1f); // 白色光
+        spotLight.setCutoffAngle(60);
+        spotLight.setIntensity(100);
+        spotLight.setExponent(100);
+//        spotLight.setExponent(30f); // 强度衰减
+        tableEnvironment.add(spotLight);
         tableModelInstance.getMaterial("Table").remove(ColorAttribute.Specular);
 
 
         Model model = assets.get("teapot.g3db", Model.class);
         teaInstance = new ModelInstance(model);
 
-//        teaInstance.transform = new Matrix4()
-//                .translate(20.0f, 0.0f, -8.0f)
-//                .rotate(0.0f, 1.0f, 0.0f, -45.0f)
-//                .scale(4.0f, 4.0f, 4.0f);
+        teaInstance.transform = new Matrix4()
+                .translate(20.0f, 0.0f, -8.0f)
+                .rotate(0.0f, 1.0f, 0.0f, -45.0f)
+                .scale(4.0f, 4.0f, 4.0f);
         teaInstance.getMaterial("Teapot").set(
                 ColorAttribute.createDiffuse(0.39f, 0.09f, 0.07f, 1.0f),
                 ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
                 FloatAttribute.createShininess(100.0f)
         );
+
+        Model teacupModel = assets.get("teacup.g3db", Model.class);
+        teacupModelInstance = new ModelInstance(teacupModel);
+        Matrix4 teacupTransform = new Matrix4()
+                .translate(-18.0f, 0.0f, 3.0f)
+                .rotate(0.0f, 1.0f, 0.0f, -45.0f);
+        teacupModelInstance.transform = new Matrix4(teacupTransform)
+                .scale(4.0f, 4.0f, 4.0f);
+        teacupModelInstance.getMaterial("Teacup").set(
+                ColorAttribute.createDiffuse(0.39f, 0.09f, 0.07f, 1.0f),
+                ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
+                FloatAttribute.createShininess(100.0f)
+        );
+        teacupModelInstance.getMaterial("Tea").set(
+                ColorAttribute.createDiffuse(0.32f, 0.3f, 0.14f, 0.7f),
+                new BlendingAttribute()
+        );
+
+        Model tileModel = assets.get("mahjong_tile.g3db", Model.class);
+        mahjongTile = new ModelInstance(tileModel);
     }
 
     @Override
@@ -133,8 +166,10 @@ public class MahjGame extends Game {
         Gdx.gl.glViewport( 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight() );
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
         modelBatch.begin(perspectiveCamera);
+        modelBatch.render(teacupModelInstance,tableEnvironment);
         modelBatch.render(teaInstance,tableEnvironment);
         modelBatch.render(tableModelInstance,tableEnvironment);
+        modelBatch.render(mahjongTile,tableEnvironment);
         modelBatch.end();
     }
 }
