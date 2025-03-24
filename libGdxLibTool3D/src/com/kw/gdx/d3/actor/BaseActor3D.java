@@ -1,5 +1,6 @@
 package com.kw.gdx.d3.actor;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
+import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
@@ -19,6 +22,8 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.utils.UBJsonReader;
+import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
 
@@ -70,7 +75,7 @@ public class BaseActor3D {
 
     public void draw(PerspectiveCamera camera,ModelBatch modelBatch,Environment environment){
         if (modelData == null)return;
-        if (modelData.isVisible(camera) && isVisible) {
+        if (isVisible) {
             draw(modelBatch, environment);
         }
     }
@@ -226,7 +231,17 @@ public class BaseActor3D {
         Model boxModel = modelBuilder.createBox(height, width, depth, boxMaterial, usageCode);
         Vector3 position = new Vector3(0, 0, 0);
 
-        GameObject instance = new GameObject(boxModel, position);
+        String path = "model/Cube.obj";
+        AssetManager assetManager = Asset.getAsset().getAssetManager();
+        assetManager.setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(),
+                assetManager.getFileHandleResolver()));
+        assetManager.setLoader(Model.class, ".obj", new ObjLoader(assetManager.getFileHandleResolver()));
+        Asset.getAsset().getAssetManager().load(path, Model.class);
+        assetManager.finishLoading();
+
+        Model model = assetManager.get(path, Model.class);
+
+        GameObject instance = new GameObject(model, position);
         setModelInstance(instance);
         instance.calculateBoundingBox(bounds);
         instance.shape = new Box(bounds);

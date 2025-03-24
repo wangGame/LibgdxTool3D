@@ -19,6 +19,6 @@ public abstract class BaseScreen3D extends BaseScreen {
         //stage3D绘制是否对ui的act有影响？
         stage3D.act(delta);
         stage3D.draw();
-        super.render(delta);
+//        super.render(delta);
     }
 }
