@@ -22,7 +22,7 @@ public class GameScreen extends BaseScreen3D {
     @Override
     public void initView() {
         super.initView();
-        String path = "model/Cube.obj";
+        String path = "model/convertedModel.g3db";
         AssetManager assetManager = Asset.getAsset().getAssetManager();
         assetManager.setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(),
                 assetManager.getFileHandleResolver()));
@@ -31,9 +31,11 @@ public class GameScreen extends BaseScreen3D {
         assetManager.finishLoading();
 
         Model model = assetManager.get(path, Model.class);
-        BaseActor3D actor3D = new BaseActor3D(0,0,-30);
-        GameObject gameObject = new GameObject(model, new Vector3(0,0,-30));
+        BaseActor3D actor3D = new BaseActor3D(0,0,0);
+        GameObject gameObject = new GameObject(model, new Vector3(0,0,0));
         actor3D.setModelInstance(gameObject);
+        actor3D.setScale(0.1f,0.1f,0.1f);
+        actor3D.setTurnAngle(90);
         stage3D.addActor(actor3D);
 
     }
