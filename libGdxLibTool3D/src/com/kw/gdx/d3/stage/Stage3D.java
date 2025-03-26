@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.MathUtils;
@@ -25,18 +27,20 @@ public class Stage3D {
     private final ModelBatch modelBatch;
     private float intervalCounter;
     private final float INTERVAL_COUNTER_FREQUENCY = 1;
+    public CameraInputController camController;//视角控制器
 
     public Stage3D() {
         environment = new Environment();
+        environment.add(new DirectionalLight().set(1f, 1f, 1f, 0f, 0, -1));
+
         lightManager = new LightManager(environment);
 
         camera = new PerspectiveCamera(67, 10, 10);
-        camera.position.set(0,0,60);
-        camera.rotate(-90, 0, 0, 1);
-        camera.lookAt(0, 0, 0);
-        camera.near = .01f;
-        camera.far = 1145;
-        camera.update();
+        camera.position.set(0f, 37f, 180f);
+        camera.lookAt(0,0,0);
+        camera.near = 1f;
+        camera.far = 1300f;
+        camController = new CameraInputController(camera);
 
         DefaultShader.Config config = new DefaultShader.Config();
         config.numDirectionalLights = 1;
@@ -51,6 +55,7 @@ public class Stage3D {
     }
 
     public void act(float dt) {
+        camController.update();
         camera.update();
         lightManager.update(dt);
         for (BaseActor3D ba : actorList3D)
