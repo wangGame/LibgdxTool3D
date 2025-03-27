@@ -3,13 +3,16 @@ package com.demo.kitchen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.demo.kitchen.screen.GameScreen;
 import com.kw.gdx.BaseGame;
+import com.kw.gdx.constant.Constant;
 
 public class KitchenGame extends BaseGame {
     @Override
     public void create() {
         super.create();
+        Constant.viewColor = new Color(0.5f,0.5f,0.5f,1.0f);
         setScreen(new GameScreen(this));
     }
 

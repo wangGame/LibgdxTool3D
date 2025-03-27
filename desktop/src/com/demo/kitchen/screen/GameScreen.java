@@ -1,7 +1,9 @@
 package com.demo.kitchen.screen;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.math.Vector3;
@@ -31,10 +33,13 @@ public class GameScreen extends BaseScreen3D {
         assetManager.finishLoading();
 
         Model model = assetManager.get(path, Model.class);
-        BaseActor3D actor3D = new BaseActor3D(0,0,80);
+        BaseActor3D actor3D = new BaseActor3D(0,0,30);
         GameObject gameObject = new GameObject(model, new Vector3(0,0,0));
         actor3D.setModelInstance(gameObject);
         stage3D.addActor(actor3D);
+
+        GameObject
+
 
     }
 }

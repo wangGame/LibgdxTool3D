@@ -1,9 +1,11 @@
 package com.kw.gdx.d3.stage;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -22,7 +24,6 @@ public class Stage3D {
     public int visibleCount = 0;
     public Environment environment;
     public PerspectiveCamera camera;
-    public LightManager lightManager;
     private ArrayList<BaseActor3D> actorList3D;
     private final ModelBatch modelBatch;
     private float intervalCounter;
@@ -31,33 +32,34 @@ public class Stage3D {
 
     public Stage3D() {
         environment = new Environment();
-        environment.add(new DirectionalLight().set(1f, 1f, 1f, 0f, 0, -1));
-
-        lightManager = new LightManager(environment);
-
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+        DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
+        float intensity = 0.4f;
+        Color color = Color.valueOf("#FFF4D6");
+        color.r = color.r * intensity;
+        color.g = color.g * intensity;
+        color.b = color.b * intensity;
+        color.a = 0.1f;
+        set.setColor(color);
+        environment.add(set);
         camera = new PerspectiveCamera(67, 10, 10);
-        camera.position.set(0f, 37f, 180f);
+        camera.position.set(0f, 1f, -10f);
         camera.lookAt(0,0,0);
-        camera.near = 1f;
+        camera.near = 0.3f;
         camera.far = 1300f;
         camController = new CameraInputController(camera);
-
         DefaultShader.Config config = new DefaultShader.Config();
         config.numDirectionalLights = 1;
         config.numPointLights = 50;
         config.numSpotLights = 0;
-
         ShaderProvider shaderProvider = new DefaultShaderProvider(config);
         modelBatch = new ModelBatch(shaderProvider);
-
         actorList3D = new ArrayList();
-
     }
 
     public void act(float dt) {
         camController.update();
         camera.update();
-        lightManager.update(dt);
         for (BaseActor3D ba : actorList3D)
             ba.act(dt);
         setIntervalFlag(dt);
@@ -82,18 +84,13 @@ public class Stage3D {
         ba.setStage3D(this);
     }
 
-
     public void removeActor(BaseActor3D ba) {
         actorList3D.remove(ba);
     }
 
-
-
     public ArrayList<BaseActor3D> getActors3D() {
         return actorList3D;
     }
-
-
 
     public void setCameraPosition(float x, float y, float z) {
         camera.position.set(x, y, z);
@@ -162,5 +159,4 @@ public class Stage3D {
             intervalCounter += dt;
         }
     }
-
 }
