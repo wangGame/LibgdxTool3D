@@ -73,7 +73,11 @@ public class BaseActor3D {
         }
     }
 
-    public void draw(PerspectiveCamera camera,ModelBatch modelBatch,Environment environment){
+    public GameObject getModelData() {
+        return modelData;
+    }
+
+    public void draw(PerspectiveCamera camera, ModelBatch modelBatch, Environment environment){
         if (modelData == null)return;
         if (isVisible) {
             draw(modelBatch, environment);
@@ -228,20 +232,12 @@ public class BaseActor3D {
         this.width = width;
         this.height = height;
         this.depth = depth;
-        Model boxModel = modelBuilder.createBox(height, width, depth, boxMaterial, usageCode);
+        Model boxModel = modelBuilder.createBox(width, height, depth, boxMaterial, usageCode);
         Vector3 position = new Vector3(0, 0, 0);
 
-        String path = "model/Cube.obj";
-        AssetManager assetManager = Asset.getAsset().getAssetManager();
-        assetManager.setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(),
-                assetManager.getFileHandleResolver()));
-        assetManager.setLoader(Model.class, ".obj", new ObjLoader(assetManager.getFileHandleResolver()));
-        Asset.getAsset().getAssetManager().load(path, Model.class);
-        assetManager.finishLoading();
 
-        Model model = assetManager.get(path, Model.class);
 
-        GameObject instance = new GameObject(model, position);
+        GameObject instance = new GameObject(boxModel, position);
         setModelInstance(instance);
         instance.calculateBoundingBox(bounds);
         instance.shape = new Box(bounds);

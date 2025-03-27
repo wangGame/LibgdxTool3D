@@ -42,8 +42,9 @@ public class Stage3D {
         color.a = 0.1f;
         set.setColor(color);
         environment.add(set);
-        camera = new PerspectiveCamera(67, 10, 10);
-        camera.position.set(0f, 1f, -10f);
+        camera = new PerspectiveCamera(20, 5, 5);
+        camera.position.set(0f, 21f, -21f);
+        camera.direction.x = 45;
         camera.lookAt(0,0,0);
         camera.near = 0.3f;
         camera.far = 1300f;
@@ -58,7 +59,7 @@ public class Stage3D {
     }
 
     public void act(float dt) {
-        camController.update();
+//        camController.update();
         camera.update();
         for (BaseActor3D ba : actorList3D)
             ba.act(dt);

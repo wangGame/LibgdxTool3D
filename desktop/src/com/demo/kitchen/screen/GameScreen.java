@@ -1,6 +1,8 @@
 package com.demo.kitchen.screen;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
@@ -33,12 +35,33 @@ public class GameScreen extends BaseScreen3D {
         assetManager.finishLoading();
 
         Model model = assetManager.get(path, Model.class);
-        BaseActor3D actor3D = new BaseActor3D(0,0,30);
+        BaseActor3D actor3D = new BaseActor3D(0,0,0);
+        actor3D.setScale(0.1f,0.1f,0.1f);
         GameObject gameObject = new GameObject(model, new Vector3(0,0,0));
         actor3D.setModelInstance(gameObject);
         stage3D.addActor(actor3D);
 
-        GameObject
+        BaseActor3D floor = new BaseActor3D(0,0,-1);
+        floor.buildModel(10,1,10,false);
+        stage3D.addActor(floor);
+        floor.setPosition(0,-1,0);
+        GameObject modelData = floor.getModelData();
+
+
+        Texture woodTexture = Asset.getAsset().getTexture("img.png");
+        woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
+        woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+
+
+        for (Material material : modelData.materials) {
+            TextureAttribute diffuse = TextureAttribute.createDiffuse(new TextureRegion(woodTexture));
+            diffuse.textureDescription.set(woodTexture,Texture.TextureFilter.Linear,Texture.TextureFilter.Linear,
+                    Texture.TextureWrap.Repeat,Texture.TextureWrap.Repeat);
+            material.set(diffuse);
+            System.out.println("===========");
+        }
+
+
 
 
     }
