@@ -1,11 +1,13 @@
 package com.kw.gdx.d3.actor;
 
-import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.Attribute;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
@@ -13,8 +15,6 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
-import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
-import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
@@ -22,10 +22,14 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
-import com.badlogic.gdx.utils.UBJsonReader;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
+
+import org.w3c.dom.Text;
 
 /**
  * model Actor
@@ -48,6 +52,7 @@ public class BaseActor3D {
     protected final Quaternion rotation;
     protected final Vector3 scale;
 
+    private final Array<Action3D> actions = new Array(0);
     public BaseActor3D(float x, float y, float z) {
         modelData = null;
         position = new Vector3(x, y, z);
@@ -65,12 +70,36 @@ public class BaseActor3D {
     }
 
     //更新位置
-    public void act(float dt) {
+    public void act(float delta) {
         if (!isPause){
             if (modelData!=null) {
                 modelData.transform.set(calculateTransform());
             }
         }
+
+
+        Array<Action3D> actions = this.actions;
+        if (actions.size == 0) return;
+        if (stage3D != null) Gdx.graphics.requestRendering();
+        try {
+            for (int i = 0; i < actions.size; i++) {
+                Action3D action = actions.get(i);
+                if (action.act(delta) && i < actions.size) {
+                    Action3D current = actions.get(i);
+                    int actionIndex = current == action ? i : actions.indexOf(action, true);
+                    if (actionIndex != -1) {
+                        actions.removeIndex(actionIndex);
+                        action.setActor3D(null);
+                        i--;
+                    }
+                }
+            }
+        } catch (RuntimeException ex) {
+            String context = toString();
+            throw new RuntimeException("Actor: " + context.substring(0, Math.min(context.length(), 128)), ex);
+        }
+
+
     }
 
     public GameObject getModelData() {
@@ -246,5 +275,49 @@ public class BaseActor3D {
 
     public void setStage3D(Stage3D stage3D) {
         this.stage3D = stage3D;
+    }
+
+    public void addAction (Action3D action) {
+        action.setActor3D(this);
+        actions.add(action);
+        if (stage3D != null) {
+            Gdx.graphics.requestRendering();
+        }
+    }
+
+    public void removeAction (Action3D action) {
+        if (action != null && actions.removeValue(action, true)) action.setActor3D(null);
+    }
+
+    public Array<Action3D> getActions () {
+        return actions;
+    }
+
+    public void clearActions () {
+        for (int i = actions.size - 1; i >= 0; i--)
+            actions.get(i).setActor3D(null);
+        actions.clear();
+    }
+
+    public float getRotation() {
+        return 0;
+    }
+
+
+    public void setMaterialTexture(Texture texture) {
+        Texture woodTexture = texture;
+        for (Material material : modelData.materials) {
+            boolean setTexture = false;
+            for (Attribute attribute : material) {
+                if (attribute instanceof TextureAttribute) {
+                    setTexture = true;
+                    ((TextureAttribute) (attribute)).set(new TextureRegion(texture));
+                }
+            }
+            if (!setTexture){
+                material.set(TextureAttribute.createDiffuse(new TextureRegion(woodTexture)));
+            }
+        }
+
     }
 }

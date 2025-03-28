@@ -42,7 +42,7 @@ public class Stage3D {
         color.a = 0.1f;
         set.setColor(color);
         environment.add(set);
-        camera = new PerspectiveCamera(20, 5, 5);
+        camera = new PerspectiveCamera(60, 5, 5);
         camera.position.set(0f, 21f, -21f);
         camera.direction.x = 45;
         camera.lookAt(0,0,0);
