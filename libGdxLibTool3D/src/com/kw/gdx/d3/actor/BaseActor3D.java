@@ -35,6 +35,7 @@ import org.w3c.dom.Text;
  * model Actor
  */
 public class BaseActor3D {
+    protected BaseActor3DGroup parent3D;
     protected boolean isPause = false;
     protected boolean isVisible = true;
     protected boolean isCollisionEnabled = true;
@@ -71,13 +72,6 @@ public class BaseActor3D {
 
     //更新位置
     public void act(float delta) {
-        if (!isPause){
-            if (modelData!=null) {
-                modelData.transform.set(calculateTransform());
-            }
-        }
-
-
         Array<Action3D> actions = this.actions;
         if (actions.size == 0) return;
         if (stage3D != null) Gdx.graphics.requestRendering();
@@ -115,6 +109,12 @@ public class BaseActor3D {
 
     public void draw(ModelBatch batch, Environment env) {
         if (modelData!=null) {
+            Matrix4 matrix4 = calculateTransform();
+            if (parent3D!=null){
+                Matrix4 pM = parent3D.computeTransform();
+                matrix4.mul(pM);
+            }
+            modelData.transform.set(calculateTransform());
             batch.render(modelData, env);
         }
     }

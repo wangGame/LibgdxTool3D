@@ -1,5 +1,6 @@
 package com.kw.gdx.d3.actor;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Affine2;
@@ -9,8 +10,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
-    private final Affine2 worldTransform = new Affine2();
-    private
+    private final Matrix4 worldTransform = new Matrix4();
+    private Matrix4 computedTransform = new Matrix4();
     public BaseActor3DGroup(float x, float y, float z) {
         super(x, y, z);
         this.actor3DS = new Array<>();
@@ -18,27 +19,31 @@ public class BaseActor3DGroup extends BaseActor3D{
 
     @Override
     public void draw(ModelBatch batch, Environment env) {
-        super.draw(batch, env);
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.draw(batch,env);
+        }
     }
 
 
 
     /** Returns the transform for this group's coordinate system. */
     protected Matrix4 computeTransform () {
-        Affine2 worldTransform = this.worldTransform;
-        worldTransform.setToTrnRotScl(position.x, position.y, rotation, scaleX, scaleY);
-        if (originX != 0 || originY != 0) worldTransform.translate(-originX, -originY);
-
-        // Find the first parent that transforms.
-        Group parentGroup = parent;
-        while (parentGroup != null) {
-            if (parentGroup.transform) break;
-            parentGroup = parentGroup.parent;
+        Matrix4 worldTransform = this.worldTransform;
+        worldTransform.translate(position.x,position.y,position.z);
+        worldTransform.rotate(rotation);
+        worldTransform.scale(scale.x,scale.y,scale.z);
+        if (parent3D!=null) {
+            worldTransform.mul(parent3D.worldTransform);
         }
-        if (parentGroup != null) worldTransform.preMul(parentGroup.worldTransform);
-
         computedTransform.set(worldTransform);
         return computedTransform;
     }
 
+    public void addAtor3D(BaseActor3D ba) {
+        actor3DS.add(ba);
+    }
+
+    public void remove3D(BaseActor3D ba) {
+        actor3DS.removeValue(ba,false);
+    }
 }

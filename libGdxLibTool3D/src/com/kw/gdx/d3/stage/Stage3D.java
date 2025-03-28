@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kw.gdx.d3.actor.BaseActor3D;
+import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.stage.light.LightManager;
 
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class Stage3D {
     public int visibleCount = 0;
     public Environment environment;
     public PerspectiveCamera camera;
-    private ArrayList<BaseActor3D> actorList3D;
+//    private ArrayList<BaseActor3D> actorList3D;
+    private BaseActor3DGroup actorList3D;
     private final ModelBatch modelBatch;
     private float intervalCounter;
     private final float INTERVAL_COUNTER_FREQUENCY = 1;
@@ -55,24 +57,20 @@ public class Stage3D {
         config.numSpotLights = 0;
         ShaderProvider shaderProvider = new DefaultShaderProvider(config);
         modelBatch = new ModelBatch(shaderProvider);
-        actorList3D = new ArrayList();
+        actorList3D = new BaseActor3DGroup(0,0,0);
     }
 
     public void act(float dt) {
 //        camController.update();
         camera.update();
-        for (BaseActor3D ba : actorList3D)
-            ba.act(dt);
+        actorList3D.act(dt);
         setIntervalFlag(dt);
     }
 
     public void draw() {
         modelBatch.begin(camera);
         visibleCount = 0;
-        for (int i = 0; i < actorList3D.size(); i++) {
-            BaseActor3D actor3D = actorList3D.get(i);
-            actor3D.draw(camera,modelBatch,environment);
-        }
+        actorList3D.draw(modelBatch,environment);
         modelBatch.end();
     }
 
@@ -81,15 +79,15 @@ public class Stage3D {
     }
 
     public void addActor(BaseActor3D ba) {
-        actorList3D.add(ba);
+        actorList3D.addAtor3D(ba);
         ba.setStage3D(this);
     }
 
     public void removeActor(BaseActor3D ba) {
-        actorList3D.remove(ba);
+        actorList3D.remove3D(ba);
     }
 
-    public ArrayList<BaseActor3D> getActors3D() {
+    public BaseActor3DGroup getRoot() {
         return actorList3D;
     }
 
