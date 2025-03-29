@@ -237,6 +237,7 @@ public class MahjongSolitaire extends ApplicationAdapter {
 	@Override
 	public void render() {
 		cameraController.update();
+		if (Gdx.input.isButtonPressed(Input.Keys.LEFT))
 		table.hover(camera.getPickRay(Gdx.input.getX(), Gdx.input.getY()), Gdx.input.isButtonPressed(Input.Buttons.LEFT));
 		
 		// Particle effects should use a fixed timestep, otherwise emitter can stop working at high FPS

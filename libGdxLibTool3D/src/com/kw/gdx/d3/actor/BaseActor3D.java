@@ -37,7 +37,6 @@ import org.w3c.dom.Text;
  */
 public class BaseActor3D {
     protected BaseActor3DGroup parent3D;
-    protected boolean isPause = false;
     protected boolean isVisible = true;
     protected boolean isCollisionEnabled = true;
     protected boolean isPreventOverlapEnabled = true;
@@ -69,6 +68,7 @@ public class BaseActor3D {
 
     public void setModelInstance(GameObject m) {
         modelData = m;
+        setBaseRectangle();
     }
 
     public Matrix4 calculateTransform() {
@@ -103,13 +103,6 @@ public class BaseActor3D {
 
     public GameObject getModelData() {
         return modelData;
-    }
-
-    public void draw(PerspectiveCamera camera, ModelBatch modelBatch, Environment environment){
-        if (modelData == null)return;
-        if (isVisible) {
-            draw(modelBatch, environment);
-        }
     }
 
     public void draw(ModelBatch batch, Environment env) {
@@ -341,28 +334,30 @@ public class BaseActor3D {
     }
 
     protected boolean checkCollision(Ray ray) {
-        // 将射线转换到 Actor 的局部坐标系下
-        Matrix4 inverseTransform = calculateTransform().cpy().inv();  // 获取局部变换的逆矩阵
+        Matrix4 inverseTransform = calculateTransform().cpy().inv();
+
         Ray localRay = new Ray(ray.origin.cpy().mul(inverseTransform), ray.direction.cpy().mul(inverseTransform));
-        // 此处使用某种碰撞检测方法（例如，AABB检测、MESH检测等）
-        return checkRayIntersectionWithActor(localRay);
-    }
 
-    private boolean checkRayIntersectionWithActor(Ray ray) {
-        // 这里使用简单的 AABB 检测或更复杂的检测
-        // 假设我们仍然使用一个简单的包围盒进行测试
-        float minX = -1f, maxX = 1f;
-        float minY = -1f, maxY = 1f;
-        float minZ = -1f, maxZ = 1f;
-
-        // 简单的包围盒检测，假设模型的包围盒位于模型的局部坐标系中
-        if (ray.origin.x > minX && ray.origin.x < maxX &&
-                ray.origin.y > minY && ray.origin.y < maxY &&
-                ray.origin.z > minZ && ray.origin.z < maxZ) {
-
-//            intersectionPoint.set(ray.origin);
+        Vector3 vector3 = new Vector3();
+        if (Intersector.intersectRayBounds(localRay,bounds,vector3)) {
             return true;
         }
         return false;
+    }
+
+    public void notifyListener() {
+        Array<BaseActor3D> actor3DS = new Array<>();
+        BaseActor3DGroup parent3D1 = parent3D;
+        while (parent3D1 != null) {
+            actor3DS.add(parent3D);
+            parent3D1 = parent3D1.parent3D;
+        }
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.runEvent();
+        }
+    }
+
+    private void runEvent() {
+        System.out.println("=========touch down ============= ;"+this);
     }
 }

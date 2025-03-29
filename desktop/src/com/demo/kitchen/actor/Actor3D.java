@@ -32,10 +32,4 @@ public class Actor3D extends BaseActor3D {
             );
         }
     }
-
-    @Override
-    public void act(float delta) {
-
-        super.act(delta);
-    }
 }

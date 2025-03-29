@@ -1,27 +1,11 @@
 package com.demo.kitchen.screen;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
-import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
-import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.UBJsonReader;
 import com.demo.kitchen.actor.Actor3D;
 import com.demo.kitchen.group.PlayerActor;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.actor.BaseActor3D;
-import com.kw.gdx.d3.actor.GameObject;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 
@@ -39,11 +23,26 @@ public class GameScreen extends BaseScreen3D {
         floor.buildModel(200,1,200,false);
         floor.setPosition(0,-0.5f,0);
         floor.setMaterialTexture(Asset.getAsset().getTexture("img.png"));
-        stage3D.addActor(floor);
+//        stage3D.addActor(floor);
 
         PlayerActor playerActor = new PlayerActor(0,0,0);
         stage3D.addActor(playerActor);
         playerActor.initView();
+
+        String models[] = new String[]{
+                "BreadBottom.g3db",
+                "Breadtop.g3db",
+                "Burnedmeatpatty.g3db",
+                "Cabbage slice_shaped.g3db"
+        };
+        int x = 0;
+        for (String modelPath : models) {
+            Model model = Asset3D.getAsset3D().getModel("model/"+modelPath);
+            Actor3D actor3D = new Actor3D(x ,0,0,model);
+            x += 6;
+            stage3D.addActor(actor3D);
+            actor3D.setScale(0.1f,0.1f,0.1f);
+        }
     }
 
     private void createBread() {

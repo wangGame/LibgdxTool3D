@@ -12,13 +12,16 @@ import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
@@ -162,10 +165,26 @@ public class Stage3D extends InputAdapter {
         }
     }
 
+    private Array<BaseActor3D> hitActors = new Array<>();
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        hitActors.clear();
         Ray ray = camera.getPickRay(Gdx.input.getX(),Gdx.input.getY());
-        // 将射线转换到 Group 的局部坐标系
-        System.out.println(getRoot().checkCollisions(ray));
+        //这个是root
+        getRoot().checkCollisions(ray,hitActors);
+        float max = Float.MAX_VALUE;
+        Vector3 position = camera.position;
+        BaseActor3D touch = null;
+        for (BaseActor3D hitActor : hitActors) {
+            float dst = hitActor.getPosition().dst(position);
+            if (dst<max) {
+                max = dst;
+                touch = hitActor;
+            }
+        }
+        if (touch!=null) {
+            touch.notifyListener();
+        }
+        System.out.println(touch);
         return false;
     }
 

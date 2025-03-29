@@ -2,7 +2,9 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
@@ -66,12 +68,16 @@ public class BaseActor3DGroup extends BaseActor3D{
         return actor3DS;
     }
 
-    public BaseActor3D checkCollisions(Ray ray) {
+    public BaseActor3D checkCollisions(Ray ray,Array<BaseActor3D> hitActors) {
         Matrix4 transform = calculateTransform();
-        Ray localRay = new Ray(ray.origin.cpy().mul(transform.inv()), ray.direction.cpy().mul(transform.inv()));
+        Matrix4 inv = transform.cpy().inv();
+        Ray localRay = new Ray(ray.origin.cpy().mul(inv), ray.direction.cpy().mul(inv));
+        if (super.checkCollision(localRay)) {
+            hitActors.add(this);
+        }
         for (BaseActor3D actor : actor3DS) {
             if (actor.checkCollision(localRay)) {
-                return actor;  // 如果碰撞，返回发生碰撞的 Actor
+                hitActors.add(actor);
             }
         }
         return null;
