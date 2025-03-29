@@ -18,6 +18,9 @@ implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release+'
 //desktop快速启动
 implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release+'
 ```
+## 目标
+
+对libgdx的3d部分进行封装，简化3D的使用。
 
 ## 版本说明
 
