@@ -34,32 +34,16 @@ public class GameScreen extends BaseScreen3D {
     @Override
     public void initView() {
         super.initView();
-//        createBread();
 
         BaseActor3D floor = new BaseActor3D(0,0,-0f);
         floor.buildModel(200,1,200,false);
-//        stage3D.addActor(floor);
         floor.setPosition(0,-0.5f,0);
         floor.setMaterialTexture(Asset.getAsset().getTexture("img.png"));
-
-        Material boxMaterial = new Material();
-         boxMaterial.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
-
-        ModelBuilder modelBuilder = new ModelBuilder();
-        Model arrow = modelBuilder.createArrow(new Vector3(2, 2, 2), new Vector3(5, 5, 5), boxMaterial,
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
-        Actor3D player = new Actor3D(0,0,0,arrow);
-//        stage3D.addActor(player);
-
+        stage3D.addActor(floor);
 
         PlayerActor playerActor = new PlayerActor(0,0,0);
         stage3D.addActor(playerActor);
         playerActor.initView();
-
-
-
-
-
 
     }
 

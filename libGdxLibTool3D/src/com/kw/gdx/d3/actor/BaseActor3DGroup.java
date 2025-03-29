@@ -3,7 +3,10 @@ package com.kw.gdx.d3.actor;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.d3.action.Action3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
@@ -51,5 +54,20 @@ public class BaseActor3DGroup extends BaseActor3D{
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.act(delta);
         }
+    }
+
+    public Array<BaseActor3D> getActor3DS() {
+        return actor3DS;
+    }
+
+    public BaseActor3D checkCollisions(Ray ray) {
+        Matrix4 transform = calculateTransform();
+        Ray localRay = new Ray(ray.origin.cpy().mul(transform.inv()), ray.direction.cpy().mul(transform.inv()));
+        for (BaseActor3D actor : actor3DS) {
+            if (actor.checkCollision(localRay)) {
+                return actor;  // 如果碰撞，返回发生碰撞的 Actor
+            }
+        }
+        return null;
     }
 }

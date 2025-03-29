@@ -1,5 +1,7 @@
 package com.kw.gdx.d3.stage;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
@@ -12,10 +14,16 @@ import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Pools;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
-public class Stage3D {
+public class Stage3D extends InputAdapter {
     public boolean intervalFlag;
     public int visibleCount = 0;
     public Environment environment;
@@ -153,4 +161,12 @@ public class Stage3D {
             intervalCounter += dt;
         }
     }
+
+    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        Ray ray = camera.getPickRay(Gdx.input.getX(),Gdx.input.getY());
+        // 将射线转换到 Group 的局部坐标系
+        System.out.println(getRoot().checkCollisions(ray));
+        return false;
+    }
+
 }

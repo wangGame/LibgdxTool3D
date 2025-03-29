@@ -19,12 +19,13 @@ public class PlayerActor extends BaseActor3DGroup {
         addActor3D(headActor);
         headActor.setMetal();
         headActor.setColor(Color.BROWN);
-        headActor.setPosition(0,1.9f,0f);
+        headActor.setPosition(0,3.4f,0f);
         Actor3D bodyActor = new Actor3D(0,0,0,model);
         addActor3D(bodyActor);
         bodyActor.setScale(1.5f,1.5f,1.5f);
         bodyActor.setMetal();
         bodyActor.setColor(Color.BROWN);
+        bodyActor.getPosition().y = 1.5f;
     }
 
     @Override

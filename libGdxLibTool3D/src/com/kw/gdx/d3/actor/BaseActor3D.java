@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
@@ -52,8 +53,8 @@ public class BaseActor3D {
     protected BoundingBox bounds = new BoundingBox();
     protected final Quaternion rotation;
     protected final Vector3 scale;
-
     private final Array<Action3D> actions = new Array(0);
+
     public BaseActor3D(){
         this(0,0,0);
     }
@@ -128,15 +129,6 @@ public class BaseActor3D {
     public void setColor(Color c) {
         for (Material m : modelData.materials)
             m.set(ColorAttribute.createDiffuse(c));
-    }
-
-    public void loadImage(TextureRegion region) {
-//        TextureRegion region = BaseGame.textureAtlas.findRegion(name);
-        if (region == null)
-//            Gdx.app.error(getClass().getSimpleName(), "Error: region is null. Are you sure the image  exists?");
-            return;
-        for (Material material : modelData.materials)
-            material.set(TextureAttribute.createDiffuse(region));
     }
 
     public Vector3 getPosition() {
@@ -329,5 +321,35 @@ public class BaseActor3D {
 
     public void setParent3D(BaseActor3DGroup parent3D) {
         this.parent3D = parent3D;
+    }
+
+    public BaseActor3DGroup getParent3D() {
+        return parent3D;
+    }
+
+    protected boolean checkCollision(Ray ray) {
+        // 将射线转换到 Actor 的局部坐标系下
+        Matrix4 inverseTransform = calculateTransform().cpy().inv();  // 获取局部变换的逆矩阵
+        Ray localRay = new Ray(ray.origin.cpy().mul(inverseTransform), ray.direction.cpy().mul(inverseTransform));
+        // 此处使用某种碰撞检测方法（例如，AABB检测、MESH检测等）
+        return checkRayIntersectionWithActor(localRay);
+    }
+
+    private boolean checkRayIntersectionWithActor(Ray ray) {
+        // 这里使用简单的 AABB 检测或更复杂的检测
+        // 假设我们仍然使用一个简单的包围盒进行测试
+        float minX = -1f, maxX = 1f;
+        float minY = -1f, maxY = 1f;
+        float minZ = -1f, maxZ = 1f;
+
+        // 简单的包围盒检测，假设模型的包围盒位于模型的局部坐标系中
+        if (ray.origin.x > minX && ray.origin.x < maxX &&
+                ray.origin.y > minY && ray.origin.y < maxY &&
+                ray.origin.z > minZ && ray.origin.z < maxZ) {
+
+//            intersectionPoint.set(ray.origin);
+            return true;
+        }
+        return false;
     }
 }
