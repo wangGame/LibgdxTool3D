@@ -22,6 +22,11 @@ public class BaseActor3DGroup extends BaseActor3D{
 
     @Override
     public void draw(ModelBatch batch, Environment env) {
+        GameObject modelData1 = getModelData();
+        if (modelData1!=null){
+            modelData1.transform.set(computeTransform());
+        }
+        super.draw(batch,env);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.draw(batch,env);
         }
@@ -37,6 +42,7 @@ public class BaseActor3DGroup extends BaseActor3D{
             worldTransform.mul(parent3D.worldTransform);
         }
         computedTransform.set(worldTransform);
+        worldTransform.idt();
         return computedTransform;
     }
 

@@ -151,17 +151,30 @@ public class BaseActor3D {
         moveBy(new Vector3(x, y, z));
     }
 
-    public void moveForward(float dist) {
+    public void moveByForward(float dist) {
         moveBy(rotation.transform(new Vector3(0, 0, 1)).scl(dist));
     }
 
-    public void moveUp(float dist) {
+    public void moveByUp(float dist) {
         moveBy(rotation.transform(new Vector3(1, 0, 0)).scl(dist));
     }
 
-    public void moveRight(float dist) {
+    public void moveByRight(float dist) {
         moveBy(rotation.transform(new Vector3(0, 1, 0)).scl(dist));
     }
+
+    public void moveForward(float dist){
+        position.z += dist;
+    }
+
+    public void moveUp(float dist){
+        position.y += dist;
+    }
+
+    public void moveRight(float dist){
+        position.x -= dist;
+    }
+
 
     public float getTurnAngle() {
         return rotation.getAngleAround(1, 0, 0);

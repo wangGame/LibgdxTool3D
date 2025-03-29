@@ -1,5 +1,7 @@
 package com.demo.kitchen.actor;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
@@ -29,5 +31,11 @@ public class Actor3D extends BaseActor3D {
                     FloatAttribute.createShininess(100.0f)
             );
         }
+    }
+
+    @Override
+    public void act(float delta) {
+
+        super.act(delta);
     }
 }
