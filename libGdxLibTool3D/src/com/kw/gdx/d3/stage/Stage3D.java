@@ -1,6 +1,5 @@
 package com.kw.gdx.d3.stage;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
@@ -13,12 +12,8 @@ import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
-import com.kw.gdx.d3.stage.light.LightManager;
-
-import java.util.ArrayList;
 
 public class Stage3D {
     public boolean intervalFlag;
@@ -79,7 +74,7 @@ public class Stage3D {
     }
 
     public void addActor(BaseActor3D ba) {
-        actorList3D.addAtor3D(ba);
+        actorList3D.addActor3D(ba);
         ba.setStage3D(this);
     }
 

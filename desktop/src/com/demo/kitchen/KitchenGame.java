@@ -18,7 +18,7 @@ public class KitchenGame extends BaseGame {
     @Override
     public void create() {
         super.create();
-        Constant.viewColor = new Color(0.5f,0.5f,0.5f,1.0f);
+        Constant.viewColor = new Color(1f,0.5f,0.5f,1.0f);
         setScreen(new GameScreen(this));
 
     }

@@ -54,6 +54,10 @@ public class BaseActor3D {
     protected final Vector3 scale;
 
     private final Array<Action3D> actions = new Array(0);
+    public BaseActor3D(){
+        this(0,0,0);
+    }
+
     public BaseActor3D(float x, float y, float z) {
         modelData = null;
         position = new Vector3(x, y, z);
@@ -112,9 +116,11 @@ public class BaseActor3D {
             Matrix4 matrix4 = calculateTransform();
             if (parent3D!=null){
                 Matrix4 pM = parent3D.computeTransform();
-                matrix4.mul(pM);
+                pM.mul(matrix4);
+                modelData.transform.set(pM);
+            }else {
+                modelData.transform.set(matrix4);
             }
-            modelData.transform.set(calculateTransform());
             batch.render(modelData, env);
         }
     }
@@ -256,7 +262,11 @@ public class BaseActor3D {
 
         if (blending)
             boxMaterial.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
-        int usageCode = VertexAttributes.Usage.Position + VertexAttributes.Usage.ColorPacked + VertexAttributes.Usage.Normal + VertexAttributes.Usage.TextureCoordinates;
+        int usageCode =
+                VertexAttributes.Usage.Position +
+                VertexAttributes.Usage.ColorPacked +
+                VertexAttributes.Usage.Normal +
+                VertexAttributes.Usage.TextureCoordinates;
 
         this.width = width;
         this.height = height;
@@ -264,14 +274,11 @@ public class BaseActor3D {
         Model boxModel = modelBuilder.createBox(width, height, depth, boxMaterial, usageCode);
         Vector3 position = new Vector3(0, 0, 0);
 
-
-
         GameObject instance = new GameObject(boxModel, position);
         setModelInstance(instance);
         instance.calculateBoundingBox(bounds);
         instance.shape = new Box(bounds);
     }
-
 
     public void setStage3D(Stage3D stage3D) {
         this.stage3D = stage3D;
@@ -318,6 +325,9 @@ public class BaseActor3D {
                 material.set(TextureAttribute.createDiffuse(new TextureRegion(woodTexture)));
             }
         }
+    }
 
+    public void setParent3D(BaseActor3DGroup parent3D) {
+        this.parent3D = parent3D;
     }
 }
