@@ -44,7 +44,6 @@ public class GameScreen extends BaseScreen3D {
         PlayerActor playerActor = new PlayerActor(0,0,0);
         stage3D.addActor(playerActor);
         playerActor.initView();
-
     }
 
     private void createBread() {
