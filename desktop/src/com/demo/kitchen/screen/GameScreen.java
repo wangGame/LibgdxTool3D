@@ -54,6 +54,7 @@ public class GameScreen extends BaseScreen3D {
 
         ParticleActor actor = new ParticleActor("effects/gKeyEffect.pfx");
         stage3D.addActor(actor);
+        actor.setPosition(9,0,0);
 
 
     }

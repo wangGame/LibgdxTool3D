@@ -1,11 +1,14 @@
 package com.kw.gdx.d3.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.particles.ParticleEffect;
 import com.badlogic.gdx.graphics.g3d.particles.ParticleEffectLoader;
+import com.badlogic.gdx.graphics.g3d.particles.batches.ParticleBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.UBJsonReader;
 import com.kw.gdx.asset.Asset;
 
@@ -34,11 +37,16 @@ public class Asset3D {
         return assetManager.get(path,Model.class);
     }
 
-    public ParticleEffect getParticle(String particle){
+    public ParticleEffect getParticle(String particle, Array<ParticleBatch<?>> particleBatch){
         if (!assetManager.isLoaded(particle)) {
-            assetManager.load(particle, ParticleEffect.class);
+            ParticleEffectLoader.ParticleEffectLoadParameter loadParam = new ParticleEffectLoader.ParticleEffectLoadParameter(particleBatch);
+            assetManager.load(particle, ParticleEffect.class,loadParam);
             assetManager.finishLoading();
         }
         return assetManager.get(particle);
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 }
