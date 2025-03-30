@@ -32,7 +32,7 @@ public class ParticleActor extends BaseActor3D {
     @Override
     public void draw(ModelBatch batch, Environment env) {
         super.draw(batch, env);
-//        effect.setTransform(calculateTransform());
+        effect.setTransform(calculateTransform());
         Array<ParticleController> controllers = effect.getControllers();
         for (ParticleController controller : controllers) {
             controller.renderer.setBatch(pointSpriteBatch);
