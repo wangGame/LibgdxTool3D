@@ -44,6 +44,7 @@ public class IntAction3D extends TemporalAction3D {
             value = end;
         else
             value = (int)(start + (end - start) * percent);
+        System.out.println(value);
     }
 
     /** Gets the current int value. */

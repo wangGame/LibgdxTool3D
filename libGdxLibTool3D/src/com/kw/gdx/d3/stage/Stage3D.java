@@ -51,7 +51,7 @@ public class Stage3D extends InputAdapter {
         set.setColor(color);
         environment.add(set);
         camera = new PerspectiveCamera(60, 5, 5);
-        camera.position.set(0f, 21f, -21f);
+        camera.position.set(0f, 0, -21f);
         camera.direction.x = 45;
         camera.lookAt(0,0,0);
         camera.near = 0.3f;

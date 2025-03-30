@@ -49,8 +49,8 @@ public class BaseActor3D {
     public Polygon boundingPolygon;
     protected Stage3D stage3D;
     protected BoundingBox bounds = new BoundingBox();
-    protected final Quaternion rotation;
-    protected final Vector3 scale;
+    protected Quaternion rotation;
+    protected Vector3 scale;
     private final Array<Action3D> actions = new Array(0);
 
     public BaseActor3D(){
@@ -304,7 +304,7 @@ public class BaseActor3D {
     }
 
     public float getRotation() {
-        return 0;
+        return rotation.getAngle();
     }
 
 
@@ -358,5 +358,25 @@ public class BaseActor3D {
 
     private void runEvent() {
         System.out.println("=========touch down ============= ;"+this);
+    }
+
+    public float getX(){
+        return position.x;
+    }
+
+    public float getY() {
+        return position.y;
+    }
+
+    public float getZ() {
+        return position.z;
+    }
+
+    public void setFromAxis(int i, int i1, int i2, float rotationA) {
+        rotation.setFromAxis(i,i1,i2,rotationA);
+    }
+
+    public void setRotation(Quaternion quaternion){
+        this.rotation.set(quaternion);
     }
 }

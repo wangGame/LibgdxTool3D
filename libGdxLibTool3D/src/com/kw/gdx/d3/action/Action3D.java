@@ -4,10 +4,6 @@ import com.badlogic.gdx.utils.Pool;
 import com.kw.gdx.d3.actor.BaseActor3D;
 
 public abstract class Action3D implements Pool.Poolable {
-    private BaseActor3D action3D;
-    public void setActor3D(BaseActor3D baseActor3D) {
-        this.action3D = baseActor3D;
-    }
     protected BaseActor3D actor;
     /** The actor this action targets, or null if a target has not been set. */
     protected BaseActor3D target;
@@ -15,10 +11,11 @@ public abstract class Action3D implements Pool.Poolable {
     abstract public boolean act (float delta);
     public void restart () {
     }
-    public void setActor (BaseActor3D actor) {
-        this.actor = actor;
-        if (target == null) setTarget(actor);
-        if (actor == null) {
+
+    public void setActor3D(BaseActor3D baseActor3D) {
+        this.actor = baseActor3D;
+        if (target == null) setTarget(baseActor3D);
+        if (baseActor3D == null) {
             if (pool != null) {
                 pool.free(this);
                 pool = null;

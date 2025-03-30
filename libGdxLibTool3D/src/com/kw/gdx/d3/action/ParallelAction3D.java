@@ -49,14 +49,14 @@ public class ParallelAction3D extends Action3D {
 
     public void addAction (Action3D action) {
         actions.add(action);
-        if (actor != null) action.setActor(actor);
+        if (actor != null) action.setActor3D(actor);
     }
 
     public void setActor (BaseActor3D actor) {
         Array<Action3D> actions = this.actions;
         for (int i = 0, n = actions.size; i < n; i++)
-            actions.get(i).setActor(actor);
-        super.setActor(actor);
+            actions.get(i).setActor3D(actor);
+        super.setActor3D(actor);
     }
 
     public Array<Action3D> getActions () {

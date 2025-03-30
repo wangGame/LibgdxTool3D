@@ -59,6 +59,7 @@ public class BaseActor3DGroup extends BaseActor3D{
 
     @Override
     public void act(float delta) {
+        super.act(delta);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.act(delta);
         }

@@ -1,11 +1,16 @@
 package com.demo.kitchen.screen;
 
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.demo.kitchen.actor.Actor3D;
 import com.demo.kitchen.group.PlayerActor;
 import com.demo.kitchen.particle.ParticleActor;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.d3.action.Action3D;
+import com.kw.gdx.d3.action.Action3Ds;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
@@ -25,10 +30,10 @@ public class GameScreen extends BaseScreen3D {
 //        floor.setPosition(0,-0.5f,0);
 //        floor.setMaterialTexture(Asset.getAsset().getTexture("img.png"));
 ////        stage3D.addActor(floor);
-//
-//        PlayerActor playerActor = new PlayerActor(0,0,0);
-//        stage3D.addActor(playerActor);
-//        playerActor.initView();
+
+        PlayerActor playerActor = new PlayerActor(0,0,0);
+        stage3D.addActor(playerActor);
+        playerActor.initView();
 //
 //        String models[] = new String[]{
 //                "BreadBottom.g3db",
@@ -55,7 +60,12 @@ public class GameScreen extends BaseScreen3D {
         ParticleActor actor = new ParticleActor("effects/gKeyEffect.pfx");
         stage3D.addActor(actor);
         actor.setPosition(9,0,0);
+        actor.addAction(Action3Ds.addAction3D(
+                Action3Ds.intAction3D(0,100, Interpolation.bounceIn,1)
+        ));
+        playerActor.addAction(Action3Ds.moveToAction3D(2,2,2,2,Interpolation.linear));
 
+        playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
 
     }
 
@@ -69,6 +79,8 @@ public class GameScreen extends BaseScreen3D {
 //        braed.setMaterialTexture(Asset.getAsset().getTexture("model/Bread_AlbedoTransparency.png"));
         braed.setScale(5f,5f,5f);
         braed.setMetal();
+
+
 
     }
 }

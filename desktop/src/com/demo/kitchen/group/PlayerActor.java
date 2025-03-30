@@ -29,7 +29,7 @@ public class PlayerActor extends BaseActor3DGroup {
         bodyActor.setMetal();
         bodyActor.setColor(Color.BROWN);
         bodyActor.getPosition().y = 1.5f;
-        buildModel(4,4,4,true);
+//        buildModel(4,4,4,true);
     }
 
     @Override
@@ -46,7 +46,8 @@ public class PlayerActor extends BaseActor3DGroup {
             moveForward(-1*delta * speed);
         }
         float angle = rotation.getAngle();
-        rotation.setFromAxis(0,1,0,angle+1);
+//        rotation.setFromAxis(0,1,0,angle+1);
+
 
     }
 }

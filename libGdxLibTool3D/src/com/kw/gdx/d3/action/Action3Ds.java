@@ -29,4 +29,21 @@ public class Action3Ds extends Actions {
         return intAction3D;
     }
 
+    static public MoveToAction3D moveToAction3D(float x,float y,float z,float time,Interpolation interpolation){
+        MoveToAction3D moveToAction3D = new MoveToAction3D();
+        moveToAction3D.setPosition(x,y,z);
+        moveToAction3D.setDuration(time);
+        moveToAction3D.setInterpolation(interpolation);
+        return moveToAction3D;
+    }
+
+    static public RotateToAction3D rotation3D(float rotationX,float rotationY ,float rotationZ,float time,Interpolation interpolation){
+        RotateToAction3D action3D = new RotateToAction3D();
+        action3D.setEndX(rotationX);
+        action3D.setEndY(rotationY);
+        action3D.setEndZ(rotationZ);
+        action3D.setDuration(time);
+        action3D.setInterpolation(interpolation);
+        return action3D;
+    }
 }
