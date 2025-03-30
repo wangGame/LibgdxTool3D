@@ -37,7 +37,6 @@ import org.w3c.dom.Text;
  */
 public class BaseActor3D {
     protected BaseActor3DGroup parent3D;
-    protected boolean isVisible = true;
     protected boolean isCollisionEnabled = true;
     protected boolean isPreventOverlapEnabled = true;
     protected GameObject modelData;

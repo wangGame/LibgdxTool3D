@@ -4,6 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleEffect;
+import com.badlogic.gdx.graphics.g3d.particles.ParticleEffectLoader;
 import com.badlogic.gdx.utils.UBJsonReader;
 import com.kw.gdx.asset.Asset;
 
@@ -14,6 +16,7 @@ public class Asset3D {
         assetManager = Asset.getAsset().getAssetManager();
         assetManager.setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(), assetManager.getFileHandleResolver()));
         assetManager.setLoader(Model.class, ".obj", new ObjLoader(assetManager.getFileHandleResolver()));
+        assetManager.setLoader(ParticleEffect.class,new ParticleEffectLoader(assetManager.getFileHandleResolver()));
     }
 
     public static Asset3D getAsset3D(){
@@ -29,5 +32,13 @@ public class Asset3D {
             assetManager.finishLoading();
         }
         return assetManager.get(path,Model.class);
+    }
+
+    public ParticleEffect getParticle(String particle){
+        if (!assetManager.isLoaded(particle)) {
+            assetManager.load(particle, ParticleEffect.class);
+            assetManager.finishLoading();
+        }
+        return assetManager.get(particle);
     }
 }
