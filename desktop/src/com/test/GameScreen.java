@@ -25,6 +25,7 @@ public class GameScreen extends BaseScreen3D {
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         actor3D.setMaterialTexture(woodTexture);
         actor3D.setScale(3,3,3);
+        actor3D.setPosition(0,-0.5f,0);
 
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plateActor);
@@ -32,11 +33,11 @@ public class GameScreen extends BaseScreen3D {
 
         Actor3D teaCup = new Actor3D(Asset3D.getAsset3D().getModel("tile/teacup.g3db"));
         stage3D.addActor(teaCup);
-        teaCup.setPosition(-10,0,0);
+        teaCup.setPosition(-10,-0.5f,0);
 
         Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
         stage3D.addActor(teaPot);
-        teaPot.setPosition(10,0,0);
+        teaPot.setPosition(10,-0.5f,0);
 
 
 

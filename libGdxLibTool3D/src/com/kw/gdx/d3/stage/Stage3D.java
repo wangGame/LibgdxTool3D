@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.environment.DirectionalShadowLight;
+import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
@@ -37,10 +39,15 @@ public class Stage3D extends InputAdapter {
     private float intervalCounter;
     private final float INTERVAL_COUNTER_FREQUENCY = 1;
     public CameraInputController camController;//视角控制器
-
+    private DirectionalLight shadowLight;
     public Stage3D() {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+        shadowLight = new DirectionalShadowLight(1024, 1024,
+                60f, 60f, .1f, 50f);
+        environment.add(shadowLight);
+        environment.add();
+        environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
         Color color = Color.valueOf("#FFF4D6");
