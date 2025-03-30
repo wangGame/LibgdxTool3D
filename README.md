@@ -31,6 +31,19 @@ playerActor.initView();
 
 ## 动画部分
 
-未完成
+动画使用
+
+```java
+ParticleActor actor = new ParticleActor("effects/gKeyEffect.pfx");
+stage3D.addActor(actor);
+actor.setPosition(9,0,0);
+actor.addAction(Action3Ds.addAction3D(
+        Action3Ds.intAction3D(0,100, Interpolation.bounceIn,1)
+));
+playerActor.addAction(Action3Ds.moveToAction3D(2,2,2,2,Interpolation.linear));
+
+playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
+
+```
 
 
