@@ -11,6 +11,10 @@ import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.GameObject;
 
 public class Actor3D extends BaseActor3D {
+    public Actor3D(Model model){
+        this(0,0,0,model);
+    }
+
     public Actor3D(float x, float y, float z) {
         this(x,y,z,null);
     }

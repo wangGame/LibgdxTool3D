@@ -309,7 +309,6 @@ public class BaseActor3D {
 
 
     public void setMaterialTexture(Texture texture) {
-        Texture woodTexture = texture;
         for (Material material : modelData.materials) {
             boolean setTexture = false;
             for (Attribute attribute : material) {
@@ -319,7 +318,7 @@ public class BaseActor3D {
                 }
             }
             if (!setTexture){
-                material.set(TextureAttribute.createDiffuse(new TextureRegion(woodTexture)));
+                material.set(TextureAttribute.createDiffuse(new TextureRegion(texture)));
             }
         }
     }
