@@ -3,6 +3,8 @@ package com.kw.gdx.d3.action;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
@@ -30,7 +32,7 @@ public class Action3Ds extends Actions {
     }
 
     static public MoveToAction3D moveToAction3D(float x,float y,float z,float time,Interpolation interpolation){
-        MoveToAction3D moveToAction3D = new MoveToAction3D();
+        MoveToAction3D moveToAction3D = Pools.obtain(MoveToAction3D.class);
         moveToAction3D.setPosition(x,y,z);
         moveToAction3D.setDuration(time);
         moveToAction3D.setInterpolation(interpolation);
@@ -38,7 +40,7 @@ public class Action3Ds extends Actions {
     }
 
     static public RotateToAction3D rotation3D(float rotationX,float rotationY ,float rotationZ,float time,Interpolation interpolation){
-        RotateToAction3D action3D = new RotateToAction3D();
+        RotateToAction3D action3D = Pools.obtain(RotateToAction3D.class);
         action3D.setEndX(rotationX);
         action3D.setEndY(rotationY);
         action3D.setEndZ(rotationZ);
@@ -46,4 +48,20 @@ public class Action3Ds extends Actions {
         action3D.setInterpolation(interpolation);
         return action3D;
     }
+
+    static public RepeatAction3D forever3D(Action3D repeatedAction){
+        RepeatAction3D action = action3D(RepeatAction3D.class);
+        action.setCount(RepeatAction.FOREVER);
+        action.setAction(repeatedAction);
+        return action;
+    }
+
+    static public ParallelAction3D parallel3D(Action3D...action){
+        ParallelAction3D parallelAction3D = action3D(ParallelAction3D.class);
+        for (Action3D action3D : action) {
+            parallelAction3D.addAction(action3D);
+        }
+        return parallelAction3D;
+    }
+
 }

@@ -3,7 +3,9 @@ package com.demo.kitchen.screen;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.demo.kitchen.actor.Actor3D;
 import com.demo.kitchen.group.PlayerActor;
 import com.demo.kitchen.particle.ParticleActor;
@@ -14,6 +16,7 @@ import com.kw.gdx.d3.action.Action3Ds;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
+import com.libGdx.test.A;
 
 
 public class GameScreen extends BaseScreen3D {
@@ -63,9 +66,27 @@ public class GameScreen extends BaseScreen3D {
         actor.addAction(Action3Ds.addAction3D(
                 Action3Ds.intAction3D(0,100, Interpolation.bounceIn,1)
         ));
-        playerActor.addAction(Action3Ds.moveToAction3D(2,2,2,2,Interpolation.linear));
+//        playerActor.addAction(Action3Ds.moveToAction3D(2,2,2,2,Interpolation.linear));
 
-        playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
+//        playerActor.addAction(
+//                Action3Ds.forever3D(
+//                        Action3Ds.rotation3D(0,0,360,2,Interpolation.linear)
+//                )
+//        );
+
+
+        playerActor.addAction(
+                Action3Ds.parallel3D(
+                    Action3Ds.moveToAction3D(-1,7,7,2,Interpolation.linear),
+                        Action3Ds.rotation3D(180,180,180,4,Interpolation.linear)
+                )
+        );
+
+        playerActor.addAction(
+                Action3Ds.parallel3D(
+
+                )
+        );
 
     }
 

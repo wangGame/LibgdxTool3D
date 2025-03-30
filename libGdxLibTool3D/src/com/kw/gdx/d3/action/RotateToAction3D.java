@@ -59,6 +59,7 @@ public class RotateToAction3D extends TemporalAction3D {
         quaternionZ.setFromAxis(0,0,1,rotationZ);
 
         Quaternion mul = quaternionX.mul(quaternionY).mul(quaternionZ);
+        System.out.println(rotationX+"  "+rotationY+"  "+rotationZ);
         target.setRotation(mul);
     }
 
@@ -81,4 +82,5 @@ public class RotateToAction3D extends TemporalAction3D {
     public void setEndZ(float endZ) {
         this.endZ = endZ;
     }
+
 }

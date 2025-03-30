@@ -1,18 +1,17 @@
 package com.kw.gdx.d3.action;
 
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
+import com.kw.gdx.d3.actor.BaseActor3D;
 
-public abstract class DelegateAction3D extends Action {
-    protected Action action;
+public abstract class DelegateAction3D extends Action3D {
+    protected Action3D action;
 
     /** Sets the wrapped action. */
-    public void setAction (Action action) {
+    public void setAction (Action3D action) {
         this.action = action;
     }
 
-    public Action getAction () {
+    public Action3D getAction () {
         return action;
     }
 
@@ -37,12 +36,12 @@ public abstract class DelegateAction3D extends Action {
         action = null;
     }
 
-    public void setActor (Actor actor) {
-        if (action != null) action.setActor(actor);
-        super.setActor(actor);
+    public void setActor3D (BaseActor3D actor) {
+        if (action != null) action.setActor3D(actor);
+        super.setActor3D(actor);
     }
 
-    public void setTarget (Actor target) {
+    public void setTarget (BaseActor3D target) {
         if (action != null) action.setTarget(target);
         super.setTarget(target);
     }

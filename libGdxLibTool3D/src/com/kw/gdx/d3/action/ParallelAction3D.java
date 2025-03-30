@@ -11,12 +11,6 @@ public class ParallelAction3D extends Action3D {
     public ParallelAction3D () {
     }
 
-    public ParallelAction3D (Action3D... action1) {
-        for (Action3D action3D : action1) {
-            addAction(action3D);
-        }
-    }
-
     public boolean act (float delta) {
         if (complete) return true;
         complete = true;
@@ -52,7 +46,7 @@ public class ParallelAction3D extends Action3D {
         if (actor != null) action.setActor3D(actor);
     }
 
-    public void setActor (BaseActor3D actor) {
+    public void setActor3D (BaseActor3D actor) {
         Array<Action3D> actions = this.actions;
         for (int i = 0, n = actions.size; i < n; i++)
             actions.get(i).setActor3D(actor);
