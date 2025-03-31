@@ -52,7 +52,7 @@ public class GameScreen extends BaseScreen3D {
 
             Actor3D majActor = new Actor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db"));
             stage3D.addActor(majActor);
-            majActor.setPosition(tilePosition.x,tilePosition.y,tilePosition.z);
+            majActor.setPosition(tilePosition.x - 10,tilePosition.y,tilePosition.z - 12);
             majActor.setMaterialTexture(Asset.getAsset().getTexture("tile/"+tilePosition.texturePath));
 
         }

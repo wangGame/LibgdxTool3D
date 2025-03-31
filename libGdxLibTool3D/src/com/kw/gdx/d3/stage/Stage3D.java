@@ -54,7 +54,7 @@ public class Stage3D extends InputAdapter {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
-                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.7f, -.7f));
+                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -0f, -.7f, -.7f));
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;

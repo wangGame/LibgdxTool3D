@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Vector3;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.GameObject;
+import com.kw.gdx.d3.utils.Box;
 
 public class Actor3D extends BaseActor3D {
     public Actor3D(Model model){
@@ -24,6 +25,9 @@ public class Actor3D extends BaseActor3D {
         if (model != null) {
             GameObject gameObject = new GameObject(model, new Vector3(0, 0, 0));
             setModelInstance(gameObject);
+            gameObject.calculateBoundingBox(bounds);
+            gameObject.shape = new Box(bounds);
+
         }
     }
 
