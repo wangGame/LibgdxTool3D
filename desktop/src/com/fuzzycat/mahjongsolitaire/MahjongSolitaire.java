@@ -83,10 +83,10 @@ public class MahjongSolitaire extends ApplicationAdapter {
 
 		//light
 		tableEnvironment = new Environment();
-		tableEnvironment.add(new PointLight().set(1.0f, 0.96f, 0.83f, 0.0f, 25.0f, 0.0f, 1000.0f));
+		tableEnvironment.add(new PointLight().set(1.0f, 0f, 0.83f, 0.0f, 25.0f, 0.0f, 1000.0f));
 		
 		tilesEnvironment = new Environment();
-		tilesEnvironment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 1f));
+		tilesEnvironment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.2f, 0.2f, 0.2f, 100f));
 		tilesEnvironment.add(new PointLight().set(1.0f, 0.96f, 0.83f, 0.0f, 50.0f, 0.0f, 500.0f));
 		tilesEnvironment.add(new DirectionalLight().set(0.33f, 0.33f, 0.33f, -1.0f, -1.0f, -1.0f));
 		tilesEnvironment.add(new DirectionalLight().set(0.33f, 0.33f, 0.33f, 1.0f, -1.0f, -1.0f));

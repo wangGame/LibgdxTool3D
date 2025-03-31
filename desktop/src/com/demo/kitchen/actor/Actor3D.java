@@ -2,11 +2,14 @@ package com.demo.kitchen.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g3d.Attribute;
+import com.badlogic.gdx.graphics.g3d.Attributes;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.GameObject;
 import com.kw.gdx.d3.utils.Box;
@@ -31,12 +34,20 @@ public class Actor3D extends BaseActor3D {
         }
     }
 
-    public void setMetal() {
-        for (Material material : modelData.materials) {
-            material.set(
+    public void setMetal(){
+        Attributes attributes = new Attributes();
+        attributes.set(
                     ColorAttribute.createDiffuse(0.7f, 0.7f, 0.7f, 1.0f),
                     ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
-                    FloatAttribute.createShininess(100.0f)
+                    FloatAttribute.createShininess(100.0f));
+        setMetal(attributes);
+    }
+
+    public void setMetal(Attributes attributes) {
+
+        for (Material material : modelData.materials) {
+            material.set(
+                    attributes
             );
         }
     }

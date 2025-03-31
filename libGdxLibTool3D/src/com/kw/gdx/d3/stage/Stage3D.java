@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalShadowLight;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
@@ -52,7 +53,7 @@ public class Stage3D extends InputAdapter {
 
     public Stage3D() {
         environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+//        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
                 30f, 30f, 1f, 100f)).
                 set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
@@ -65,9 +66,13 @@ public class Stage3D extends InputAdapter {
         color.b = color.b * intensity;
         color.a = 0.1f;
         set.setColor(color);
-        environment.add(set);
+//        environment.add(set);
+        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
+        environment.add(set1);
+
+
         camera = new PerspectiveCamera(60, 5, 5);
-        camera.position.set(0f, 21, 21f);
+        camera.position.set(0f, 61, 21f);
         camera.direction.x = 45;
         camera.lookAt(0,0,0);
         camera.near = 0.3f;

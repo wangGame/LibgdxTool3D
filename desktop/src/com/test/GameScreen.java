@@ -1,7 +1,10 @@
 package com.test;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.Attributes;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.utils.Array;
 import com.demo.kitchen.actor.Actor3D;
 import com.kw.gdx.BaseGame;
@@ -25,7 +28,7 @@ public class GameScreen extends BaseScreen3D {
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         actor3D.setMaterialTexture(woodTexture);
-        actor3D.setScale(3,3,3);
+        actor3D.setScale(7,7,7);
         actor3D.setPosition(0,-0.5f,0);
 
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
@@ -34,11 +37,27 @@ public class GameScreen extends BaseScreen3D {
 
         Actor3D teaCup = new Actor3D(Asset3D.getAsset3D().getModel("tile/teacup.g3db"));
         stage3D.addActor(teaCup);
-        teaCup.setPosition(-10,-0.5f,0);
+        teaCup.setPosition(-13,-0.5f,0);
+        Attributes attributes1 = new Attributes();
+        attributes1.set(
+                ColorAttribute.createDiffuse(0.39f, 0.09f, 0.07f, 1.0f),
+                ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
+                FloatAttribute.createShininess(1000.0f)
+        );
+        teaCup.setMetal(attributes1);
 
         Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
         stage3D.addActor(teaPot);
-        teaPot.setPosition(10,-0.5f,0);
+        teaPot.setPosition(13,-0.5f,0);
+
+        Attributes attributes = new Attributes();
+        attributes.set(ColorAttribute.createDiffuse(0.39f, 0.09f, 0.07f, 1.0f),
+                ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
+                FloatAttribute.createShininess(100.0f));
+        teaPot.setMetal(attributes);
+
+
+
 
 
 
