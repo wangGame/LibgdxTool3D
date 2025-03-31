@@ -40,7 +40,8 @@ public class ShadowMappingTest extends ApplicationAdapter {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, .4f, .4f, .4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
-        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024, 30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.8f,
+        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024, 30f, 30f, 1f, 100f)).
+                set(0.8f, 0.8f, 0.8f, -1f, -.8f,
                 -.2f));
         environment.shadowMap = shadowLight;
 

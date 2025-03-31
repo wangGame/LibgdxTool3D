@@ -7,6 +7,7 @@ import com.demo.kitchen.actor.Actor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.asset.Asset3D;
+import com.kw.gdx.d3.listener.Listener3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 
 public class GameScreen extends BaseScreen3D {
@@ -52,7 +53,7 @@ public class GameScreen extends BaseScreen3D {
 
             Actor3D majActor = new Actor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db"));
             stage3D.addActor(majActor);
-            majActor.setPosition(tilePosition.x - 10,tilePosition.y,tilePosition.z - 12);
+            majActor.setPosition(tilePosition.x,tilePosition.y,tilePosition.z );
             majActor.setMaterialTexture(Asset.getAsset().getTexture("tile/"+tilePosition.texturePath));
 
         }

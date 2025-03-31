@@ -54,7 +54,8 @@ public class Stage3D extends InputAdapter {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
-                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -0f, -.7f, -.7f));
+                30f, 30f, 1f, 100f)).
+                set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
@@ -97,13 +98,6 @@ public class Stage3D extends InputAdapter {
 
         actorList3D.drawShadow(shadowBatch,environment);
 
-
-//        GameObject modelData = actorList3D.getModelData();
-//        for (BaseActor3D actor3D : actorList3D.getActor3DS()) {
-//            if (actor3D.getModelData()!=null) {
-//                shadowBatch.render(actor3D.getModelData());
-//            }
-//        }
         shadowBatch.end();
         shadowLight.end();
 
@@ -219,7 +213,6 @@ public class Stage3D extends InputAdapter {
         if (touch!=null) {
             touch.notifyListener();
         }
-        System.out.println(touch);
         return false;
     }
 

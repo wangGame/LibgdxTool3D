@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.action.Action3D;
+import com.kw.gdx.d3.listener.Listener3D;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
 
@@ -53,6 +54,8 @@ public class BaseActor3D {
     protected Vector3 scale;
     private final Array<Action3D> actions = new Array(0);
 
+    private Array<Listener3D> listener3DS;
+
     public BaseActor3D(){
         this(0,0,0);
     }
@@ -63,6 +66,11 @@ public class BaseActor3D {
         rotation = new Quaternion();
         scale = new Vector3(1, 1, 1);
         boundingPolygon = null;
+        this.listener3DS = new Array<>();
+    }
+
+    public void addListener(Listener3D listener3D) {
+        listener3DS.add(listener3D);
     }
 
     public void setModelInstance(GameObject m) {
@@ -346,31 +354,46 @@ public class BaseActor3D {
     }
 
     protected boolean checkCollision(Ray ray) {
-        Matrix4 inverseTransform = calculateTransform().cpy().inv();
+        Matrix4 matrix4 = calculateTransform();
+        Matrix4 inverseTransform = matrix4.cpy().inv();
+        BoundingBox boundingBoxTemp = new BoundingBox();
+
+        Vector3 position1 = getPosition();
+        boundingBoxTemp.set(position1.cpy().add(bounds.min),position1.cpy().add(bounds.max));
 
         Ray localRay = new Ray(ray.origin.cpy().mul(inverseTransform), ray.direction.cpy().mul(inverseTransform));
 
+        System.out.println(localRay+"--------------------------------"+boundingBoxTemp);
+
         Vector3 vector3 = new Vector3();
-        if (Intersector.intersectRayBounds(localRay,bounds,vector3)) {
+        if (Intersector.intersectRayBounds(ray,boundingBoxTemp,vector3)) {
             return true;
         }
         return false;
     }
 
     public void notifyListener() {
-        Array<BaseActor3D> actor3DS = new Array<>();
-        BaseActor3DGroup parent3D1 = parent3D;
-        while (parent3D1 != null) {
-            actor3DS.add(parent3D);
-            parent3D1 = parent3D1.parent3D;
-        }
-        for (BaseActor3D actor3D : actor3DS) {
-            actor3D.runEvent();
-        }
+//        Array<BaseActor3D> actor3DS = new Array<>();
+//        BaseActor3DGroup parent3D1 = parent3D;
+//        while (parent3D1 != null) {
+//            actor3DS.add(parent3D);
+//            parent3D1 = parent3D1.parent3D;
+//        }
+//        for (BaseActor3D actor3D : actor3DS) {
+//            if (actor3D.runEvent()) {
+//                break;
+//            }
+//        }
+        setColor(Color.GRAY);
     }
 
-    private void runEvent() {
-        System.out.println("=========touch down ============= ;"+this);
+    public boolean runEvent() {
+        for (Listener3D listener3D : listener3DS) {
+            if (listener3D.handle()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public float getX(){
