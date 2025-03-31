@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
+import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
@@ -27,6 +28,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Pools;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
+import com.kw.gdx.d3.actor.GameObject;
 
 public class Stage3D extends InputAdapter {
     public boolean intervalFlag;
@@ -39,14 +41,21 @@ public class Stage3D extends InputAdapter {
     private float intervalCounter;
     private final float INTERVAL_COUNTER_FREQUENCY = 1;
     public CameraInputController camController;//视角控制器
-    private DirectionalLight shadowLight;
+
+
+
+
+    DirectionalShadowLight shadowLight;
+    ModelBatch shadowBatch;
+
+
+
     public Stage3D() {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
-        shadowLight = new DirectionalShadowLight(1024, 1024,
-                60f, 60f, .1f, 50f);
-        environment.add(shadowLight);
-        environment.add();
+        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
+                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.8f,
+                -.2f));
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
@@ -71,16 +80,33 @@ public class Stage3D extends InputAdapter {
         ShaderProvider shaderProvider = new DefaultShaderProvider(config);
         modelBatch = new ModelBatch(shaderProvider);
         actorList3D = new BaseActor3DGroup(0,0,0);
+        this.shadowBatch = new ModelBatch(new DepthShaderProvider());
     }
 
     public void act(float dt) {
 //        camController.update();
+
+        shadowLight.begin(Vector3.Zero, camera.direction);
+        shadowBatch.begin(shadowLight.getCamera());
+        GameObject modelData = actorList3D.getModelData();
+
+        for (BaseActor3D actor3D : actorList3D.getActor3DS()) {
+            if (actor3D.getModelData()!=null) {
+                shadowBatch.render(actor3D.getModelData());
+            }
+        }
+        shadowBatch.end();
+        shadowLight.end();
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+
         camera.update();
         actorList3D.act(dt);
         setIntervalFlag(dt);
     }
 
     public void draw() {
+
         modelBatch.begin(camera);
         visibleCount = 0;
         actorList3D.draw(modelBatch,environment);
