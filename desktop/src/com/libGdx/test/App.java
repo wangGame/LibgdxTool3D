@@ -14,11 +14,12 @@ public class App extends LibGdxTestMain {
     public void useShow(Stage stage) {
         super.useShow(stage);
             //模型
-            BaseActor3D actor3D = new BaseActor3D(0,2,-13);
+            BaseActor3D actor3D = new BaseActor3D(0,2,-43);
             modelStage.addActor(actor3D);
             actor3D.buildModel(1,1,1,false);
             actor3D.setScale(2,2,2);
             actor3D.setTurnAngle(10);
+
 
 
 

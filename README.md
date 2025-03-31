@@ -1,44 +1,52 @@
-# LibGdxTool
+# LibGdxTool3D
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/wangGame/LibGdxTool3D/gradle.yml?branch=master)](https://github.com/wangGame/LibGdxTool3D/actions)
-[![](https://jitpack.io/v/wangGame/LibGdxTool.svg)](https://jitpack.io/#wangGame/LibGdxTool3D)
-
-## 仓库使用方法
-
-```
-maven { url 'https://jitpack.io' }
-   
-//如果全都要
-implementation 'com.github.wangGame:LibGdxTool:pre-release+'
-//只是要部分
-// libGdx源码   
-implementation 'com.github.wangGame.LibGdxTool:libGdx:pre-release+'
-//自己的工具包
-implementation 'com.github.wangGame.LibGdxTool:libGdxLib:pre-release+'
-//desktop快速启动
-implementation 'com.github.wangGame.LibGdxTool:desktop:pre-release+'
-```
-
-## 版本说明
-
-- alpha：内部版本
-- beta：测试版
-- demo：演示版
-- enhance：增强版
-- free：自由版
-- full version：完整版，即正式版
-- lts：长期维护版本
-- release：发行版
-- rc：即将作为正式版发布
-- standard：标准版
-- ultimate：旗舰版
-- upgrade：升级版
+3d封装，创建了Asset3D简化加载模型，创建了stage3D,绘制顺序，ui(也就是2d永远在3D上面，参考unity)，鼠标点击，通过发送射线判断点击的是那个。
 
 
-## 3D
+2d使用，[2d封装](https://github.com/wangGame/LibgdxTool)只读。
+
+## 目标
+
+对libgdx的3d部分进行封装，简化3D的使用。
 
 目前计划使用两个相机，一个2D一个3D两个相机，3D渲染游戏物体  2D渲染ui
 
-2D和3D的绘制
+## 加载模型
 
+actor的group组使用
+
+```java
+BaseActor3D floor = new BaseActor3D(0,0,-0f);
+floor.buildModel(200,1,200,false);
+floor.setPosition(0,-0.5f,0);
+floor.setMaterialTexture(Asset.getAsset().getTexture("img.png"));
+```
+
+group使用
+```java
+PlayerActor playerActor = new PlayerActor(0,0,0);
+stage3D.addActor(playerActor);
+playerActor.initView();
+```
+
+## 动画部分
+
+动画使用
+
+```java
+ParticleActor actor = new ParticleActor("effects/gKeyEffect.pfx");
+stage3D.addActor(actor);
+actor.setPosition(9,0,0);
+actor.addAction(Action3Ds.addAction3D(
+        Action3Ds.intAction3D(0,100, Interpolation.bounceIn,1)
+));
+playerActor.addAction(Action3Ds.moveToAction3D(2,2,2,2,Interpolation.linear));
+
+playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
+
+```
+
+## 增加投影
+
+加入投影效果
 
