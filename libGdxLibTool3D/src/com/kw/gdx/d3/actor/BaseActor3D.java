@@ -104,6 +104,20 @@ public class BaseActor3D {
         return modelData;
     }
 
+    public void drawShadow(ModelBatch batch,Environment environment){
+        if (modelData!=null) {
+            Matrix4 matrix4 = calculateTransform();
+            if (parent3D!=null){
+                Matrix4 pM = parent3D.computeTransform();
+                pM.mul(matrix4);
+                modelData.transform.set(pM);
+            }else {
+                modelData.transform.set(matrix4);
+            }
+            batch.render(modelData);
+        }
+    }
+
     public void draw(ModelBatch batch, Environment env) {
         if (modelData!=null) {
             Matrix4 matrix4 = calculateTransform();

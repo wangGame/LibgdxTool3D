@@ -54,8 +54,7 @@ public class Stage3D extends InputAdapter {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
-                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.8f,
-                -.2f));
+                30f, 30f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.7f, -.7f));
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
@@ -85,27 +84,30 @@ public class Stage3D extends InputAdapter {
 
     public void act(float dt) {
 //        camController.update();
-
-        shadowLight.begin(Vector3.Zero, camera.direction);
-        shadowBatch.begin(shadowLight.getCamera());
-        GameObject modelData = actorList3D.getModelData();
-
-        for (BaseActor3D actor3D : actorList3D.getActor3DS()) {
-            if (actor3D.getModelData()!=null) {
-                shadowBatch.render(actor3D.getModelData());
-            }
-        }
-        shadowBatch.end();
-        shadowLight.end();
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-
         camera.update();
         actorList3D.act(dt);
         setIntervalFlag(dt);
     }
 
     public void draw() {
+
+        shadowLight.begin(Vector3.Zero, camera.direction);
+        shadowBatch.begin(shadowLight.getCamera());
+
+
+        actorList3D.drawShadow(shadowBatch,environment);
+
+
+//        GameObject modelData = actorList3D.getModelData();
+//        for (BaseActor3D actor3D : actorList3D.getActor3DS()) {
+//            if (actor3D.getModelData()!=null) {
+//                shadowBatch.render(actor3D.getModelData());
+//            }
+//        }
+        shadowBatch.end();
+        shadowLight.end();
+
+        Gdx.gl.glClearColor(0, 0, 0, 1);
 
         modelBatch.begin(camera);
         visibleCount = 0;

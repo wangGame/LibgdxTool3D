@@ -22,8 +22,23 @@ public class BaseActor3DGroup extends BaseActor3D{
         this.actor3DS = new Array<>();
     }
 
+
+    public void drawShadow(ModelBatch batch,Environment environment){
+        GameObject modelData1 = getModelData();
+        if (modelData1!=null){
+            modelData1.transform.set(computeTransform());
+        }
+        super.drawShadow(batch,environment);
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.drawShadow(batch,environment);
+        }
+    }
+
+
+
     @Override
     public void draw(ModelBatch batch, Environment env) {
+        super.draw(batch,env);
         GameObject modelData1 = getModelData();
         if (modelData1!=null){
             modelData1.transform.set(computeTransform());
