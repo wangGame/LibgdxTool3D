@@ -46,4 +46,7 @@ playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
 
 ```
 
+## 增加投影
+
+加入投影效果
 
