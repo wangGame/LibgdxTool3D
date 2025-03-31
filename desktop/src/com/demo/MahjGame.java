@@ -33,9 +33,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.UBJsonReader;
-import com.kw.gdx.d3.actor.GameObject;
-import com.kw.gdx.d3.utils.Box;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 public class MahjGame extends Game {
     private AssetManager assets;
