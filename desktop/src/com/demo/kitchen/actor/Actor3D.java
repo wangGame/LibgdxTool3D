@@ -44,7 +44,6 @@ public class Actor3D extends BaseActor3D {
     }
 
     public void setMetal(Attributes attributes) {
-
         for (Material material : modelData.materials) {
             material.set(
                     attributes

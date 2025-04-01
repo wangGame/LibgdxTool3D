@@ -3,11 +3,13 @@ package no.sandramoen;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
@@ -22,73 +24,53 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.UBJsonReader;
+import com.kw.gdx.d3.asset.Asset3D;
 
 public class MyGdxGame7 extends ApplicationAdapter {
+    private ModelInstance table;
     public Environment environment;//可以包含点光源集合和线光源集合
-    public OrthographicCamera cam;//3D视角
+    public PerspectiveCamera cam;//3D视角
     public CameraInputController camController;//视角控制器
-    public Array<ModelInstance> instances = new Array<ModelInstance>();
     public ModelBatch modelBatch;
     public boolean loading;
     private ModelInstance shipInstance;
-    private AssetManager assets;
-    private ModelInstance tableModelInstance;
+    Vector3 position = new Vector3();
+
     @Override
     public void create () {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.5f, 0.5f, 0.5f, 1f));//环境光
-        PointLight set = new PointLight();
-        set.set(1.0f, 1.f, 1.f, .0f, .0f, 30, 1000.0f);
-//        environment.add(set);
         environment.add(new DirectionalLight().set(0.5f, 0.5f, 0.5f, 0f, 0, -1));
 
         modelBatch = new ModelBatch();
-        cam = new OrthographicCamera(  Gdx.graphics.getWidth(), Gdx.graphics.getHeight());//67可以理解成一个定值，视角宽度（67度）
-        cam.position.set(0f, 0f, 180f);
+        cam = new PerspectiveCamera( 67, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());//67可以理解成一个定值，视角宽度（67度）
+        cam.position.set(0f, 10f, 10);
         cam.lookAt(0,0,0);
         cam.near = 1f;
         cam.far = 1300f;
         cam.update();
 
         camController = new CameraInputController(cam);
-        Gdx.input.setInputProcessor(camController);
+//        Gdx.input.setInputProcessor(camController);
 
         loading = true;
         doneLoading();
-        assets = new AssetManager();
-        assets.setLoader(Model.class, ".g3db", new G3dModelLoader(new UBJsonReader(),assets.getFileHandleResolver()));
-        assets.setLoader(Model.class, ".obj", new ObjLoader(assets.getFileHandleResolver()));
     }
 
 
     private void doneLoading() {
+        Model t = Asset3D.getAsset3D().getModel("tile/table.g3db");
+        table = new ModelInstance(t);
+        table.transform.setTranslation(new Vector3(0,-10,0));
 
         Model modelUp = new ObjLoader().loadModel(Gdx.files.internal("model/Cube_0.obj"));
-
-
-
         shipInstance = new ModelInstance(modelUp);
-        shipInstance.transform.translate(0,0,0);
         // 遍历并为所有Node的NodePart应用材质
-        Node node1 = shipInstance.nodes.get(0);
-
-
-
-
-
-
-
-
-
-        instances.add(shipInstance);
         loading = false;
-
-        shipInstance.transform.scale(1000,1000,1000);
-        shipInstance.nodes.get(0).scale.set(new Vector3(3,6,1));
-        shipInstance.nodes.get(1).scale.set(new Vector3(3,6,1));
+        shipInstance.nodes.get(0).scale.set(new Vector3(30,60,10));
+        shipInstance.nodes.get(1).scale.set(new Vector3(30,60,10));
         shipInstance.calculateTransforms();
-        shipInstance.transform.rotate(new Vector3(0,1,0),10);
-        tableModelInstance = new ModelInstance(shipInstance);
+
     }
 
     @Override
@@ -97,19 +79,53 @@ public class MyGdxGame7 extends ApplicationAdapter {
         camController.update();
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
-
+        move();
+        rotation();
 //        shipInstance.transform.rotate(new Vector3(1,0,0), (float) Math.toRadians(30));
 
         modelBatch.begin(cam);
-        modelBatch.render(instances,environment);
-        modelBatch.render(tableModelInstance,environment);
+        modelBatch.render(table,environment);
+        modelBatch.render(shipInstance,environment);
         modelBatch.end();
+    }
+
+    private float xxx = 0;
+    public void rotation(){
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1))
+            shipInstance.transform.rotate(Vector3.X,
+                    Gdx.graphics.getDeltaTime() * 100);
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_2))
+            shipInstance.transform.rotate(Vector3.Y,
+                    Gdx.graphics.getDeltaTime() * 100);
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_3))
+            shipInstance.transform.rotate(Vector3.Z,
+                    Gdx.graphics.getDeltaTime() * 100);
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_4))
+            shipInstance.transform.setFromEulerAngles(0,
+                    0,xxx += Gdx.graphics.getDeltaTime() * 100);
+    }
+
+    public void move(){
+        shipInstance.transform.getTranslation(position);
+        if(Gdx.input.isKeyPressed(Input.Keys.W)){
+            position.x+=Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
+            position.z+=Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
+            position.z-=Gdx.graphics.getDeltaTime();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
+            position.x-=Gdx.graphics.getDeltaTime();
+        }
+        shipInstance.transform.setTranslation(position);
     }
 
     @Override
     public void dispose() {
         modelBatch.dispose();
-        instances.clear();
+
         super.dispose();
     }
 
@@ -118,8 +134,8 @@ public class MyGdxGame7 extends ApplicationAdapter {
         config.x = 1000;
         config.stencil=8;
         config.y = 0;
-        config.height = (int) (1920 * 0.25f);
-        config.width = (int) (1080 * 0.5f);
+        config.height = (int) (1920*0.5f);
+        config.width = (int) (1080*0.5f);
 //        Gdx.isJiami = true;
         new LwjglApplication(new MyGdxGame7(), config);
 //        int index = 0;

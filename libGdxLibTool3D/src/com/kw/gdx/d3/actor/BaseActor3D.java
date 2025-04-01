@@ -53,7 +53,7 @@ public class BaseActor3D {
     protected Quaternion rotation;
     protected Vector3 scale;
     private final Array<Action3D> actions = new Array(0);
-
+    private Matrix4 matrix4 = new Matrix4();
     private Array<Listener3D> listener3DS;
 
     public BaseActor3D(){
@@ -79,7 +79,11 @@ public class BaseActor3D {
     }
 
     public Matrix4 calculateTransform() {
-        return new Matrix4(position, rotation, scale);
+        matrix4.idt();
+        Matrix4 rotate = matrix4.rotate(rotation);
+        Matrix4 matrix4 = rotate.trn(position.x, position.y,
+                position.z).scale(scale.x, scale.y, scale.z);
+        return matrix4;
     }
 
     //更新位置

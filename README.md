@@ -52,7 +52,7 @@ playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
 
 ## 模型创建
 
-## 光照
+### 光照
 
 添加两个灯光：一个环境光，它照亮正在绘制的所有东西（环境的常规光源），以及一个方向光，它有一个方向（最类似于“太阳”类型的光源）。
 通常，对于灯光，您可以尝试方向，颜色和不同的类型。另一种类型的灯光（PointLight）可以与手电筒进行比较。
@@ -64,7 +64,62 @@ environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f))
 
 定向光的构造函数后面是一个方向。这个方向可以被看作是一个矢量。
 
-## 运动
+## 基本位置操作
 
-平移、旋转和缩放与2D游戏中的等价物略有不同。它们稍微更数学化。更简单的部分是矢量。我们现在将使用Vector 3D而不是Vector 2D，后者本质上是相同的;它只是增加了另一个维度
+### 运动
 
+平移、旋转和缩放与2D游戏中的等价物略有不同。它们稍微更数学化。更简单的部分是矢量。我们现在将使用Vector 3D而不是Vector 2D，
+后者本质上是相同的;它只是增加了另一个维度
+
+```java
+Vector3 vector3 = new Vector3();
+teaCup.getModelData().transform.getTranslation(vector3);
+vector3.x += 3;
+teaCup.getModelData().transform.setTranslation(vector3);
+```
+
+### 旋转
+
+旋转与2D略有不同，因为我们可以在多个轴上旋转，即x，y和z轴。我们现在将创建一个函数来展示模型的旋转。首先，让我们创建一个函数，在其中我们可以在所有轴上旋转对象：
+
+```java
+private void rotate() {
+    if (Gdx.input.isKeyPressed(Input.Keys.NUM_1))
+        instance.transform.rotate(Vector3.X,
+                Gdx.graphics.getDeltaTime() * 100);
+    if (Gdx.input.isKeyPressed(Input.Keys.NUM_2))
+        instance.transform.rotate(Vector3.Y,
+                Gdx.graphics.getDeltaTime() * 100);
+    if (Gdx.input.isKeyPressed(Input.Keys.NUM_3))
+        instance.transform.rotate(Vector3.Z,
+                Gdx.graphics.getDeltaTime() * 100);
+} 
+```
+
+setToRotation但是会消除之前的旋转，所以可以使用下面的方式进行
+
+```java
+teaCup.getModelData().transform.setFromEulerAngles()
+```
+
+面临着最后一个问题。我们似乎不能移动立方体！setFromEulerAngles函数清除所有
+的translation和rotation属性，setFromEulerAngles返回一个Matrix 4类型，
+因此我们可以从它链接并调用另一个函数，例如，一个转换矩阵的函数。为此，我们使用trn（x，y，z）
+函数（translate的缩写）。现在我们可以更新我们的旋转函数。
+
+```java
+instance.transform.setFromEulerAngles(0, 0, rotation).trn(position.x,position.y, position.z);
+上面这个可以完成移动，所以可以删除下面的代码
+instance.transform.setTranslation(position); 
+```
+
+### 缩放
+
+```java
+ instance.transform.setFromEulerAngles(0, 0,
+                                       rotation).trn(position.x, position.y,
+                                                     position.z).scale(scale,scale,scale);
+
+```
+
+## 

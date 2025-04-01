@@ -5,10 +5,12 @@ import com.badlogic.gdx.graphics.g3d.Attributes;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
 import com.demo.kitchen.actor.Actor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.d3.action.Action3Ds;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.listener.Listener3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
@@ -55,7 +57,7 @@ public class GameScreen extends BaseScreen3D {
                 , FloatAttribute.createShininess(1000.0f)
         );
         teaCup.setMetal(attributes1);
-        teaCup.setScale(14,14,14);
+        teaCup.setScale(1,1,1);
 
         Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
         stage3D.addActor(teaPot);
@@ -67,7 +69,8 @@ public class GameScreen extends BaseScreen3D {
                 FloatAttribute.createShininess(100.0f));
         teaPot.setMetal(attributes);
 
-
+        teaPot.addAction(Action3Ds.rotation3D(180,180,180,3, Interpolation.bounceIn));
+        teaPot.addAction(Action3Ds.moveToAction3D(-10,3,-10,4,Interpolation.linear));
 
 
 

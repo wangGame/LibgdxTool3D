@@ -71,8 +71,8 @@ public class Stage3D extends InputAdapter {
 //        environment.add(set1);
 
 
-        camera = new PerspectiveCamera(60, 5, 5);
-        camera.position.set(0f, 61, 21f);
+        camera = new PerspectiveCamera(40, 5, 5);
+        camera.position.set(0f, 31, 21f);
         camera.direction.x = 45;
         camera.lookAt(0,0,0);
         camera.near = 0.3f;
