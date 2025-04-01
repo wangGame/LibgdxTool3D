@@ -39,12 +39,23 @@ public class GameScreen extends BaseScreen3D {
         stage3D.addActor(teaCup);
         teaCup.setPosition(-13,-0.5f,0);
         Attributes attributes1 = new Attributes();
+
+
+//        model = modelBuilder.createBox(5, 5, 5, mat,
+//                VertexAttributes.Usage.Position |
+//                        VertexAttributes.Usage.Normal);
+//        instance = new ModelInstance(model);
+
+//        我们可以在ColorAttribute类之后添加FloatAttribute. flashShininess（8f），这将使盒子周围的灯光闪闪发光
+//        模型它有位置属性，因为每个立方体都需要位置，normal属性是为了确保灯光正常工作
+
         attributes1.set(
                 ColorAttribute.createDiffuse(0.39f, 0.09f, 0.07f, 1.0f),
-                ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f),
-                FloatAttribute.createShininess(1000.0f)
+                ColorAttribute.createSpecular(1.0f, 1.0f, 1.0f, 1.0f)
+                , FloatAttribute.createShininess(1000.0f)
         );
         teaCup.setMetal(attributes1);
+        teaCup.setScale(14,14,14);
 
         Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
         stage3D.addActor(teaPot);

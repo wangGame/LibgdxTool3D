@@ -53,7 +53,7 @@ public class Stage3D extends InputAdapter {
 
     public Stage3D() {
         environment = new Environment();
-//        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
                 30f, 30f, 1f, 100f)).
                 set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
@@ -67,8 +67,8 @@ public class Stage3D extends InputAdapter {
         color.a = 0.1f;
         set.setColor(color);
 //        environment.add(set);
-        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
-        environment.add(set1);
+//        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
+//        environment.add(set1);
 
 
         camera = new PerspectiveCamera(60, 5, 5);

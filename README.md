@@ -50,3 +50,21 @@ playerActor.addAction(Action3Ds.rotation3D(0,180,180,2,Interpolation.linear));
 
 加入投影效果
 
+## 模型创建
+
+## 光照
+
+添加两个灯光：一个环境光，它照亮正在绘制的所有东西（环境的常规光源），以及一个方向光，它有一个方向（最类似于“太阳”类型的光源）。
+通常，对于灯光，您可以尝试方向，颜色和不同的类型。另一种类型的灯光（PointLight）可以与手电筒进行比较。
+
+```java
+environment.set(new ColorAttribute(ColorAttribute.AmbientLight,0.4f, 0.4f, 0.4f, 1f));
+environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f)); 
+```
+
+定向光的构造函数后面是一个方向。这个方向可以被看作是一个矢量。
+
+## 运动
+
+平移、旋转和缩放与2D游戏中的等价物略有不同。它们稍微更数学化。更简单的部分是矢量。我们现在将使用Vector 3D而不是Vector 2D，后者本质上是相同的;它只是增加了另一个维度
+
