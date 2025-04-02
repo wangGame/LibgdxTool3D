@@ -22,7 +22,7 @@ public class TestScreen extends BaseScreen3D {
 
         Actor3D actor3D = new Actor3D(Asset3D.getAsset3D().getModel("mo/1.g3db"));
         stage3D.addActor(actor3D);
-
+        actor3D.setScale(3,3,3);
         GameObject modelData = actor3D.getModelData();
         System.out.println(modelData);
         for (Material material : modelData.materials) {
@@ -30,7 +30,7 @@ public class TestScreen extends BaseScreen3D {
             for (Attribute attribute : material) {
                 if (attribute instanceof TextureAttribute) {
                     c = attribute;
-                    ((TextureAttribute)(c)).set(new TextureRegion(Asset.getAsset().getTexture("mo/33.png")));
+                    ((TextureAttribute)(c)).set(new TextureRegion(Asset.getAsset().getTexture("mo/xx.png")));
                 }
             }
             material.clear();
