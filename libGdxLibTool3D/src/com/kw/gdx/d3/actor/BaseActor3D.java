@@ -419,4 +419,8 @@ public class BaseActor3D {
     public void setRotation(Quaternion quaternion){
         this.rotation.set(quaternion);
     }
+
+    public BoundingBox getBounds() {
+        return bounds;
+    }
 }

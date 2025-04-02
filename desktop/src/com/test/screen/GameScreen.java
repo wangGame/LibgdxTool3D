@@ -1,4 +1,4 @@
-package com.test;
+package com.test.screen;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Attributes;
@@ -12,8 +12,9 @@ import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.action.Action3Ds;
 import com.kw.gdx.d3.asset.Asset3D;
-import com.kw.gdx.d3.listener.Listener3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
+import com.test.TilePosition;
+import com.test.TitleLevel;
 
 public class GameScreen extends BaseScreen3D {
     public GameScreen(BaseGame game) {

@@ -15,7 +15,7 @@ public class BaseActor3DGroup extends BaseActor3D{
     private final Matrix4 worldTransform = new Matrix4();
     private Matrix4 computedTransform = new Matrix4();
     public BaseActor3DGroup(){
-
+        this.actor3DS = new Array<>();
     }
     public BaseActor3DGroup(float x, float y, float z) {
         super(x, y, z);
