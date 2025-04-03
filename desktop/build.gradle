@@ -19,6 +19,11 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation "com.github.tommyettinger:textratypist:0.6.3"
 
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet
+    implementation("com.badlogicgames.gdx:gdx-bullet:1.13.1")
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet-platform
+    implementation("com.badlogicgames.gdx:gdx-bullet-platform:1.13.1")
+
 }
 
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
