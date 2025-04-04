@@ -9,27 +9,19 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalShadowLight;
-import com.badlogic.gdx.graphics.g3d.environment.PointLight;
 import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pools;
+import com.kw.gdx.d3.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
-import com.kw.gdx.d3.actor.GameObject;
 
 public class Stage3D extends InputAdapter {
     public boolean intervalFlag;
@@ -200,19 +192,26 @@ public class Stage3D extends InputAdapter {
     }
 
     private Array<BaseActor3D> hitActors = new Array<>();
+    private Array<RayBean> rayBeans = new Array<RayBean>();
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        return v1();
+    }
+
+    private boolean v1() {
         hitActors.clear();
+        rayBeans.clear();
         Ray ray = camera.getPickRay(Gdx.input.getX(),Gdx.input.getY());
         //这个是root
-        getRoot().checkCollisions(ray,hitActors);
+        getRoot().checkCollisions(ray,rayBeans);
         float max = Float.MAX_VALUE;
-        Vector3 position = camera.position;
+        Vector3 position = ray.origin;
         BaseActor3D touch = null;
-        for (BaseActor3D hitActor : hitActors) {
-            float dst = hitActor.getPosition().dst(position);
+        for (RayBean hitActor : rayBeans) {
+            float dst = hitActor.getVector3().dst(position);
+            System.out.println(dst);
             if (dst<max) {
                 max = dst;
-                touch = hitActor;
+                touch = hitActor.getBaseActor3D();
             }
         }
         if (touch!=null) {

@@ -2,12 +2,10 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.d3.RayBean;
 import com.kw.gdx.d3.action.Action3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
@@ -84,16 +82,18 @@ public class BaseActor3DGroup extends BaseActor3D{
         return actor3DS;
     }
 
-    public BaseActor3D checkCollisions(Ray ray,Array<BaseActor3D> hitActors) {
+    public BaseActor3D checkCollisions(Ray ray,Array<RayBean> hitActors) {
         Matrix4 transform = calculateTransform();
         Matrix4 inv = transform.cpy().inv();
         Ray localRay = new Ray(ray.origin.cpy().mul(inv), ray.direction.cpy().mul(inv));
-        if (super.checkCollision(localRay)) {
-            hitActors.add(this);
+        RayBean rayBean = super.checkCollision(localRay);
+        if (rayBean!=null) {
+            hitActors.add(rayBean);
         }
         for (BaseActor3D actor : actor3DS) {
-            if (actor.checkCollision(localRay)) {
-                hitActors.add(actor);
+            RayBean rayBean1 = actor.checkCollision(localRay);
+            if (rayBean1!=null) {
+                hitActors.add(rayBean1);
             }
         }
         return null;

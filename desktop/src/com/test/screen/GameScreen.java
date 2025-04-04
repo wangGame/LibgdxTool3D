@@ -33,13 +33,14 @@ public class GameScreen extends BaseScreen3D {
         actor3D.setMaterialTexture(woodTexture);
         actor3D.setScale(7,7,7);
         actor3D.setPosition(0,-0.5f,0);
-
+        actor3D.extracted();
+//
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plateActor);
 //        plateActor.setPosition(3,3,3);
 
         Actor3D teaCup = new Actor3D(Asset3D.getAsset3D().getModel("tile/teacup.g3db"));
-        stage3D.addActor(teaCup);
+//        stage3D.addActor(teaCup);
         teaCup.setPosition(-13,-0.5f,0);
         Attributes attributes1 = new Attributes();
 
@@ -61,7 +62,7 @@ public class GameScreen extends BaseScreen3D {
         teaCup.setScale(1,1,1);
 
         Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
-        stage3D.addActor(teaPot);
+//        stage3D.addActor(teaPot);
         teaPot.setPosition(13,-0.5f,0);
 
         Attributes attributes = new Attributes();
@@ -76,9 +77,9 @@ public class GameScreen extends BaseScreen3D {
 
 
 
-//        Actor3D plate = new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
+        Actor3D plate = new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plate);
-//        plate.setScale(0.5f,0.5f,0.5f);
+        plate.setScale(0.5f,0.5f,0.5f);
 
         TitleLevel titleLevel = new TitleLevel();
         titleLevel.initLevel();

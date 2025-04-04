@@ -15,6 +15,7 @@ import com.kw.gdx.d3.actor.GameObject;
 import com.kw.gdx.d3.utils.Box;
 
 public class Actor3D extends BaseActor3D {
+    private Model model;
     public Actor3D(Model model){
         this(0,0,0,model);
     }
@@ -25,12 +26,21 @@ public class Actor3D extends BaseActor3D {
 
     public Actor3D(float x,float y,float z,Model model){
         super(x,y,z);
-        if (model != null) {
+        this.model = model;
+        if (model!=null) {
             GameObject gameObject = new GameObject(model, new Vector3(0, 0, 0));
             setModelInstance(gameObject);
-            gameObject.calculateBoundingBox(bounds);
-            gameObject.shape = new Box(bounds);
+        }
+        extracted();
+    }
 
+    public void extracted() {
+        if (model != null) {
+            modelData.calculateBoundingBox(bounds);
+            modelData.shape = new Box(bounds);
+            Vector3 dimensions = new Vector3();
+            bounds.getDimensions(dimensions);
+            radius = dimensions.len() / 2f;
         }
     }
 
