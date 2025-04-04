@@ -1,4 +1,4 @@
-package com.base;
+package com.threed.base;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -15,14 +15,16 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
+import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Vector3;
 
-public class Demo02 extends ApplicationAdapter {
+public class Demo03 extends ApplicationAdapter {
     private PerspectiveCamera camera;
     private ModelInstance instance;
     private ModelBatch modelBatch;
     private Environment environment;
+    private CameraInputController camController;
 
     @Override
     public void create() {
@@ -43,8 +45,11 @@ public class Demo02 extends ApplicationAdapter {
         modelBatch = new ModelBatch();
 
         environment = new Environment();
-//        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(1,0,0,new Vector3(0,-0.4f,-1)));
+
+        camController = new CameraInputController(camera);
+        Gdx.input.setInputProcessor(camController);
     }
 
     @Override
@@ -52,6 +57,7 @@ public class Demo02 extends ApplicationAdapter {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
         camera.update();
+        camController.update();
         modelBatch.begin(camera);
         modelBatch.render(instance,environment);
         modelBatch.end();
@@ -70,6 +76,6 @@ public class Demo02 extends ApplicationAdapter {
         config.y = 0;
         config.height = (int) (1920 * 0.5f);
         config.width = (int) (1080 * 0.8f);
-        new LwjglApplication(new Demo02(), config);
+        new LwjglApplication(new Demo03(), config);
     }
 }
