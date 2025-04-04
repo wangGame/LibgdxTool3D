@@ -7,6 +7,10 @@ sourceSets.main.resources.srcDirs = ["../android/assets"]
 sourceCompatibility = 1.8
 
 dependencies {
+
+    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet
+    implementation "com.badlogicgames.gdx:gdx-bullet:1.13.1"
+
     implementation ("com.badlogicgames.gdx:gdx-ai:1.8.2")
     implementation ("com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.1")
     implementation files('libs/gdx-backend-lwjgl.jar')
@@ -19,10 +23,9 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation "com.github.tommyettinger:textratypist:0.6.3"
 
-    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet
-    implementation("com.badlogicgames.gdx:gdx-bullet:1.13.1")
-    // https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet-platform
-    implementation("com.badlogicgames.gdx:gdx-bullet-platform:1.13.1")
+    implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.13.1:natives-desktop"
+
+
 
 }
 

@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.GameObject;
 import com.kw.gdx.d3.utils.Box;
+import com.kw.gdx.d3.utils.Shape;
 
 public class Actor3D extends BaseActor3D {
     private Model model;
@@ -42,6 +43,13 @@ public class Actor3D extends BaseActor3D {
             bounds.getDimensions(dimensions);
             radius = dimensions.len() / 2f;
         }
+    }
+
+    public Shape getShape(){
+        if (modelData == null){
+            return modelData.shape;
+        }
+        return null;
     }
 
     public void setMetal(){
