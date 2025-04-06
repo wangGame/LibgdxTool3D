@@ -31,8 +31,6 @@ public class BaseActor3DGroup extends BaseActor3D{
         }
     }
 
-
-
     @Override
     public void draw(ModelBatch batch, Environment env) {
         super.draw(batch,env);

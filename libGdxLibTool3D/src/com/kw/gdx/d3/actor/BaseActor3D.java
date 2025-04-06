@@ -3,6 +3,7 @@ package com.kw.gdx.d3.actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -64,10 +65,6 @@ public class BaseActor3D {
         boundingPolygon = null;
         this.listener3DS = new Array<>();
     }
-
-//    public boolean isVisible(Camera cam) {
-////        return cam.frustum.sphereInFrustum(modelData.transform.getTranslation(position).add(center), radius);
-//    }
 
     public void addListener(Listener3D listener3D) {
         listener3DS.add(listener3D);
@@ -418,5 +415,12 @@ public class BaseActor3D {
 
     public BoundingBox getBounds() {
         return bounds;
+    }
+
+    public boolean isCaremaClip(){
+        if (stage3D!=null) {
+            PerspectiveCamera camera = stage3D.getCamera();
+        }
+        return false;
     }
 }
