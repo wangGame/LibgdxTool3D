@@ -205,7 +205,7 @@ public class Stage3D extends InputAdapter {
         getRoot().checkCollisions(ray,rayBean);
         BaseActor3D baseActor3D = rayBean.getBaseActor3D();
         if (rayBean.getBaseActor3D()!=null) {
-            baseActor3D.notifyListener();
+            baseActor3D.touchUp(rayBean.getVector3(),pointer,button);
             return true;
         }
         return false;

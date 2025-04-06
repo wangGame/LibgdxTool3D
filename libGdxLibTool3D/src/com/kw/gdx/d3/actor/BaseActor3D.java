@@ -3,7 +3,6 @@ package com.kw.gdx.d3.actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,7 +17,6 @@ import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
@@ -38,43 +36,39 @@ public class BaseActor3D {
     protected boolean isCollisionEnabled = true;
     protected boolean isPreventOverlapEnabled = true;
     protected GameObject modelData;
-    protected final Vector3 position;
-
+    private final Vector3 position;
     protected float width;
     protected float height;
     protected float depth;
-    public float radius;
-    public Polygon boundingPolygon;
+    protected float radius;
     protected Stage3D stage3D;
     protected BoundingBox bounds = new BoundingBox();
-    protected Quaternion rotation;
-    protected Vector3 scale;
+    private Quaternion rotation;
+    private Vector3 scale;
     private final Array<Action3D> actions = new Array(0);
     private Matrix4 matrix4 = new Matrix4();
     private Array<Listener3D> listener3DS;
-
+    protected Vector3 center = new Vector3();
     public BaseActor3D(){
         this(0,0,0);
     }
 
     public BaseActor3D(float x, float y, float z) {
-        modelData = null;
-        position = new Vector3(x, y, z);
-        rotation = new Quaternion();
-        scale = new Vector3(1, 1, 1);
-        boundingPolygon = null;
+        this.modelData = null;
+        this.position = new Vector3(x, y, z);
+        this.rotation = new Quaternion();
+        this.scale = new Vector3(1, 1, 1);
         this.listener3DS = new Array<>();
-    }
-
-    public void addListener(Listener3D listener3D) {
-        listener3DS.add(listener3D);
     }
 
     public void setModelInstance(GameObject m) {
         modelData = m;
-        setBaseRectangle();
     }
 
+    /**
+     * 计算当前的mat
+     * @return
+     */
     public Matrix4 calculateTransform() {
         matrix4.idt();
         Matrix4 rotate = matrix4.rotate(rotation);
@@ -105,8 +99,6 @@ public class BaseActor3D {
             String context = toString();
             throw new RuntimeException("Actor: " + context.substring(0, Math.min(context.length(), 128)), ex);
         }
-
-
     }
 
     public GameObject getModelData() {
@@ -115,6 +107,7 @@ public class BaseActor3D {
 
     public void drawShadow(ModelBatch batch,Environment environment){
         if (modelData!=null) {
+            if (!isCaremaClip())return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D!=null){
                 Matrix4 pM = parent3D.computeTransform();
@@ -129,6 +122,7 @@ public class BaseActor3D {
 
     public void draw(ModelBatch batch, Environment env) {
         if (modelData!=null) {
+            if (!isCaremaClip())return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D!=null){
                 Matrix4 pM = parent3D.computeTransform();
@@ -207,69 +201,6 @@ public class BaseActor3D {
         scale.set(x, y, z);
     }
 
-    // 2D collision detection
-    public void setBaseRectangle() {
-        BoundingBox modelBounds = modelData.calculateBoundingBox(new BoundingBox());
-        Vector3 max = modelBounds.max;
-        Vector3 min = modelBounds.min;
-
-        float[] vertices =
-                {max.y, max.z, min.y, max.z, min.y, min.z, max.y, min.z};
-
-        boundingPolygon = new Polygon(vertices);
-        boundingPolygon.setOrigin(0, 0);
-    }
-
-    public Polygon getBoundaryPolygon() {
-        boundingPolygon.setPosition(position.y, position.z);
-        boundingPolygon.setRotation(getTurnAngle());
-        boundingPolygon.setScale(scale.y, scale.z);
-        return boundingPolygon;
-    }
-
-    public boolean overlaps(BaseActor3D other) {
-        if (!isCollisionEnabled || !other.isCollisionEnabled) return false;
-        Polygon poly1 = this.getBoundaryPolygon();
-        Polygon poly2 = other.getBoundaryPolygon();
-
-        if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle()))
-            return false;
-
-        Intersector.MinimumTranslationVector mtv = new Intersector.MinimumTranslationVector();
-
-        return Intersector.overlapConvexPolygons(poly1, poly2, mtv);
-    }
-
-    public void preventOverlap(BaseActor3D other) {
-        if (!isPreventOverlapEnabled || !other.isPreventOverlapEnabled)
-            return;
-        Polygon poly1 = this.getBoundaryPolygon();
-        Polygon poly2 = other.getBoundaryPolygon();
-
-        // initial test to improve performance
-        if (!poly1.getBoundingRectangle().overlaps(poly2.getBoundingRectangle()))
-            return;
-
-        Intersector.MinimumTranslationVector mtv = new Intersector.MinimumTranslationVector();
-        boolean polygonOverlap = Intersector.overlapConvexPolygons(poly1, poly2, mtv);
-
-        if (polygonOverlap)
-            this.moveBy(0, mtv.normal.x * mtv.depth, mtv.normal.y * mtv.depth);
-    }
-
-    public boolean isWithinDistance(Float distance, BaseActor3D other) {
-        return distanceBetween(other) <= distance;
-    }
-
-    public boolean isOnCenter(BaseActor3D other) {
-        return (int) position.y == (int) other.position.y &&
-                (int) position.z == (int) other.position.z;
-    }
-
-    public float distanceBetween(BaseActor3D other) {
-        return (float) Math.sqrt(Math.pow(Math.abs(other.position.y - position.y), 2) + Math.pow(Math.abs(other.position.z - position.z), 2));
-    }
-
     public void remove() {
         if (stage3D!=null) {
             stage3D.removeActor(this);
@@ -279,7 +210,6 @@ public class BaseActor3D {
     public void buildModel(float width, float height, float depth, boolean blending) {
         ModelBuilder modelBuilder = new ModelBuilder();
         Material boxMaterial = new Material();
-
         if (blending)
             boxMaterial.set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
         int usageCode =
@@ -326,10 +256,17 @@ public class BaseActor3D {
         actions.clear();
     }
 
-    public float getRotation() {
-        return rotation.getAngle();
+    public Quaternion getRotation() {
+        return rotation;
     }
 
+    public Vector3 getScale() {
+        return scale;
+    }
+
+    public float getAngle() {
+        return rotation.getAngle();
+    }
 
     public void setMaterialTexture(Texture texture) {
         for (Material material : modelData.materials) {
@@ -379,18 +316,12 @@ public class BaseActor3D {
         return null;
     }
 
-    public void notifyListener() {
+//    public void notifyListener() {
+//        setColor(Color.GRAY);
+//    }
 
-        setColor(Color.GRAY);
-    }
+    public void touchUp(Vector3 vector3, int pointer, int button){
 
-    public boolean runEvent() {
-        for (Listener3D listener3D : listener3DS) {
-            if (listener3D.handle()) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public float getX(){
@@ -417,9 +348,12 @@ public class BaseActor3D {
         return bounds;
     }
 
+    private Vector3 positionTmep = new Vector3();
     public boolean isCaremaClip(){
         if (stage3D!=null) {
-            PerspectiveCamera camera = stage3D.getCamera();
+            modelData.transform.getTranslation(positionTmep);
+            positionTmep.add(center);
+            return stage3D.getCamera().frustum.sphereInFrustum(position, radius);
         }
         return false;
     }

@@ -113,8 +113,6 @@ public class MahjGame extends Game {
 //        spotLight.setExponent(30f); // 强度衰减
 //        tableEnvironment.add(spotLight);
         tableModelInstance.getMaterial("Table").remove(ColorAttribute.Specular);
-
-
         Model model = assets.get("teapot.g3db", Model.class);
         teaInstance = new ModelInstance(model);
 

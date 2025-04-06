@@ -17,6 +17,10 @@ import com.kw.gdx.d3.utils.Shape;
 
 public class Actor3D extends BaseActor3D {
     private Model model;
+    public Actor3D(){
+        this(0,0,0);
+    }
+
     public Actor3D(Model model){
         this(0,0,0,model);
     }
@@ -31,8 +35,8 @@ public class Actor3D extends BaseActor3D {
         if (model!=null) {
             GameObject gameObject = new GameObject(model, new Vector3(0, 0, 0));
             setModelInstance(gameObject);
+            extracted();
         }
-        extracted();
     }
 
     public void extracted() {
@@ -42,6 +46,7 @@ public class Actor3D extends BaseActor3D {
             Vector3 dimensions = new Vector3();
             bounds.getDimensions(dimensions);
             radius = dimensions.len() / 2f;
+            bounds.getCenter(center);
         }
     }
 

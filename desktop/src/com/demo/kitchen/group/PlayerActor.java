@@ -45,7 +45,7 @@ public class PlayerActor extends BaseActor3DGroup {
         }else if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
             moveForward(-1*delta * speed);
         }
-        float angle = rotation.getAngle();
+
 //        rotation.setFromAxis(0,1,0,angle+1);
 
 

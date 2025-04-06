@@ -122,4 +122,36 @@ instance.transform.setTranslation(position);
 
 ```
 
-## 
+## 显示
+
+屏幕裁剪，检测物体是否在相机的展示范围内
+
+BaseActor3D中,绘制之前判断一下，可以将不会展示的不进行展示
+
+```java
+public boolean isCaremaClip(){
+    if (stage3D!=null) {
+        modelData.transform.getTranslation(positionTmep);
+        positionTmep.add(center);
+        return stage3D.getCamera().frustum.sphereInFrustum(position, radius);
+    }
+    return false;
+}
+```
+
+## 点击事件
+
+```java
+public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+    rayBean.reset();
+    Ray ray = camera.getPickRay(screenX,screenY);
+    //这个是root
+    getRoot().checkCollisions(ray,rayBean);
+    BaseActor3D baseActor3D = rayBean.getBaseActor3D();
+    if (rayBean.getBaseActor3D()!=null) {
+        baseActor3D.touchUp(rayBean.getVector3(),pointer,button);
+        return true;
+    }
+    return false;
+}
+```

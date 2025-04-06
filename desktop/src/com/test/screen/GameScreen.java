@@ -1,11 +1,13 @@
 package com.test.screen;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Attributes;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.demo.kitchen.actor.Actor3D;
 import com.kw.gdx.BaseGame;
@@ -25,7 +27,13 @@ public class GameScreen extends BaseScreen3D {
     public void initView() {
         super.initView();
         Model model = Asset3D.getAsset3D().getModel("tile/table.g3db");
-        Actor3D actor3D = new Actor3D(model);
+        Actor3D actor3D = new Actor3D(model){
+            @Override
+            public void touchUp(Vector3 vector3, int pointer, int button) {
+                super.touchUp(vector3, pointer, button);
+                setColor(Color.BLUE);
+            }
+        };
         stage3D.addActor(actor3D);
         Texture woodTexture = Asset.getAsset().getTexture("tile/Bd.png");
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
@@ -75,6 +83,9 @@ public class GameScreen extends BaseScreen3D {
         teaPot.addAction(Action3Ds.moveToAction3D(-10,3,-10,4,Interpolation.linear));
 
 
+        Actor3D actor3D1 = new Actor3D();
+        stage3D.addActor(actor3D1);
+        actor3D1.buildModel(3,3,3,true);
 
 
         Actor3D plate = new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
@@ -86,9 +97,16 @@ public class GameScreen extends BaseScreen3D {
         Array<TilePosition> tilePositions = titleLevel.getTilePositions();
         for (TilePosition tilePosition : tilePositions) {
 
-            Actor3D majActor = new Actor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db"));
+            Actor3D majActor = new Actor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db")){
+                @Override
+                public void touchUp(Vector3 vector3, int pointer, int button) {
+                    super.touchUp(vector3, pointer, button);
+                    Vector3 position = getPosition();
+                    addAction(Action3Ds.moveToAction3D(position.x,position.y+10,position.z,1f,Interpolation.linear));
+                }
+            };
             stage3D.addActor(majActor);
-            majActor.setPosition(tilePosition.x,tilePosition.y,tilePosition.z );
+            majActor.setPosition(tilePosition.x,tilePosition.y+20,tilePosition.z );
             majActor.setMaterialTexture(Asset.getAsset().getTexture("tile/"+tilePosition.texturePath));
 
         }

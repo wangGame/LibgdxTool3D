@@ -2,7 +2,6 @@ package com.kw.gdx.d3.action;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Quaternion;
-import com.badlogic.gdx.scenes.scene2d.actions.TemporalAction;
 
 public class RotateToAction3D extends TemporalAction3D {
     private float startX,startY,startZ;
@@ -25,9 +24,9 @@ public class RotateToAction3D extends TemporalAction3D {
     }
 
     protected void begin () {
-        startX = target.getRotation();
-        startY = target.getRotation();
-        startZ = target.getRotation();
+        startX = target.getAngle();
+        startY = target.getAngle();
+        startZ = target.getAngle();
     }
 
     protected void update (float percent) {

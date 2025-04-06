@@ -3,6 +3,8 @@ package com.kw.gdx.d3.actor;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Quaternion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.RayBean;
@@ -47,8 +49,11 @@ public class BaseActor3DGroup extends BaseActor3D{
     /** Returns the transform for this group's coordinate system. */
     protected Matrix4 computeTransform () {
         Matrix4 worldTransform = this.worldTransform;
+        Vector3 position = getPosition();
         worldTransform.translate(position.x,position.y,position.z);
+        Quaternion rotation = getRotation();
         worldTransform.rotate(rotation);
+        Vector3 scale = getScale();
         worldTransform.scale(scale.x,scale.y,scale.z);
         if (parent3D!=null) {
             worldTransform.mul(parent3D.worldTransform);

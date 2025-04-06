@@ -2,7 +2,6 @@ package com.test;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.fuzzycat.mahjongsolitaire.MahjongSolitaire;
 
 public class MajApp {
     public static void main(String[] args) {
