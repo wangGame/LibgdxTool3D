@@ -1,10 +1,8 @@
 package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,16 +22,12 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.RayBean;
 import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.listener.Listener3D;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
-
-import org.w3c.dom.Text;
 
 /**
  * model Actor
@@ -363,23 +357,26 @@ public class BaseActor3D {
         return parent3D;
     }
 
-    protected RayBean checkCollision(Ray ray) {
-        RayBean rayBean = new RayBean();
-        Matrix4 matrix4 = calculateTransform();
-        Matrix4 inverseTransform = matrix4.cpy().inv();
-        BoundingBox boundingBoxTemp = new BoundingBox();
+    private BoundingBox boundingBoxTemp = new BoundingBox();
 
+    protected RayBean checkCollision(Ray ray, RayBean rayBean) {
         Vector3 position1 = getPosition();
+//        ray在使用之前已经经过变换
         boundingBoxTemp.set(position1.cpy().add(bounds.min),position1.cpy().add(bounds.max));
-
-
-
-
-
         Vector3 vector3 = new Vector3();
-        rayBean.setBaseActor3D(this);
         if (Intersector.intersectRayBounds(ray,boundingBoxTemp,vector3)) {
-            rayBean.setVector3(vector3);
+            float dst = vector3.dst(stage3D.getCamera().position);
+            if (rayBean.getBaseActor3D()!=null){
+                if (dst<rayBean.getLength()) {
+                    rayBean.setBaseActor3D(this);
+                    rayBean.setVector3(vector3);
+                    rayBean.setLength(dst);
+                }
+            }else {
+                rayBean.setBaseActor3D(this);
+                rayBean.setVector3(vector3);
+                rayBean.setLength(dst);
+            }
             return rayBean;
         }
         return null;
@@ -421,83 +418,5 @@ public class BaseActor3D {
 
     public BoundingBox getBounds() {
         return bounds;
-    }
-
-    protected RayBean checkCollisionV2(Ray ray1) {
-        RayBean rayBean = new RayBean();
-        Matrix4 matrix4 = calculateTransform();
-        Matrix4 inverseTransform = matrix4.cpy().inv();
-        BoundingBox boundingBoxTemp = new BoundingBox();
-
-        Vector3 position1 = getPosition();
-        boundingBoxTemp.set(position1.cpy().add(bounds.min),position1.cpy().add(bounds.max));
-
-        Ray localRay = new Ray(ray1.origin.cpy().mul(inverseTransform), ray1.direction.cpy().mul(inverseTransform));
-
-
-
-        Vector3 vector3 = new Vector3();
-        if (Intersector.intersectRayBounds(localRay,boundingBoxTemp,vector3)) {
-
-            final float len = localRay.direction.dot(position.x-localRay.origin.x, position.y-localRay.origin.y, position.z-localRay.origin.z);
-            float v = position.dst2(localRay.origin.x + localRay.direction.x * len, localRay.origin.y + localRay.direction.y * len, localRay.origin.z + localRay.direction.z * len);
-            rayBean.setLength(v);
-            System.out.println(v);
-
-        }else {
-            rayBean.setLength(-1);
-        }
-        rayBean.setBaseActor3D(this);
-        return rayBean;
-
-
-//
-//
-//
-//
-//
-//        Vector3 center = new Vector3();
-//        Matrix4 transform = calculateTransform();
-//        bounds.getCenter(center);
-//        Vector3 position = new Vector3();
-//        transform.getTranslation(position).add(center);
-////        final float len = ray.direction.dot(position.x-ray.origin.x, position.y-ray.origin.y, position.z-ray.origin.z);
-////        if (len < 0f){
-////            rayBean.setLength(-1);
-////            rayBean.setBaseActor3D(this);
-////        }
-////        float dist2 = position.dst2(ray.origin.x+ray.direction.x*len, ray.origin.y+ray.direction.y*len, ray.origin.z+ray.direction.z*len);
-////        if (dist2 <= radius * radius) {
-////            rayBean.setLength(-1);
-////            rayBean.setBaseActor3D(this);
-////
-////        }else {
-////            rayBean.setLength(dist2);
-////            rayBean.setBaseActor3D(this);
-////
-////        }
-//
-//
-//        Vector3 dimensions  = new Vector3();
-//        bounds.getDimensions(dimensions);
-//        Matrix4 matrix4 = calculateTransform();
-//        Matrix4 inverseTransform = matrix4.cpy().inv();
-//        BoundingBox boundingBoxTemp = new BoundingBox();
-//
-//        Vector3 position1 = getPosition();
-//        boundingBoxTemp.set(position1.cpy().add(bounds.min),position1.cpy().add(bounds.max));
-//
-//        Ray ray = new Ray(ray1.origin.cpy().mul(inverseTransform), ray1.direction.cpy().mul(inverseTransform));
-//
-//        if (Intersector.intersectRayBoundsFast(ray, position, dimensions)) {
-//            final float len = ray.direction.dot(position.x-ray.origin.x, position.y-ray.origin.y, position.z-ray.origin.z);
-//            float v = position.dst2(ray.origin.x + ray.direction.x * len, ray.origin.y + ray.direction.y * len, ray.origin.z + ray.direction.z * len);
-//            rayBean.setLength(v);
-//        }else {
-//            rayBean.setLength(-1);
-//        }
-//
-//        rayBean.setBaseActor3D(this);
-//        return rayBean;
     }
 }

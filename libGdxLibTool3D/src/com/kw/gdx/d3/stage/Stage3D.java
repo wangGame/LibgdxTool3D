@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
+import com.kw.gdx.d3.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
@@ -196,24 +197,16 @@ public class Stage3D extends InputAdapter {
         }
     }
 
-    private Array<BaseActor3D> hitActors = new Array<>();
+    private RayBean rayBean = new RayBean();
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        hitActors.clear();
-        Ray ray = camera.getPickRay(Gdx.input.getX(),Gdx.input.getY());
+        rayBean.reset();
+        Ray ray = camera.getPickRay(screenX,screenY);
         //这个是root
-        getRoot().checkCollisions(ray,hitActors);
-        float max = Float.MAX_VALUE;
-        Vector3 position = camera.position;
-        BaseActor3D touch = null;
-        for (BaseActor3D hitActor : hitActors) {
-            float dst = hitActor.getPosition().dst(position);
-            if (dst<max) {
-                max = dst;
-                touch = hitActor;
-            }
-        }
-        if (touch!=null) {
-            touch.notifyListener();
+        getRoot().checkCollisions(ray,rayBean);
+        BaseActor3D baseActor3D = rayBean.getBaseActor3D();
+        if (rayBean.getBaseActor3D()!=null) {
+            baseActor3D.notifyListener();
+            return true;
         }
         return false;
     }

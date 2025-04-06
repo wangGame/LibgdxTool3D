@@ -7,6 +7,6 @@ import com.test.screen.TestScreen;
 public class MajGame extends BaseGame {
     @Override
     protected void initScreen() {
-        setScreen(TestScreen.class);
+        setScreen(GameScreen.class);
     }
 }

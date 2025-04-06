@@ -55,7 +55,7 @@ public class TestScreen extends BaseScreen3D {
         actor3D.setPosition(0,-0.5f,0);
         actor3D.extracted();
         groundObject = new btCollisionObject();
-        groundObject.setCollisionShape(actor3D.getShape());
+//        groundObject.setCollisionShape(actor3D.getShape());
 
 
     }

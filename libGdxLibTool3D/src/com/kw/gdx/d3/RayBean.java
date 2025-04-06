@@ -7,7 +7,7 @@ import com.kw.gdx.d3.actor.BaseActor3D;
 public class RayBean {
     private float length;
     private Vector3 vector3;
-    private BaseActor3D baseActor3D;
+    private BaseActor3D target;
 
     public Vector3 getVector3() {
         return vector3;
@@ -26,10 +26,16 @@ public class RayBean {
     }
 
     public BaseActor3D getBaseActor3D() {
-        return baseActor3D;
+        return target;
     }
 
     public void setBaseActor3D(BaseActor3D baseActor3D) {
-        this.baseActor3D = baseActor3D;
+        this.target = baseActor3D;
+    }
+
+    public void reset() {
+        length = Float.MAX_VALUE;
+        vector3 = new Vector3(0,0,0);
+        target = null;
     }
 }
