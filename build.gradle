@@ -1,6 +1,9 @@
 buildscript {
     repositories {
         maven {
+            url 'https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx-bullet'
+        }
+        maven {
             url 'https://maven.aliyun.com/repository/central'
             name 'central'
         }
