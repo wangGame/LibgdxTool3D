@@ -16,44 +16,65 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Pools;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
-import com.kw.gdx.d3.actor.GameObject;
 
 public class Stage3D extends InputAdapter {
-    public boolean intervalFlag;
-    public int visibleCount = 0;
-    public Environment environment;
-    public PerspectiveCamera camera;
-//    private ArrayList<BaseActor3D> actorList3D;
-    private BaseActor3DGroup actorList3D;
-    private final ModelBatch modelBatch;
+    private boolean intervalFlag;
+    private int visibleCount = 0;
+    private Environment environment;
+    private PerspectiveCamera camera;
+    private BaseActor3DGroup gameRoot;
+    private ModelBatch modelBatch;
     private float intervalCounter;
     private final float INTERVAL_COUNTER_FREQUENCY = 1;
-    public CameraInputController camController;//视角控制器
-
-
-
-
-    DirectionalShadowLight shadowLight;
-    ModelBatch shadowBatch;
-
-
+    private CameraInputController camController;//视角控制器
+    private DirectionalShadowLight shadowLight;
+    private ModelBatch shadowBatch;
 
     public Stage3D() {
+        initLight();
+        initCamera();
+        initModelBatch();
+        initRoot();
+    }
+
+    private void initRoot() {
+        gameRoot = new BaseActor3DGroup(0,0,0);
+    }
+
+    public CameraInputController getCamController() {
+        return camController;
+    }
+
+    private void initModelBatch() {
+        DefaultShader.Config config = new DefaultShader.Config();
+        config.numDirectionalLights = 1;
+        config.numPointLights = 50;
+        config.numSpotLights = 0;
+        ShaderProvider shaderProvider = new DefaultShaderProvider(config);
+        this.modelBatch = new ModelBatch(shaderProvider);
+        this.shadowBatch = new ModelBatch(new DepthShaderProvider());
+    }
+
+    private void initCamera() {
+        camera = new PerspectiveCamera(67, 5, 5);
+        camera.position.set(0f, 31, 21f);
+        camera.direction.x = 45;
+        camera.lookAt(0,0,0);
+        camera.near = 0.3f;
+        camera.far = 1300f;
+        camController = new CameraInputController(camera);
+    }
+
+    private void initLight() {
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+        //投影
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
                 30f, 30f, 1f, 100f)).
                 set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
@@ -66,51 +87,27 @@ public class Stage3D extends InputAdapter {
         color.b = color.b * intensity;
         color.a = 0.1f;
         set.setColor(color);
-//        environment.add(set);
-//        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
-//        environment.add(set1);
-
-
-        camera = new PerspectiveCamera(67, 5, 5);
-        camera.position.set(0f, 31, 21f);
-        camera.direction.x = 45;
-        camera.lookAt(0,0,0);
-        camera.near = 0.3f;
-        camera.far = 1300f;
-        camController = new CameraInputController(camera);
-        DefaultShader.Config config = new DefaultShader.Config();
-        config.numDirectionalLights = 1;
-        config.numPointLights = 50;
-        config.numSpotLights = 0;
-        ShaderProvider shaderProvider = new DefaultShaderProvider(config);
-        modelBatch = new ModelBatch(shaderProvider);
-        actorList3D = new BaseActor3DGroup(0,0,0);
-        this.shadowBatch = new ModelBatch(new DepthShaderProvider());
+        environment.add(set);
+        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
+        environment.add(set1);
     }
 
     public void act(float dt) {
-//        camController.update();
         camera.update();
-        actorList3D.act(dt);
+        gameRoot.act(dt);
         setIntervalFlag(dt);
     }
 
     public void draw() {
-
         shadowLight.begin(Vector3.Zero, camera.direction);
         shadowBatch.begin(shadowLight.getCamera());
-
-
-        actorList3D.drawShadow(shadowBatch,environment);
-
+        gameRoot.drawShadow(shadowBatch,environment);
         shadowBatch.end();
         shadowLight.end();
-
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-
+//        Gdx.gl.glClearColor(0, 0, 0, 1);
         modelBatch.begin(camera);
         visibleCount = 0;
-        actorList3D.draw(modelBatch,environment);
+        gameRoot.draw(modelBatch,environment);
         modelBatch.end();
     }
 
@@ -119,16 +116,16 @@ public class Stage3D extends InputAdapter {
     }
 
     public void addActor(BaseActor3D ba) {
-        actorList3D.addActor3D(ba);
+        gameRoot.addActor3D(ba);
         ba.setStage3D(this);
     }
 
     public void removeActor(BaseActor3D ba) {
-        actorList3D.remove3D(ba);
+        gameRoot.remove3D(ba);
     }
 
     public BaseActor3DGroup getRoot() {
-        return actorList3D;
+        return gameRoot;
     }
 
     public void setCameraPosition(float x, float y, float z) {
@@ -221,4 +218,7 @@ public class Stage3D extends InputAdapter {
         return false;
     }
 
+    public PerspectiveCamera getCamera() {
+        return camera;
+    }
 }
