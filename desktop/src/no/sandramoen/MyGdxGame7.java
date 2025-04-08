@@ -22,8 +22,6 @@ import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.UBJsonReader;
 import com.kw.gdx.d3.asset.Asset3D;
 
 public class MyGdxGame7 extends ApplicationAdapter {

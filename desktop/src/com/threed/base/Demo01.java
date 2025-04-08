@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.kw.gdx.d3.asset.Asset3D;
 
 /**
  * 绘制模型
@@ -27,16 +28,18 @@ public class Demo01 extends ApplicationAdapter {
     public void create() {
         super.create();
         camera = new PerspectiveCamera(67, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        camera.position.set(10,10,10);
+        camera.position.set(10,100,200);
         camera.lookAt(0,0,0);
         camera.near = 1;
         camera.far = 300;
 
 
-        ModelBuilder modelBuilder = new ModelBuilder();
-        Model model = modelBuilder.createBox(5f, 5f, 5f,
-                new Material(ColorAttribute.createDiffuse(Color.GREEN)),
-                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+//        ModelBuilder modelBuilder = new ModelBuilder();
+//        Model model = modelBuilder.createBox(5f, 5f, 5f,
+//                new Material(ColorAttribute.createDiffuse(Color.GREEN)),
+//                VertexAttributes.Usage.Position | VertexAttributes.Usage.Normal);
+
+        Model model = Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db");
         instance = new ModelInstance(model);
 
         modelBatch = new ModelBatch();

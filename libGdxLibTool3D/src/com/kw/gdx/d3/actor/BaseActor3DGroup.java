@@ -23,10 +23,6 @@ public class BaseActor3DGroup extends BaseActor3D{
 
 
     public void drawShadow(ModelBatch batch,Environment environment){
-        GameObject modelData1 = getModelData();
-        if (modelData1!=null){
-            modelData1.transform.set(computeTransform());
-        }
         super.drawShadow(batch,environment);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.drawShadow(batch,environment);
@@ -35,11 +31,6 @@ public class BaseActor3DGroup extends BaseActor3D{
 
     @Override
     public void draw(ModelBatch batch, Environment env) {
-        super.draw(batch,env);
-        GameObject modelData1 = getModelData();
-        if (modelData1!=null){
-            modelData1.transform.set(computeTransform());
-        }
         super.draw(batch,env);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.draw(batch,env);
@@ -85,7 +76,7 @@ public class BaseActor3DGroup extends BaseActor3D{
     }
 
     public BaseActor3D checkCollisions(Ray ray,RayBean rayBean) {
-        Matrix4 transform = calculateTransform();
+        Matrix4 transform = getActorMatrix();
         Matrix4 inv = transform.cpy().inv();
         Ray localRay = new Ray(ray.origin.cpy().mul(inv), ray.direction.cpy().mul(inv));
         super.checkCollision(localRay,rayBean);

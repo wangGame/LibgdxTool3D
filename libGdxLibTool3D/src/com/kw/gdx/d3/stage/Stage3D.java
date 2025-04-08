@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
@@ -63,12 +64,12 @@ public class Stage3D extends InputAdapter {
     }
 
     private void initCamera() {
-        camera = new PerspectiveCamera(67, 5, 5);
-        camera.position.set(0f, 31, 21f);
-        camera.direction.x = 45;
+        camera = new PerspectiveCamera(23, 5, 5);
+        camera.position.set(0f, 2100, -2100f);
         camera.lookAt(0,0,0);
+
         camera.near = 0.3f;
-        camera.far = 1300f;
+        camera.far = 11300f;
         camController = new CameraInputController(camera);
     }
 

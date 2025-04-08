@@ -22,9 +22,9 @@ public class ModelTestScreen extends BaseScreen3D {
         {
 //            实时更新
             Vector3 vector3 = new Vector3();
-            teaCup.getModelData().transform.getTranslation(vector3);
+            teaCup.getModel().transform.getTranslation(vector3);
             vector3.x += 3;
-            teaCup.getModelData().transform.setTranslation(vector3);
+            teaCup.getModel().transform.setTranslation(vector3);
 
 
         }

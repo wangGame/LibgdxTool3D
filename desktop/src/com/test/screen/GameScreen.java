@@ -41,7 +41,7 @@ public class GameScreen extends BaseScreen3D {
         actor3D.setMaterialTexture(woodTexture);
         actor3D.setScale(7,7,7);
         actor3D.setPosition(0,-0.5f,0);
-        actor3D.extracted();
+
 //
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plateActor);
@@ -102,11 +102,15 @@ public class GameScreen extends BaseScreen3D {
                 public void touchUp(Vector3 vector3, int pointer, int button) {
                     super.touchUp(vector3, pointer, button);
                     Vector3 position = getPosition();
-                    addAction(Action3Ds.moveToAction3D(position.x,position.y+10,position.z,1f,Interpolation.linear));
+                    addAction(
+                            Action3Ds.parallel3D(
+                                    Action3Ds.moveToAction3D(position.x,position.y+10,position.z,1f,Interpolation.linear)
+                                    )
+                    );
                 }
             };
             stage3D.addActor(majActor);
-            majActor.setPosition(tilePosition.x,tilePosition.y+20,tilePosition.z );
+            majActor.setPosition(tilePosition.x,tilePosition.y,tilePosition.z );
             majActor.setMaterialTexture(Asset.getAsset().getTexture("tile/"+tilePosition.texturePath));
 
         }
