@@ -71,7 +71,6 @@ public class BaseActor3D {
     public Matrix4 getActorMatrix() {
         if (isDity){
             calculateTransform();
-            updateBox();
         }
         return actorMatrix;
     }
@@ -82,7 +81,6 @@ public class BaseActor3D {
      */
     public Matrix4 calculateTransform() {
         if (!isDity)return actorMatrix;
-        isDity = true;
         actorMatrix.idt();
         Matrix4 rotate = actorMatrix.rotate(rotation);
         Matrix4 matrix4 = rotate

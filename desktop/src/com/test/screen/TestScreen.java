@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.physics.bullet.Bullet;
-import com.demo.kitchen.actor.Actor3D;
+import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 
@@ -16,7 +16,7 @@ import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 
 public class TestScreen extends BaseScreen3D {
-    private  Actor3D domi;
+    private ModelActor3D domi;
     public TestScreen(BaseGame game) {
         super(game);
     }
@@ -25,7 +25,7 @@ public class TestScreen extends BaseScreen3D {
     public void initView() {
         super.initView();
         Bullet.init();
-        domi = new Actor3D(Asset3D.getAsset3D().getModel("mo/1.g3db"));
+        domi = new ModelActor3D(Asset3D.getAsset3D().getModel("mo/1.g3db"));
         stage3D.addActor(domi);
         domi.setPosition(0,19,0);
         ModelInstance model = domi.getModel();
@@ -42,14 +42,14 @@ public class TestScreen extends BaseScreen3D {
         }
 
         Model tableModel = Asset3D.getAsset3D().getModel("tile/table.g3db");
-        Actor3D actor3D = new Actor3D(tableModel);
-        stage3D.addActor(actor3D);
+        ModelActor3D modelActor3D = new ModelActor3D(tableModel);
+        stage3D.addActor(modelActor3D);
         Texture woodTexture = Asset.getAsset().getTexture("tile/Bd.png");
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        actor3D.setMaterialTexture(woodTexture);
-        actor3D.setScale(7,7,7);
-        actor3D.setPosition(0,-0.5f,0);
+        modelActor3D.setMaterialTexture(woodTexture);
+        modelActor3D.setScale(7,7,7);
+        modelActor3D.setPosition(0,-0.5f,0);
     }
 
     @Override

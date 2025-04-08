@@ -8,8 +8,9 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
-import com.demo.kitchen.actor.Actor3D;
+import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.action.Action3Ds;
@@ -27,27 +28,35 @@ public class GameScreen extends BaseScreen3D {
     public void initView() {
         super.initView();
         Model model = Asset3D.getAsset3D().getModel("tile/table.g3db");
-        Actor3D actor3D = new Actor3D(model){
+        ModelActor3D modelActor3D = new ModelActor3D(model){
             @Override
             public void touchUp(Vector3 vector3, int pointer, int button) {
                 super.touchUp(vector3, pointer, button);
                 setColor(Color.BLUE);
             }
         };
-        stage3D.addActor(actor3D);
+        stage3D.addActor(modelActor3D);
         Texture woodTexture = Asset.getAsset().getTexture("tile/Bd.png");
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        actor3D.setMaterialTexture(woodTexture);
-        actor3D.setScale(7,7,7);
-        actor3D.setPosition(0,-0.5f,0);
+        modelActor3D.setMaterialTexture(woodTexture);
+        modelActor3D.setScale(7,7,7);
+        modelActor3D.setPosition(0,-0.5f,0);
+
+        BoundingBox boundingBox = new BoundingBox();
+        modelActor3D.getModel().calculateBoundingBox(boundingBox);
+        System.out.println(boundingBox);
+        modelActor3D.getModel().transform.setToScaling(0.1f,0.1f,0.1f);
+        modelActor3D.getModel().calculateBoundingBox(boundingBox);
+        System.out.println(boundingBox);
+
 
 //
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plateActor);
 //        plateActor.setPosition(3,3,3);
 
-        Actor3D teaCup = new Actor3D(Asset3D.getAsset3D().getModel("tile/teacup.g3db"));
+        ModelActor3D teaCup = new ModelActor3D(Asset3D.getAsset3D().getModel("tile/teacup.g3db"));
 //        stage3D.addActor(teaCup);
         teaCup.setPosition(-13,-0.5f,0);
         Attributes attributes1 = new Attributes();
@@ -69,7 +78,7 @@ public class GameScreen extends BaseScreen3D {
         teaCup.setMetal(attributes1);
         teaCup.setScale(1,1,1);
 
-        Actor3D teaPot = new Actor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
+        ModelActor3D teaPot = new ModelActor3D(Asset3D.getAsset3D().getModel("tile/teapot.g3db"));
 //        stage3D.addActor(teaPot);
         teaPot.setPosition(13,-0.5f,0);
 
@@ -83,12 +92,12 @@ public class GameScreen extends BaseScreen3D {
         teaPot.addAction(Action3Ds.moveToAction3D(-10,3,-10,4,Interpolation.linear));
 
 
-        Actor3D actor3D1 = new Actor3D();
-        stage3D.addActor(actor3D1);
-        actor3D1.buildModel(3,3,3,true);
+        ModelActor3D modelActor3D1 = new ModelActor3D();
+        stage3D.addActor(modelActor3D1);
+        modelActor3D1.buildModel(3,3,3,true);
 
 
-        Actor3D plate = new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
+        ModelActor3D plate = new ModelActor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));
 //        stage3D.addActor(plate);
         plate.setScale(0.5f,0.5f,0.5f);
 
@@ -97,7 +106,7 @@ public class GameScreen extends BaseScreen3D {
         Array<TilePosition> tilePositions = titleLevel.getTilePositions();
         for (TilePosition tilePosition : tilePositions) {
 
-            Actor3D majActor = new Actor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db")){
+            ModelActor3D majActor = new ModelActor3D(Asset3D.getAsset3D().getModel("tile/mahjong_tile.g3db")){
                 @Override
                 public void touchUp(Vector3 vector3, int pointer, int button) {
                     super.touchUp(vector3, pointer, button);

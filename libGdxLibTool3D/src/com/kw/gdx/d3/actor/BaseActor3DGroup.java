@@ -38,7 +38,7 @@ public class BaseActor3DGroup extends BaseActor3D{
     }
 
     /** Returns the transform for this group's coordinate system. */
-    protected Matrix4 computeTransform () {
+    public Matrix4 computeTransform () {
         Matrix4 worldTransform = this.worldTransform;
         Vector3 position = getPosition();
         worldTransform.translate(position.x,position.y,position.z);

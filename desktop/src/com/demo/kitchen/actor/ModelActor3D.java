@@ -28,23 +28,23 @@ import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
 
-public class Actor3D extends BaseActor3D {
+public class ModelActor3D extends BaseActor3D {
 
     protected ModelInstance modelInstance;
 
-    public Actor3D() {
+    public ModelActor3D() {
         this(0, 0, 0);
     }
 
-    public Actor3D(Model tableModel){
+    public ModelActor3D(Model tableModel){
         this(0,0,0,tableModel);
     }
 
-    public Actor3D(float x, float y, float z) {
+    public ModelActor3D(float x, float y, float z) {
         this(x,y,z,null);
     }
 
-    public Actor3D(float x,float y,float z,Model model){
+    public ModelActor3D(float x, float y, float z, Model model){
         if (model!=null){
             ModelInstance instance = new ModelInstance(model,getPosition());
             setModelInstance(instance);
@@ -55,15 +55,18 @@ public class Actor3D extends BaseActor3D {
     public void setModelInstance(ModelInstance modelInstance) {
         this.modelInstance = modelInstance;
     }
-
+    private Matrix4 resourceMax = new Matrix4();
     public void drawShadow(ModelBatch batch, Environment environment) {
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D != null) {
-                Matrix4 pM = parent3D.getActorMatrix();
-                pM.mul(matrix4);
-                modelInstance.transform.set(pM);
+                Matrix4 pM = parent3D.computeTransform();
+                resourceMax.idt();
+                resourceMax.set(pM);
+                resourceMax.mul(matrix4);
+                modelInstance.transform.set(resourceMax);
+
             } else {
                 modelInstance.transform.set(matrix4);
             }
@@ -72,15 +75,22 @@ public class Actor3D extends BaseActor3D {
     }
 
     public void draw(ModelBatch batch, Environment env) {
+        updateBox();
+        System.out.println(bounds+"  ===start");
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
             if (parent3D != null) {
                 Matrix4 pM = parent3D.getActorMatrix();
-                pM.mul(actorMatrix);
-                modelInstance.transform.set(pM);
+                resourceMax.idt();
+                resourceMax.set(pM);
+                resourceMax.mul(actorMatrix);
+                modelInstance.transform.set(resourceMax);
+
             } else {
                 modelInstance.transform.set(actorMatrix);
             }
+            updateBox();
+            System.out.println(bounds+"  ===end");
             batch.render(modelInstance, env);
         }
     }
@@ -162,13 +172,16 @@ public class Actor3D extends BaseActor3D {
     }
 
     public void updateBox() {
-        if (modelInstance != null) {
-            modelInstance.calculateBoundingBox(bounds);
-            shape = new Box(bounds);
-            Vector3 dimensions = new Vector3();
-            bounds.getDimensions(dimensions);
-            radius = dimensions.len() / 2f;
-            bounds.getCenter(center);
+        if (isDity) {
+            if (modelInstance != null) {
+                isDity = false;
+                modelInstance.calculateBoundingBox(bounds);
+                shape = new Box(bounds);
+                Vector3 dimensions = new Vector3();
+                bounds.getDimensions(dimensions);
+                radius = dimensions.len() / 2f;
+                bounds.getCenter(center);
+            }
         }
     }
 
