@@ -2,17 +2,19 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
     private final Matrix4 worldTransform = new Matrix4();
     private Matrix4 computedTransform = new Matrix4();
+    public boolean transform = true;
     public BaseActor3DGroup(){
         this.actor3DS = new Array<>();
     }
@@ -84,5 +86,19 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor.checkCollision(localRay, rayBean);
         }
         return null;
+    }
+
+    public void drawDebug(ShapeRenderer debugShapes) {
+        drawDebugBounds(debugShapes);
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.drawDebug(batch,env);
+        }
+    }
+
+    protected void drawDebugBounds(ShapeRenderer shapes) {
+        if (!debug) return;
+        shapes.set(ShapeRenderer.ShapeType.Line);
+        shapes.setColor(stage.getDebugColor());
+        shapes.rect(x, y, originX, originY, width, height, scaleX, scaleY, rotation);
     }
 }

@@ -2,32 +2,18 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g3d.Attribute;
 import com.badlogic.gdx.graphics.g3d.Environment;
-import com.badlogic.gdx.graphics.g3d.Material;
-import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.graphics.g3d.ModelInstance;
-import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
-import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
-import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
-import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
-import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.stage.Stage3D;
-import com.kw.gdx.d3.utils.Box;
-import com.kw.gdx.d3.utils.Shape;
 
 /**
  * model Actor
@@ -47,8 +33,8 @@ public class BaseActor3D {
     protected Vector3 clipTempV3;
     protected BoundingBox boundingBoxTemp;
     protected Vector3 checkCollisionV3;
-    public Shape shape;
     protected Color color;
+    protected boolean debug;
 
     public BaseActor3D(){
         this(0,0,0);

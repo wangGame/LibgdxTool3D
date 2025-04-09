@@ -1,6 +1,5 @@
 package com.kw.gdx.d3.stage;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -16,12 +15,11 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
@@ -37,12 +35,29 @@ public class Stage3D extends InputAdapter {
     private CameraInputController camController;//视角控制器
     private DirectionalShadowLight shadowLight;
     private ModelBatch shadowBatch;
+    private RayBean rayBean = new RayBean();
+    private ShapeRenderer debugShapes;
+    private boolean isDebug;
 
     public Stage3D() {
         initLight();
         initCamera();
         initModelBatch();
         initRoot();
+    }
+
+    public void debug(){
+        if (isDebug) {
+            if (debugShapes == null) {
+                debugShapes = new ShapeRenderer();
+                debugShapes.setAutoShapeType(true);
+            }
+        }
+
+        debugShapes.setProjectionMatrix(getCamera().combined);
+        debugShapes.begin();
+        gameRoot.drawDebug(debugShapes);
+        debugShapes.end();
     }
 
     private void initRoot() {
@@ -111,6 +126,8 @@ public class Stage3D extends InputAdapter {
         visibleCount = 0;
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
+
+        debug();
     }
 
     public void dispose() {
@@ -198,7 +215,7 @@ public class Stage3D extends InputAdapter {
         }
     }
 
-    private RayBean rayBean = new RayBean();
+
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         rayBean.reset();
         Ray ray = camera.getPickRay(screenX,screenY);

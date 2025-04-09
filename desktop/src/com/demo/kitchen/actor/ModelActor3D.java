@@ -22,14 +22,14 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.stage.Stage3D;
 import com.kw.gdx.d3.utils.Box;
 
 public class ModelActor3D extends BaseActor3D {
-
+    private Matrix4 resourceMax = new Matrix4();
     protected ModelInstance modelInstance;
 
     public ModelActor3D() {
@@ -54,8 +54,9 @@ public class ModelActor3D extends BaseActor3D {
 
     public void setModelInstance(ModelInstance modelInstance) {
         this.modelInstance = modelInstance;
+        modelInstance.calculateBoundingBox(bounds);
     }
-    private Matrix4 resourceMax = new Matrix4();
+
     public void drawShadow(ModelBatch batch, Environment environment) {
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
@@ -75,8 +76,6 @@ public class ModelActor3D extends BaseActor3D {
     }
 
     public void draw(ModelBatch batch, Environment env) {
-        updateBox();
-        System.out.println(bounds+"  ===start");
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
             if (parent3D != null) {
@@ -89,8 +88,6 @@ public class ModelActor3D extends BaseActor3D {
             } else {
                 modelInstance.transform.set(actorMatrix);
             }
-            updateBox();
-            System.out.println(bounds+"  ===end");
             batch.render(modelInstance, env);
         }
     }
@@ -171,26 +168,17 @@ public class ModelActor3D extends BaseActor3D {
         }
     }
 
+    Vector3 dimensions = new Vector3();
     public void updateBox() {
-        if (isDity) {
-            if (modelInstance != null) {
-                isDity = false;
-                modelInstance.calculateBoundingBox(bounds);
-                shape = new Box(bounds);
-                Vector3 dimensions = new Vector3();
-                bounds.getDimensions(dimensions);
-                radius = dimensions.len() / 2f;
-                bounds.getCenter(center);
-            }
+        if (modelInstance != null) {
+            Matrix4 matrix4 = calculateTransform();
+            bounds.mul(matrix4);
+            bounds.getDimensions(dimensions);
+            radius = dimensions.len() / 2f;
+            bounds.getCenter(center);
+            bounds.mul(actorMatrix);
         }
-    }
 
-    public BoundingBox getBounds() {
-        if (isDity) {
-            calculateTransform();
-            updateBox();
-        }
-        return bounds;
     }
 
     //是否在裁剪坐标里面

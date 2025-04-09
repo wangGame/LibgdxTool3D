@@ -16,6 +16,7 @@ import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.action.Action3Ds;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
+import com.sun.jdi.connect.Connector;
 import com.test.TilePosition;
 import com.test.TitleLevel;
 
@@ -49,7 +50,6 @@ public class GameScreen extends BaseScreen3D {
         modelActor3D.getModel().transform.setToScaling(0.1f,0.1f,0.1f);
         modelActor3D.getModel().calculateBoundingBox(boundingBox);
         System.out.println(boundingBox);
-
 
 //
 //        Actor3D plateActor =  new Actor3D(Asset3D.getAsset3D().getModel("tile/Plate.g3db"));

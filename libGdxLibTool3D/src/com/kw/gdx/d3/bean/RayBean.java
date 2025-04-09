@@ -1,7 +1,6 @@
-package com.kw.gdx.d3;
+package com.kw.gdx.d3.bean;
 
 import com.badlogic.gdx.math.Vector3;
-import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.actor.BaseActor3D;
 
 public class RayBean {
