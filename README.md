@@ -155,3 +155,11 @@ public boolean touchDown (int screenX, int screenY, int pointer, int button) {
     return false;
 }
 ```
+
+## unity canvas的几种模式
+
+- overlay 始终在最上层
+- camra 他会根据相机的视角  不可以改变x y z
+- world  可以改变x y z
+
+本仓库如何使用这类功能

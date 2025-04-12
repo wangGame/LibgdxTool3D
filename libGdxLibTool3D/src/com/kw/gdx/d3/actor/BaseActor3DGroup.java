@@ -91,14 +91,14 @@ public class BaseActor3DGroup extends BaseActor3D{
     public void drawDebug(ShapeRenderer debugShapes) {
         drawDebugBounds(debugShapes);
         for (BaseActor3D actor3D : actor3DS) {
-            actor3D.drawDebug(batch,env);
+//            actor3D.drawDebug(batch,env);
         }
     }
 
     protected void drawDebugBounds(ShapeRenderer shapes) {
         if (!debug) return;
-        shapes.set(ShapeRenderer.ShapeType.Line);
-        shapes.setColor(stage.getDebugColor());
-        shapes.rect(x, y, originX, originY, width, height, scaleX, scaleY, rotation);
+//        shapes.set(ShapeRenderer.ShapeType.Line);
+//        shapes.setColor(stage.getDebugColor());
+//        shapes.rect(x, y, originX, originY, width, height, scaleX, scaleY, rotation);
     }
 }

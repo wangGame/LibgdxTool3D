@@ -1,4 +1,5 @@
 package com.threed.bullet;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -16,10 +17,26 @@ import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.Bullet;
+import com.badlogic.gdx.physics.bullet.collision.CollisionObjectWrapper;
+import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionAlgorithm;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionAlgorithmConstructionInfo;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
+import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btDispatcherInfo;
+import com.badlogic.gdx.physics.bullet.collision.btManifoldResult;
+import com.badlogic.gdx.physics.bullet.collision.btSphereBoxCollisionAlgorithm;
+import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 import com.badlogic.gdx.utils.Array;
-import com.threed.click.RayPickingTest;
 
-public class BulletApp implements ApplicationListener {
+
+public class BulletTest implements ApplicationListener {
     PerspectiveCamera cam;
     CameraInputController camController;
     ModelBatch modelBatch;
@@ -30,10 +47,20 @@ public class BulletApp implements ApplicationListener {
     ModelInstance ball;
     boolean collision;
 
+    btCollisionShape groundShape;
+    btCollisionShape ballShape;
+
+    btCollisionObject groundObject;
+    btCollisionObject ballObject;
+
+    btCollisionConfiguration collisionConfig;
+    btDispatcher dispatcher;
+
     @Override
     public void create () {
-        modelBatch = new ModelBatch();
+        Bullet.init();
 
+        modelBatch = new ModelBatch();
         environment = new Environment();
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1f));
         environment.add(new DirectionalLight().set(0.8f, 0.8f, 0.8f, -1f, -0.8f, -0.2f));
@@ -50,7 +77,7 @@ public class BulletApp implements ApplicationListener {
         mb.begin();
         mb.node().id = "ground";
         mb.part("box", GL20.GL_TRIANGLES, Usage.Position | Usage.Normal, new Material(ColorAttribute.createDiffuse(Color.RED)))
-                .box(50f, 1f, 50f);
+                .box(5f, 1f, 5f);
         mb.node().id = "ball";
         mb.part("sphere", GL20.GL_TRIANGLES, Usage.Position | Usage.Normal, new Material(ColorAttribute.createDiffuse(Color.GREEN)))
                 .sphere(1f, 1f, 1f, 10, 10);
@@ -63,6 +90,20 @@ public class BulletApp implements ApplicationListener {
         instances = new Array<ModelInstance>();
         instances.add(ground);
         instances.add(ball);
+
+        ballShape = new btSphereShape(0.5f);
+        groundShape = new btBoxShape(new Vector3(2.5f, 0.5f, 2.5f));
+
+        groundObject = new btCollisionObject();
+        groundObject.setCollisionShape(groundShape);
+        groundObject.setWorldTransform(ground.transform);
+
+        ballObject = new btCollisionObject();
+        ballObject.setCollisionShape(ballShape);
+        ballObject.setWorldTransform(ball.transform);
+
+        collisionConfig = new btDefaultCollisionConfiguration();
+        dispatcher = new btCollisionDispatcher(collisionConfig);
     }
 
     @Override
@@ -71,6 +112,8 @@ public class BulletApp implements ApplicationListener {
 
         if (!collision) {
             ball.transform.translate(0f, -delta, 0f);
+            ballObject.setWorldTransform(ball.transform);
+
             collision = checkCollision();
         }
 
@@ -85,11 +128,41 @@ public class BulletApp implements ApplicationListener {
     }
 
     boolean checkCollision () {
-        return false;
+        CollisionObjectWrapper co0 = new CollisionObjectWrapper(ballObject);
+        CollisionObjectWrapper co1 = new CollisionObjectWrapper(groundObject);
+
+        btCollisionAlgorithmConstructionInfo ci = new btCollisionAlgorithmConstructionInfo();
+        ci.setDispatcher1(dispatcher);
+        btCollisionAlgorithm algorithm = new btSphereBoxCollisionAlgorithm(null, ci, co0.wrapper, co1.wrapper, false);
+
+        btDispatcherInfo info = new btDispatcherInfo();
+        btManifoldResult result = new btManifoldResult(co0.wrapper, co1.wrapper);
+
+        algorithm.processCollision(co0.wrapper, co1.wrapper, info, result);
+
+        boolean r = result.getPersistentManifold().getNumContacts() > 0;
+
+        result.dispose();
+        info.dispose();
+        algorithm.dispose();
+        ci.dispose();
+        co1.dispose();
+        co0.dispose();
+
+        return r;
     }
 
     @Override
     public void dispose () {
+        groundObject.dispose();
+        groundShape.dispose();
+
+        ballObject.dispose();
+        ballShape.dispose();
+
+        dispatcher.dispose();
+        collisionConfig.dispose();
+
         modelBatch.dispose();
         model.dispose();
     }
@@ -113,6 +186,6 @@ public class BulletApp implements ApplicationListener {
         config.y = 0;
         config.height = (int) (1920 * 0.5f);
         config.width = (int) (1080 * 0.8f);
-        new LwjglApplication(new BulletApp(), config);
+        new LwjglApplication(new BulletTest(), config);
     }
 }

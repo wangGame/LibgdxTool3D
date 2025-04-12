@@ -26,7 +26,6 @@ import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.stage.Stage3D;
-import com.kw.gdx.d3.utils.Box;
 
 public class ModelActor3D extends BaseActor3D {
     private Matrix4 resourceMax = new Matrix4();
