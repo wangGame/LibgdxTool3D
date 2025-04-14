@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.bean.RayBean;
+import com.kw.gdx.d3.stage.Stage3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
@@ -59,6 +60,15 @@ public class BaseActor3DGroup extends BaseActor3D{
     public void addActor3D(BaseActor3D ba) {
         actor3DS.add(ba);
         ba.setParent3D(this);
+        ba.setStage3D(stage3D);
+    }
+
+    @Override
+    public void setStage3D(Stage3D stage3D) {
+        super.setStage3D(stage3D);
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.setStage3D(stage3D);
+        }
     }
 
     public void remove3D(BaseActor3D ba) {

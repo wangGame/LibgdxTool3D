@@ -1,5 +1,6 @@
 package com.kw.gdx.d3.stage;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -79,8 +80,8 @@ public class Stage3D extends InputAdapter {
     }
 
     private void initCamera() {
-        camera = new PerspectiveCamera(23, 5, 5);
-        camera.position.set(0f, 2100, -2100f);
+        camera = new PerspectiveCamera(23, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.position.set(0f, 1500, 1500f);
         camera.lookAt(0,0,0);
 
         camera.near = 0.3f;
@@ -127,7 +128,7 @@ public class Stage3D extends InputAdapter {
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
 
-        debug();
+//        debug();
     }
 
     public void dispose() {

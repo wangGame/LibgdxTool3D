@@ -17,8 +17,8 @@ public class KitchenApp extends BaseGame {
         config.x = 1000;
         config.stencil = 8;
         config.y = 0;
-        config.height = (int) (1920 * 0.5f);
-        config.width = (int) (1080 * 0.8f);
+        config.height = (int) ( 1080* 0.5f);
+        config.width = (int) (1920 * 0.5f);
         new LwjglApplication(new KitchenApp(), config);
     }
 }

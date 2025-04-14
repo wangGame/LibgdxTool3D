@@ -24,7 +24,7 @@ public class BaseActor3D {
     protected float radius;
     protected Stage3D stage3D;
     protected BoundingBox bounds;
-    private Quaternion rotation;
+    protected Quaternion rotation;
     private Vector3 scale;
     private Array<Action3D> actions;
     protected boolean isDity;
