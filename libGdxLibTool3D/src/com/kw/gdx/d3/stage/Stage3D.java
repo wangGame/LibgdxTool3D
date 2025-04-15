@@ -64,7 +64,7 @@ public class Stage3D extends InputAdapter {
 
     private void initCamera() {
         camera = new PerspectiveCamera(67, 5, 5);
-        camera.position.set(0f, 31, 21f);
+        camera.position.set(0f, 31, -11f);
         camera.direction.x = 45;
         camera.lookAt(0,0,0);
         camera.near = 0.3f;
@@ -74,11 +74,12 @@ public class Stage3D extends InputAdapter {
 
     private void initLight() {
         environment = new Environment();
-        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+//        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         //投影
-        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
+        (shadowLight = new DirectionalShadowLight(1024, 1024,
                 30f, 30f, 1f, 100f)).
-                set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
+                set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f);
+        environment.add(shadowLight);
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
@@ -88,9 +89,22 @@ public class Stage3D extends InputAdapter {
         color.b = color.b * intensity;
         color.a = 0.1f;
         set.setColor(color);
-        environment.add(set);
-        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
-        environment.add(set1);
+//        environment.add(set);
+//        PointLight pointLight = new PointLight().set(0.6f, 0.6f, 0.6f, 0.0f, 30.0f, 0.0f, 1240.3f);
+//        environment.add(pointLight);
+//        {
+//            PointLight set1 = new PointLight().set(0.6f, 0.6f, 0.6f, 20.0f, 30.0f, 0.0f, 240.3f);
+//            environment.add(set1);
+//        }
+//        {
+//            PointLight set1 = new PointLight().set(0.6f, 0.6f, 0.6f, -40.0f, 30.0f, 0.0f, 240.3f);
+//            environment.add(set1);
+//        }
+//        {
+            environment.add(new DirectionalLight().set(0.1f,0.1f,0.1f,new Vector3(0.4f,-0.1f,-1)));
+//
+//        }
+        environment.add(new PointLight().set(1.0f, 1.0f, 0.83f, 0.0f, 25.0f, 0.0f, 300.0f));
     }
 
     public void act(float dt) {
