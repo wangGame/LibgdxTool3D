@@ -16,11 +16,11 @@ import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.DepthShaderProvider;
 import com.badlogic.gdx.graphics.g3d.utils.ShaderProvider;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
@@ -36,12 +36,29 @@ public class Stage3D extends InputAdapter {
     private CameraInputController camController;//视角控制器
     private DirectionalShadowLight shadowLight;
     private ModelBatch shadowBatch;
+    private RayBean rayBean = new RayBean();
+    private ShapeRenderer debugShapes;
+    private boolean isDebug;
 
     public Stage3D() {
         initLight();
         initCamera();
         initModelBatch();
         initRoot();
+    }
+
+    public void debug(){
+        if (isDebug) {
+            if (debugShapes == null) {
+                debugShapes = new ShapeRenderer();
+                debugShapes.setAutoShapeType(true);
+            }
+        }
+
+        debugShapes.setProjectionMatrix(getCamera().combined);
+        debugShapes.begin();
+        gameRoot.drawDebug(debugShapes);
+        debugShapes.end();
     }
 
     private void initRoot() {
@@ -63,23 +80,22 @@ public class Stage3D extends InputAdapter {
     }
 
     private void initCamera() {
-        camera = new PerspectiveCamera(67, 5, 5);
-        camera.position.set(0f, 31, -11f);
-        camera.direction.x = 45;
+        camera = new PerspectiveCamera(23, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.position.set(0f, 1500, 1500f);
         camera.lookAt(0,0,0);
+
         camera.near = 0.3f;
-        camera.far = 1300f;
+        camera.far = 11300f;
         camController = new CameraInputController(camera);
     }
 
     private void initLight() {
         environment = new Environment();
-//        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
+        environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         //投影
-        (shadowLight = new DirectionalShadowLight(1024, 1024,
+        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
                 30f, 30f, 1f, 100f)).
-                set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f);
-        environment.add(shadowLight);
+                set(0.8f, 0.8f, 0.8f, -1f, -.5f, -.2f));
         environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.4f;
@@ -89,22 +105,9 @@ public class Stage3D extends InputAdapter {
         color.b = color.b * intensity;
         color.a = 0.1f;
         set.setColor(color);
-//        environment.add(set);
-//        PointLight pointLight = new PointLight().set(0.6f, 0.6f, 0.6f, 0.0f, 30.0f, 0.0f, 1240.3f);
-//        environment.add(pointLight);
-//        {
-//            PointLight set1 = new PointLight().set(0.6f, 0.6f, 0.6f, 20.0f, 30.0f, 0.0f, 240.3f);
-//            environment.add(set1);
-//        }
-//        {
-//            PointLight set1 = new PointLight().set(0.6f, 0.6f, 0.6f, -40.0f, 30.0f, 0.0f, 240.3f);
-//            environment.add(set1);
-//        }
-//        {
-            environment.add(new DirectionalLight().set(0.1f,0.1f,0.1f,new Vector3(0.4f,-0.1f,-1)));
-//
-//        }
-        environment.add(new PointLight().set(1.0f, 1.0f, 0.83f, 0.0f, 25.0f, 0.0f, 300.0f));
+        environment.add(set);
+        PointLight set1 = new PointLight().set(1.0f, 0f, 0f, 0.0f, 4.0f, 0.0f, 1140.3f);
+        environment.add(set1);
     }
 
     public void act(float dt) {
@@ -124,6 +127,8 @@ public class Stage3D extends InputAdapter {
         visibleCount = 0;
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
+
+//        debug();
     }
 
     public void dispose() {
@@ -211,7 +216,7 @@ public class Stage3D extends InputAdapter {
         }
     }
 
-    private RayBean rayBean = new RayBean();
+
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
         rayBean.reset();
         Ray ray = camera.getPickRay(screenX,screenY);

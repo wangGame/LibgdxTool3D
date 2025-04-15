@@ -2,21 +2,13 @@ package com.demo.kitchen.screen;
 
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.demo.kitchen.actor.Actor3D;
+import com.demo.kitchen.actor.ModelActor3D;
 import com.demo.kitchen.group.PlayerActor;
 import com.demo.kitchen.particle.ParticleActor;
 import com.kw.gdx.BaseGame;
-import com.kw.gdx.asset.Asset;
-import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.action.Action3Ds;
-import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
-import com.libGdx.test.A;
 
 
 public class GameScreen extends BaseScreen3D {
@@ -95,7 +87,7 @@ public class GameScreen extends BaseScreen3D {
 //        String path = "test01.g3db";
 
         Model model = Asset3D.getAsset3D().getModel(path);
-        Actor3D braed = new Actor3D(0,0,0,model);
+        ModelActor3D braed = new ModelActor3D(0,0,0,model);
         stage3D.addActor(braed);
 //        braed.setMaterialTexture(Asset.getAsset().getTexture("model/Bread_AlbedoTransparency.png"));
         braed.setScale(5f,5f,5f);

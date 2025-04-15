@@ -40,7 +40,7 @@ public class ParticleActor extends BaseActor3D {
     @Override
     public void draw(ModelBatch batch, Environment env) {
         super.draw(batch, env);
-        currentEffects.setTransform(calculateTransform());
+        currentEffects.setTransform(getActorMatrix());
         pointSpriteBatch.setCamera(stage3D.getCamera());
         particleSystem.update();
         particleSystem.begin();

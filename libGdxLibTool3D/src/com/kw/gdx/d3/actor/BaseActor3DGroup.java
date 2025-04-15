@@ -2,17 +2,20 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.kw.gdx.d3.RayBean;
+import com.kw.gdx.d3.bean.RayBean;
+import com.kw.gdx.d3.stage.Stage3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
     private final Matrix4 worldTransform = new Matrix4();
     private Matrix4 computedTransform = new Matrix4();
+    public boolean transform = true;
     public BaseActor3DGroup(){
         this.actor3DS = new Array<>();
     }
@@ -23,10 +26,6 @@ public class BaseActor3DGroup extends BaseActor3D{
 
 
     public void drawShadow(ModelBatch batch,Environment environment){
-        GameObject modelData1 = getModelData();
-        if (modelData1!=null){
-            modelData1.transform.set(computeTransform());
-        }
         super.drawShadow(batch,environment);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.drawShadow(batch,environment);
@@ -36,18 +35,13 @@ public class BaseActor3DGroup extends BaseActor3D{
     @Override
     public void draw(ModelBatch batch, Environment env) {
         super.draw(batch,env);
-        GameObject modelData1 = getModelData();
-        if (modelData1!=null){
-            modelData1.transform.set(computeTransform());
-        }
-        super.draw(batch,env);
         for (BaseActor3D actor3D : actor3DS) {
             actor3D.draw(batch,env);
         }
     }
 
     /** Returns the transform for this group's coordinate system. */
-    protected Matrix4 computeTransform () {
+    public Matrix4 computeTransform () {
         Matrix4 worldTransform = this.worldTransform;
         Vector3 position = getPosition();
         worldTransform.translate(position.x,position.y,position.z);
@@ -66,6 +60,15 @@ public class BaseActor3DGroup extends BaseActor3D{
     public void addActor3D(BaseActor3D ba) {
         actor3DS.add(ba);
         ba.setParent3D(this);
+        ba.setStage3D(stage3D);
+    }
+
+    @Override
+    public void setStage3D(Stage3D stage3D) {
+        super.setStage3D(stage3D);
+        for (BaseActor3D actor3D : actor3DS) {
+            actor3D.setStage3D(stage3D);
+        }
     }
 
     public void remove3D(BaseActor3D ba) {
@@ -85,7 +88,7 @@ public class BaseActor3DGroup extends BaseActor3D{
     }
 
     public BaseActor3D checkCollisions(Ray ray,RayBean rayBean) {
-        Matrix4 transform = calculateTransform();
+        Matrix4 transform = getActorMatrix();
         Matrix4 inv = transform.cpy().inv();
         Ray localRay = new Ray(ray.origin.cpy().mul(inv), ray.direction.cpy().mul(inv));
         super.checkCollision(localRay,rayBean);
@@ -93,5 +96,19 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor.checkCollision(localRay, rayBean);
         }
         return null;
+    }
+
+    public void drawDebug(ShapeRenderer debugShapes) {
+        drawDebugBounds(debugShapes);
+        for (BaseActor3D actor3D : actor3DS) {
+//            actor3D.drawDebug(batch,env);
+        }
+    }
+
+    protected void drawDebugBounds(ShapeRenderer shapes) {
+        if (!debug) return;
+//        shapes.set(ShapeRenderer.ShapeType.Line);
+//        shapes.setColor(stage.getDebugColor());
+//        shapes.rect(x, y, originX, originY, width, height, scaleX, scaleY, rotation);
     }
 }
