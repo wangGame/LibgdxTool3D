@@ -6,6 +6,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Model;
 
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
+import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
+import com.badlogic.gdx.physics.bullet.collision.btDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btSphereShape;
 import com.demo.kitchen.actor.ModelActor3D;
 import com.kitchen.actor.PlayerActor;
 import com.kw.gdx.BaseGame;
@@ -16,6 +24,11 @@ import com.kw.gdx.d3.screen.BaseScreen3D;
 
 public class KitchenGame extends BaseScreen3D {
     private PlayerActor player;
+    private btSphereShape ballShape;
+    private btCollisionObject ballObject;
+    btCollisionConfiguration collisionConfig;
+    btDispatcher dispatcher;
+
     public KitchenGame(BaseGame game) {
         super(game);
     }
@@ -39,6 +52,15 @@ public class KitchenGame extends BaseScreen3D {
         stage3D.addActor(player);
         player.initPlayer();
 
+        ballShape = new btSphereShape(0.5f);
+
+        ballObject = new btCollisionObject();
+        ballObject.setCollisionShape(ballShape);
+        ballObject.setWorldTransform(player.calculateTransform());
+
+
+        collisionConfig = new btDefaultCollisionConfiguration();
+        dispatcher = new btCollisionDispatcher(collisionConfig);
 
         for (int i = -6; i <= 6; i++) {
             ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));

@@ -22,13 +22,8 @@ import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.graphics.g3d.loader.ObjLoader;
 import com.badlogic.gdx.graphics.g3d.model.Node;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.UBJsonReader;
-import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.asset.Asset3D;
-import com.libGdx.test.model.MyGdxGame2;
 
 public class Asss extends ApplicationAdapter {
     public Environment environment;//可以包含点光源集合和线光源集合

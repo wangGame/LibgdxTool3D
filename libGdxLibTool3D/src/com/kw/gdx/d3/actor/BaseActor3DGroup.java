@@ -24,7 +24,6 @@ public class BaseActor3DGroup extends BaseActor3D{
         this.actor3DS = new Array<>();
     }
 
-
     public void drawShadow(ModelBatch batch,Environment environment){
         super.drawShadow(batch,environment);
         for (BaseActor3D actor3D : actor3DS) {
