@@ -3,9 +3,6 @@ package com.kitchen.actor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.asset.Asset3D;
 

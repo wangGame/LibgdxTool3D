@@ -10,7 +10,6 @@ public class KitchenApp extends BaseGame {
     @Override
     public void create() {
         super.create();
-        Bullet.init();
         setScreen(KitchenGame.class);
     }
 

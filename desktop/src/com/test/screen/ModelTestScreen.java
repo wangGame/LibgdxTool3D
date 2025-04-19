@@ -1,7 +1,6 @@
 package com.test.screen;
 
 import com.badlogic.gdx.math.Vector3;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;

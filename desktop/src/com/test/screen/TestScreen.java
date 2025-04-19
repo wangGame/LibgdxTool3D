@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.physics.bullet.Bullet;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 

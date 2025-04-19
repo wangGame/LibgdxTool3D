@@ -1,4 +1,4 @@
-package com.demo.kitchen.actor;
+package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,11 +20,8 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
 import com.kw.gdx.d3.bean.RayBean;
-import com.kw.gdx.d3.actor.BaseActor3D;
-import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.stage.Stage3D;
 
 public class ModelActor3D extends BaseActor3D {

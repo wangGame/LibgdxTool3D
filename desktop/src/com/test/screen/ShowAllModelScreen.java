@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.utils.Array;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;

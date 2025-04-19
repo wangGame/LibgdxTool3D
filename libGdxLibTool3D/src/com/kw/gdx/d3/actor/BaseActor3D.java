@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.stage.Stage3D;
+import com.kw.gdx.d3.world.WorldSystem;
 
 /**
  * model Actor
@@ -35,6 +36,8 @@ public class BaseActor3D {
     protected Vector3 checkCollisionV3;
     protected Color color;
     protected boolean debug;
+    //显示   所有的都加上碰撞检测？？
+
 
     public BaseActor3D(){
         this(0,0,0);
@@ -293,5 +296,10 @@ public class BaseActor3D {
     //是否在裁剪坐标里面
     public boolean isCaremaClip(){
         return false;
+    }
+
+    //碰撞一般为正方形或者圆之类的
+    public void addCollision(){
+//        WorldSystem.getInstance().createBody();
     }
 }

@@ -2,7 +2,6 @@ package com.demo.kitchen.screen;
 
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Interpolation;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.demo.kitchen.group.PlayerActor;
 import com.demo.kitchen.particle.ParticleActor;
 import com.kw.gdx.BaseGame;
