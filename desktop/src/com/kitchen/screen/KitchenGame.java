@@ -33,7 +33,7 @@ public class KitchenGame extends BaseScreen3D {
         Model model = Asset3D.getAsset3D().getModel("kitchen/model/table.g3db");
         ModelActor3D modelActor3D = new ModelActor3D(model);
         stage3D.addActor(modelActor3D);
-        modelActor3D.setScale(500,0.01f,500);
+        modelActor3D.setScale(190,0.01f,190);
         Texture woodTexture = Asset.getAsset().getTexture("kitchen/Texture/ButtonBackground.png");
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
