@@ -1,6 +1,7 @@
 package com.libGdx.test;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.kw.gdx.d3.actor.ModelActor3D;
 import com.libGdx.test.base.LibGdxTestMain;
 
 public class App extends LibGdxTestMain {

@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
+import com.badlogic.gdx.physics.bullet.linearmath.btMotionState;
+import com.badlogic.gdx.physics.bullet.linearmath.btTransform;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.action.Action3D;
@@ -37,7 +40,7 @@ public class BaseActor3D {
     protected Color color;
     protected boolean debug;
     //显示   所有的都加上碰撞检测？？
-
+    protected btRigidBody body;
 
     public BaseActor3D(){
         this(0,0,0);
@@ -87,6 +90,10 @@ public class BaseActor3D {
 
     //更新位置
     public void act(float delta) {
+        if (body!=null) {
+            Vector3 centerOfMassPosition = body.getCenterOfMassPosition();
+            setPosition(centerOfMassPosition.add(bodyOff));
+        }
         Array<Action3D> actions = this.actions;
         if (actions.size == 0) return;
         if (stage3D != null) Gdx.graphics.requestRendering();
@@ -301,5 +308,14 @@ public class BaseActor3D {
     //碰撞一般为正方形或者圆之类的
     public void addCollision(){
 //        WorldSystem.getInstance().createBody();
+    }
+
+    public void setBody(btRigidBody body) {
+        this.body = body;
+    }
+
+    private Vector3 bodyOff = new Vector3();
+    public void setBodyOff(Vector3 vector3) {
+        this.bodyOff.set(vector3);
     }
 }
