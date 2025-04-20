@@ -15,6 +15,7 @@ public class PlayerActor extends BaseActor3DGroup {
     private boolean pickPlate = false;
     private Vector3 moveV = new Vector3();
     private Vector3 pickV3;
+    private BaseActor3DGroup pickActor;
     public PlayerActor(){
         speed = 39300;
         forWard = new Vector2();
@@ -65,17 +66,23 @@ public class PlayerActor extends BaseActor3DGroup {
     public void pickPlate() {
         if (pickPlate)return;
         this.pickPlate = true;
-        BreadFood breadFood = new BreadFood();
-        addActor3D(breadFood);
-        breadFood.setPosition(pickV3.x,pickV3.y,pickV3.z);
-
+        pickActor = new BreadFood();
+        addActor3D(pickActor);
+        pickActor.setPosition(pickV3.x,pickV3.y,pickV3.z);
     }
 
     public Vector2 getCurrentDir() {
         return forWard;
     }
 
-    public void transformChen(BaseActor3D actor3D) {
+    public BaseActor3DGroup getPickActor() {
+        return pickActor;
+    }
 
+    public void setPickActor(BaseActor3DGroup pickActor) {
+        this.pickActor = pickActor;
+        if (pickActor == null){
+            pickPlate = false;
+        }
     }
 }
