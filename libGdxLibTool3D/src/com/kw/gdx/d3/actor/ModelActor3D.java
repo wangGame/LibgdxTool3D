@@ -16,18 +16,21 @@ import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.stage.Stage3D;
 
 public class ModelActor3D extends BaseActor3D {
     private Matrix4 resourceMax = new Matrix4();
     protected ModelInstance modelInstance;
-
+    protected Array<Decal> decals;
     public ModelActor3D() {
         this(0, 0, 0);
     }
@@ -46,6 +49,7 @@ public class ModelActor3D extends BaseActor3D {
             setModelInstance(instance);
         }
         setPosition(x,y,z);
+        this.decals = new Array<>();
     }
 
     public void setModelInstance(ModelInstance modelInstance) {
@@ -58,12 +62,11 @@ public class ModelActor3D extends BaseActor3D {
             if (!isCaremaClip()) return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D != null) {
-                Matrix4 pM = parent3D.computeTransform();
+                Matrix4 pM = parent3D.getActorMatrix();
                 resourceMax.idt();
                 resourceMax.set(pM);
                 resourceMax.mul(matrix4);
                 modelInstance.transform.set(resourceMax);
-
             } else {
                 modelInstance.transform.set(matrix4);
             }
@@ -74,15 +77,15 @@ public class ModelActor3D extends BaseActor3D {
     public void draw(ModelBatch batch, Environment env) {
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
+            Matrix4 matrix4 = calculateTransform();
             if (parent3D != null) {
                 Matrix4 pM = parent3D.getActorMatrix();
                 resourceMax.idt();
                 resourceMax.set(pM);
-                resourceMax.mul(actorMatrix);
+                resourceMax.mul(matrix4);
                 modelInstance.transform.set(resourceMax);
-
             } else {
-                modelInstance.transform.set(actorMatrix);
+                modelInstance.transform.set(matrix4);
             }
             batch.render(modelInstance, env);
         }
@@ -206,5 +209,34 @@ public class ModelActor3D extends BaseActor3D {
                     attributes
             );
         }
+    }
+
+    public Array<Decal> getDecals() {
+        return decals;
+    }
+
+    public void addDecal(Decal decal){
+        decals.add(decal);
+    }
+
+    @Override
+    protected void drawDecal(DecalBatch decalBatch) {
+        super.drawDecal(decalBatch);
+        for (Decal decal : decals) {
+            decalBatch.add(decal);
+        }
+    }
+    private final Vector3 viewDir = new Vector3();
+    private final Vector3 decalPosition = new Vector3();
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+//        for (Decal decal : decals) {
+//            decal.setPosition(position);
+//            viewDir.set(cam.direction).scl(-1);
+//            go.healthBarDecal.setRotation(viewDir, Vector3.Y);
+//            decalBatch.add(go.healthBarDecal);
+//        }
     }
 }

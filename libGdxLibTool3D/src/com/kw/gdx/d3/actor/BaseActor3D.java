@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
@@ -29,7 +30,7 @@ public class BaseActor3D {
     protected Stage3D stage3D;
     protected BoundingBox bounds;
     protected Quaternion rotation;
-    private Vector3 scale;
+    protected Vector3 scale;
     private Array<Action3D> actions;
     protected boolean isDity;
     protected Vector3 center;
@@ -61,9 +62,7 @@ public class BaseActor3D {
     }
 
     public Matrix4 getActorMatrix() {
-        if (isDity){
-            calculateTransform();
-        }
+        calculateTransform();
         return actorMatrix;
     }
 
@@ -72,7 +71,7 @@ public class BaseActor3D {
      * @return
      */
     public Matrix4 calculateTransform() {
-        if (!isDity)return actorMatrix;
+//        if (!isDity)return actorMatrix;
         actorMatrix.idt();
         Matrix4 rotate = actorMatrix.rotate(rotation);
         Matrix4 matrix4 = rotate
@@ -321,5 +320,9 @@ public class BaseActor3D {
 
     public void setEulerAngles(float ya,float y,float z){
         rotation.setEulerAngles(ya,y,z);
+    }
+
+    protected void drawDecal(DecalBatch decalBatch) {
+
     }
 }

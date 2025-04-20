@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Model;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.math.collision.BoundingBox;
+import com.food.BreadFood;
 import com.kitchen.actor.PlayerActor;
-import com.kitchen.counter.BreadCounter;
-import com.kitchen.counter.ClearCounter;
+import com.kitchen.counter.BreadCounter;;
 import com.kitchen.counter.CommonCounter;
+import com.kitchen.manager.KitchenManager;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.actor.BaseActor3D;
@@ -23,6 +24,7 @@ import com.kw.gdx.d3.world.WorldSystem;
 public class KitchenGame extends BaseScreen3D {
     private PlayerActor player;
     private WorldSystem worldSystem;
+    private KitchenManager manager;
     public KitchenGame(BaseGame game) {
         super(game);
     }
@@ -30,6 +32,7 @@ public class KitchenGame extends BaseScreen3D {
     @Override
     public void initView() {
         super.initView();
+        manager = new KitchenManager();
         worldSystem = WorldSystem.getInstance();
         PerspectiveCamera camera = stage3D.getCamera();
         worldSystem.setCam1(camera);
@@ -54,8 +57,20 @@ public class KitchenGame extends BaseScreen3D {
         player.setBodyOff(new Vector3(0,-50,0));
         worldSystem.addCollision(player.getScale().cpy().scl(50),bodyPosition,1,player);
 
+//        testFood();
 
-//
+        counterQia();
+    }
+
+    private void testFood() {
+//        BreadFood breadFood = new BreadFood();
+//        stage3D.addActor(breadFood);
+//        breadFood.setScale(2,2,2);
+//        breadFood.setPosition(100,100,4);
+    }
+
+    private void counterQia() {
+        //
         for (int i = -1; i < 0; i++) {
 //            CommonCounter modelActor3D1 = new ClearCounter(Asset3D.getAsset3D().getModel("kitchen/model/Kitchen Counter.g3db"));
 
@@ -101,6 +116,26 @@ public class KitchenGame extends BaseScreen3D {
         }else if (Gdx.input.isKeyPressed(Input.Keys.W)){
             player.pickPlate();
         }
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+            Vector3 position = player.getPosition();
+            Vector2 currentDir = player.getCurrentDir();
+            Vector3 startV3 = position.cpy();
+            startV3.y = 50;
+            Vector3 endV3 = startV3.cpy();
+            endV3.x += currentDir.x*60;
+            endV3.z -= currentDir.y*60;
+            BaseActor3D actor3D = worldSystem.rayTest(startV3, endV3);
+            if (actor3D!=null) {
+                if (actor3D instanceof CommonCounter) {
+                    CommonCounter actor3D1 = (CommonCounter) (actor3D);
+//                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
+                    manager.option(player,actor3D1);
+                }
+            }
+        }
+
         super.render(delta);
         worldSystem.update();
     }

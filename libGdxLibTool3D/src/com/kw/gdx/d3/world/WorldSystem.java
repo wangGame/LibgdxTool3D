@@ -11,6 +11,7 @@ import com.badlogic.gdx.physics.bullet.collision.ClosestRayResultCallback;
 import com.badlogic.gdx.physics.bullet.collision.btBoxShape;
 import com.badlogic.gdx.physics.bullet.collision.btBroadphaseInterface;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionDispatcher;
+import com.badlogic.gdx.physics.bullet.collision.btCollisionObject;
 import com.badlogic.gdx.physics.bullet.collision.btCollisionShape;
 import com.badlogic.gdx.physics.bullet.collision.btDbvtBroadphase;
 import com.badlogic.gdx.physics.bullet.collision.btDefaultCollisionConfiguration;
@@ -103,14 +104,19 @@ public class WorldSystem {
     }
 
 
-    public void rayTest(Vector3 rayStart, Vector3 rayEnd) {
+    public BaseActor3D rayTest(Vector3 rayStart, Vector3 rayEnd) {
         ClosestRayResultCallback rayCallback = new ClosestRayResultCallback(rayStart, rayEnd);
         System.out.println(rayStart+"   "+rayEnd);
         world.rayTest(rayStart, rayEnd, rayCallback);
         if (rayCallback.hasHit()) {
-            System.out.println(rayCallback.getCollisionObject());
-            System.out.println("=====================");
+            btCollisionObject collisionObject = rayCallback.getCollisionObject();
+            btRigidBody hitBody = (btRigidBody) collisionObject;
+            BaseActor3D actor3D = rigidBodyBaseActor3DArrayMap.get(hitBody);
+            if (actor3D!=null){
+                return actor3D;
+            }
         }
+        return null;
     }
 
     public void update(){
@@ -128,7 +134,7 @@ public class WorldSystem {
     public void checkTouch(int screenX, int screenY) {
         Ray pickRay = cam1.getPickRay(screenX, screenY);
         Vector3 origin = pickRay.origin;
-        Vector3 end = pickRay.origin.cpy().add(pickRay.direction.scl(10000f));
+        Vector3 end = pickRay.origin.cpy().add(pickRay.direction.scl(1000f));
         rayTest(origin,end);
     }
 
