@@ -9,8 +9,12 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.kitchen.actor.PlayerActor;
+import com.kitchen.counter.BreadCounter;
+import com.kitchen.counter.ClearCounter;
+import com.kitchen.counter.CommonCounter;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
+import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
@@ -52,14 +56,20 @@ public class KitchenGame extends BaseScreen3D {
 
 
 //
-        for (int i = -6; i <= 6; i++) {
-            ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
+        for (int i = -1; i < 0; i++) {
+//            CommonCounter modelActor3D1 = new ClearCounter(Asset3D.getAsset3D().getModel("kitchen/model/Kitchen Counter.g3db"));
+
+            BaseActor3D modelActor3D1;
+            modelActor3D1 = new BreadCounter();
             stage3D.addActor(modelActor3D1);
             modelActor3D1.setPosition(90*i,0,5*90);
+            modelActor3D1.setFromAxis(0,1,0,180);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
         for (int i = -5; i <= 5; i++) {
-            ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
+            BaseActor3D modelActor3D1;
+                modelActor3D1 = new BreadCounter();
+
             stage3D.addActor(modelActor3D1);
             modelActor3D1.setPosition(-6*90,0,i*90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);

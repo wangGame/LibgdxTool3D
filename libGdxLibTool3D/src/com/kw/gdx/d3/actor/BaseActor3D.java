@@ -318,4 +318,8 @@ public class BaseActor3D {
     public void setBodyOff(Vector3 vector3) {
         this.bodyOff.set(vector3);
     }
+
+    public void setEulerAngles(float ya,float y,float z){
+        rotation.setEulerAngles(ya,y,z);
+    }
 }
