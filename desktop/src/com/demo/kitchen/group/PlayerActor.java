@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.demo.kitchen.actor.ModelActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
+import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 
 public class PlayerActor extends BaseActor3DGroup {
@@ -34,7 +34,6 @@ public class PlayerActor extends BaseActor3DGroup {
     @Override
     public void act(float delta) {
         super.act(delta);
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
             moveRight(-1*delta * speed);
         }else if (Gdx.input.isKeyJustPressed(Input.Keys.D)){
@@ -44,9 +43,6 @@ public class PlayerActor extends BaseActor3DGroup {
         }else if (Gdx.input.isKeyJustPressed(Input.Keys.S)){
             moveForward(-1*delta * speed);
         }
-
-//        rotation.setFromAxis(0,1,0,angle+1);
-
 
     }
 }

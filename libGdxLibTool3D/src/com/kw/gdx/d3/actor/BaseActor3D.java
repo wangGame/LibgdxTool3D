@@ -4,16 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.BoundingBox;
 import com.badlogic.gdx.math.collision.Ray;
+import com.badlogic.gdx.physics.bullet.dynamics.btRigidBody;
+import com.badlogic.gdx.physics.bullet.linearmath.btMotionState;
+import com.badlogic.gdx.physics.bullet.linearmath.btTransform;
 import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.action.Action3D;
 import com.kw.gdx.d3.stage.Stage3D;
+import com.kw.gdx.d3.world.WorldSystem;
 
 /**
  * model Actor
@@ -25,7 +30,7 @@ public class BaseActor3D {
     protected Stage3D stage3D;
     protected BoundingBox bounds;
     protected Quaternion rotation;
-    private Vector3 scale;
+    protected Vector3 scale;
     private Array<Action3D> actions;
     protected boolean isDity;
     protected Vector3 center;
@@ -35,6 +40,8 @@ public class BaseActor3D {
     protected Vector3 checkCollisionV3;
     protected Color color;
     protected boolean debug;
+    //显示   所有的都加上碰撞检测？？
+    protected btRigidBody body;
 
     public BaseActor3D(){
         this(0,0,0);
@@ -55,9 +62,7 @@ public class BaseActor3D {
     }
 
     public Matrix4 getActorMatrix() {
-        if (isDity){
-            calculateTransform();
-        }
+        calculateTransform();
         return actorMatrix;
     }
 
@@ -66,7 +71,7 @@ public class BaseActor3D {
      * @return
      */
     public Matrix4 calculateTransform() {
-        if (!isDity)return actorMatrix;
+//        if (!isDity)return actorMatrix;
         actorMatrix.idt();
         Matrix4 rotate = actorMatrix.rotate(rotation);
         Matrix4 matrix4 = rotate
@@ -84,6 +89,10 @@ public class BaseActor3D {
 
     //更新位置
     public void act(float delta) {
+        if (body!=null) {
+            Vector3 centerOfMassPosition = body.getCenterOfMassPosition();
+            setPosition(centerOfMassPosition.add(bodyOff));
+        }
         Array<Action3D> actions = this.actions;
         if (actions.size == 0) return;
         if (stage3D != null) Gdx.graphics.requestRendering();
@@ -293,5 +302,27 @@ public class BaseActor3D {
     //是否在裁剪坐标里面
     public boolean isCaremaClip(){
         return false;
+    }
+
+    //碰撞一般为正方形或者圆之类的
+    public void addCollision(){
+//        WorldSystem.getInstance().createBody();
+    }
+
+    public void setBody(btRigidBody body) {
+        this.body = body;
+    }
+
+    private Vector3 bodyOff = new Vector3();
+    public void setBodyOff(Vector3 vector3) {
+        this.bodyOff.set(vector3);
+    }
+
+    public void setEulerAngles(float ya,float y,float z){
+        rotation.setEulerAngles(ya,y,z);
+    }
+
+    protected void drawDecal(DecalBatch decalBatch) {
+
     }
 }

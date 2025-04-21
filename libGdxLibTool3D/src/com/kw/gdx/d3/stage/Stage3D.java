@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
+import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalShadowLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
@@ -39,12 +41,18 @@ public class Stage3D extends InputAdapter {
     private RayBean rayBean = new RayBean();
     private ShapeRenderer debugShapes;
     private boolean isDebug;
+    private DecalBatch decalBatch;
 
     public Stage3D() {
         initLight();
         initCamera();
         initModelBatch();
+        initDecalBatch();
         initRoot();
+    }
+
+    private void initDecalBatch() {
+        decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
     }
 
     public void debug(){
@@ -127,8 +135,11 @@ public class Stage3D extends InputAdapter {
         visibleCount = 0;
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
-
 //        debug();
+    }
+
+    public void drawDecal(){
+        gameRoot.drawDecal(decalBatch);
     }
 
     public void dispose() {
