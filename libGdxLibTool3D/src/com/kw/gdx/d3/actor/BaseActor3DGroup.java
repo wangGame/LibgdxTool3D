@@ -2,6 +2,7 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -15,15 +16,18 @@ import com.kw.gdx.d3.stage.Stage3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
-    private final Matrix4 worldTransform = new Matrix4();
-    private Matrix4 computedTransform = new Matrix4();
+    private Array<Decal> decals;
     public boolean transform = true;
+
     public BaseActor3DGroup(){
         this.actor3DS = new Array<>();
+        this.decals = new Array<>();
     }
+
     public BaseActor3DGroup(float x, float y, float z) {
         super(x, y, z);
         this.actor3DS = new Array<>();
+        this.decals = new Array<>();
     }
 
     public void drawShadow(ModelBatch batch,Environment environment){
@@ -145,4 +149,6 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor3D.drawDecal(decalBatch);
         }
     }
+
+
 }
