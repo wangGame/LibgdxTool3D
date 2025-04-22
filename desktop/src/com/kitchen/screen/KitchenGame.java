@@ -4,8 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Model;
 
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.food.BreadFood;
@@ -16,6 +18,8 @@ import com.kitchen.manager.KitchenManager;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.actor.BaseActor3D;
+import com.kw.gdx.d3.actor.BaseActor3DGroup;
+import com.kw.gdx.d3.actor.DecalActor;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
@@ -25,6 +29,7 @@ public class KitchenGame extends BaseScreen3D {
     private PlayerActor player;
     private WorldSystem worldSystem;
     private KitchenManager manager;
+    BaseActor3DGroup ro;
     public KitchenGame(BaseGame game) {
         super(game);
     }
@@ -57,9 +62,32 @@ public class KitchenGame extends BaseScreen3D {
         player.setBodyOff(new Vector3(0,-50,0));
         worldSystem.addCollision(player.getScale().cpy().scl(50),bodyPosition,1,player);
 
+
+        ro = new BaseActor3DGroup(){
+            private float angle = 0;
+            @Override
+            public void act(float delta) {
+                super.act(delta);
+                angle += delta*40;
+                ro.setFromAxis(0,1,0,angle);
+            }
+        };
+        ro.setPosition(310,10,130);
+        ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
+        ro.addActor3D(modelActor3D1);
+        modelActor3D1.setFromAxis(1,0,0,50);
+        stage3D.addActor(ro);
+
+
 //        testFood();
 
-        counterQia();
+//        counterQia();
+
+//
+//        Decal decal = Decal.newDecal(new TextureRegion(
+//                Asset.getAsset().getTexture("3_34_24.png")));
+//        DecalActor decalActor = new DecalActor(decal);
+//        stage3D.addActor(decalActor);
     }
 
     private void testFood() {

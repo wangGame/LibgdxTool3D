@@ -136,10 +136,14 @@ public class Stage3D extends InputAdapter {
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
 //        debug();
+        drawDecal();
     }
 
     public void drawDecal(){
+
+        camera.update();
         gameRoot.drawDecal(decalBatch);
+        decalBatch.flush();
     }
 
     public void dispose() {

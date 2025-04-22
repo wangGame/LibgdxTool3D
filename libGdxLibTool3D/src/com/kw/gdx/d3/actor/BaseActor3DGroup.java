@@ -2,6 +2,7 @@ package com.kw.gdx.d3.actor;
 
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
@@ -15,13 +16,18 @@ import com.kw.gdx.d3.stage.Stage3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
+    private Array<Decal> decals;
     public boolean transform = true;
+
     public BaseActor3DGroup(){
         this.actor3DS = new Array<>();
+        this.decals = new Array<>();
     }
+
     public BaseActor3DGroup(float x, float y, float z) {
         super(x, y, z);
         this.actor3DS = new Array<>();
+        this.decals = new Array<>();
     }
 
     public void drawShadow(ModelBatch batch,Environment environment){
@@ -38,6 +44,7 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor3D.draw(batch,env);
         }
     }
+
 
     public Matrix4 getActorMatrix() {
 
@@ -63,6 +70,23 @@ public class BaseActor3DGroup extends BaseActor3D{
         }
         return actorMatrix;
     }
+
+////    /** Returns the transform for this group's coordinate system. */
+//    public Matrix4 computeTransform () {
+//        Matrix4 worldTransform = this.worldTransform;
+//        Vector3 position = getPosition();
+//        worldTransform.translate(position.x,position.y,position.z);
+//        Quaternion rotation = getRotation();
+//        worldTransform.rotate(rotation);
+//        Vector3 scale = getScale();
+//        worldTransform.scale(scale.x,scale.y,scale.z);
+//        if (parent3D!=null) {
+//            worldTransform.mul(parent3D.worldTransform);
+//        }
+//        computedTransform.set(worldTransform);
+//        worldTransform.idt();
+//        return computedTransform;
+//    }
 
     public void addActor3D(BaseActor3D ba) {
         actor3DS.add(ba);
@@ -125,4 +149,6 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor3D.drawDecal(decalBatch);
         }
     }
+
+
 }
