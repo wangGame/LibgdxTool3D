@@ -18,7 +18,7 @@ public abstract class CommonCounter extends BaseActor3DGroup {
     public void setModelActor3D(BaseActor3D modelActor3D) {
         this.modelActor3D = modelActor3D;
         if (modelActor3D!=null){
-            modelActor3D.setPosition(-10,55,0);
+            modelActor3D.setPosition(-5,95,0);
         }
     }
 }

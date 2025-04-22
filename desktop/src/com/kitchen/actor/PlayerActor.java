@@ -19,7 +19,7 @@ public class PlayerActor extends BaseActor3DGroup {
     public PlayerActor(){
         speed = 39300;
         forWard = new Vector2();
-        this.pickV3 = new Vector3(-80,60,0);
+        this.pickV3 = new Vector3(-80,90,0);
     }
 
     public void initPlayer(){

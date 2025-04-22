@@ -13,6 +13,6 @@ public class BreadFood extends BaseActor3DGroup {
         addActor3D(breadDown);
         addActor3D(breadUp);
         breadUp.setPosition(5,4,0);
-        setScale(5,5,5);
+        setScale(2,2,2);
     }
 }

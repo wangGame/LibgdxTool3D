@@ -74,8 +74,7 @@ public class KitchenGame extends BaseScreen3D {
         for (int i = -1; i < 0; i++) {
 //            CommonCounter modelActor3D1 = new ClearCounter(Asset3D.getAsset3D().getModel("kitchen/model/Kitchen Counter.g3db"));
 
-            BaseActor3D modelActor3D1;
-            modelActor3D1 = new BreadCounter();
+            BaseActor3D modelActor3D1 = new BreadCounter();
             stage3D.addActor(modelActor3D1);
             modelActor3D1.setPosition(90*i,0,5*90);
             modelActor3D1.setFromAxis(0,1,0,180);

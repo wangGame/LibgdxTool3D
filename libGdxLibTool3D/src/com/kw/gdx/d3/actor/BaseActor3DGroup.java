@@ -15,8 +15,6 @@ import com.kw.gdx.d3.stage.Stage3D;
 
 public class BaseActor3DGroup extends BaseActor3D{
     private Array<BaseActor3D> actor3DS;
-    private final Matrix4 worldTransform = new Matrix4();
-    private Matrix4 computedTransform = new Matrix4();
     public boolean transform = true;
     public BaseActor3DGroup(){
         this.actor3DS = new Array<>();
@@ -40,7 +38,6 @@ public class BaseActor3DGroup extends BaseActor3D{
             actor3D.draw(batch,env);
         }
     }
-
 
     public Matrix4 getActorMatrix() {
 
@@ -66,23 +63,6 @@ public class BaseActor3DGroup extends BaseActor3D{
         }
         return actorMatrix;
     }
-
-////    /** Returns the transform for this group's coordinate system. */
-//    public Matrix4 computeTransform () {
-//        Matrix4 worldTransform = this.worldTransform;
-//        Vector3 position = getPosition();
-//        worldTransform.translate(position.x,position.y,position.z);
-//        Quaternion rotation = getRotation();
-//        worldTransform.rotate(rotation);
-//        Vector3 scale = getScale();
-//        worldTransform.scale(scale.x,scale.y,scale.z);
-//        if (parent3D!=null) {
-//            worldTransform.mul(parent3D.worldTransform);
-//        }
-//        computedTransform.set(worldTransform);
-//        worldTransform.idt();
-//        return computedTransform;
-//    }
 
     public void addActor3D(BaseActor3D ba) {
         actor3DS.add(ba);
