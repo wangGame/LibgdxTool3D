@@ -14,11 +14,7 @@ import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.math.Vector3;
 
 public class TestDecal extends ScreenAdapter {
-
-
     private int viewHeight, viewWidth;
-
-
     private DecalBatch decalBatch;
     private Camera cam;
     private Vector3 viewDir = new Vector3();
@@ -36,10 +32,7 @@ public class TestDecal extends ScreenAdapter {
         decal = Decal.newDecal(new TextureRegion(new Texture("assets/com_btn_green1.png")));
         decalBatch = new DecalBatch(new CameraGroupStrategy(cam));
 
-
-        decal.setScale(0.1f);
-
-
+        decal.setScale(0.01f);
     }
 
     @Override
@@ -48,8 +41,6 @@ public class TestDecal extends ScreenAdapter {
         int mask = GL20.GL_COLOR_BUFFER_BIT;
         mask = mask | GL20.GL_DEPTH_BUFFER_BIT;
         Gdx.gl.glClear(mask);
-
-
 
 
         viewDir.set(cam.direction).scl(-1);    // direction that decals should be facing: opposite of camera view vector

@@ -61,22 +61,26 @@ public class KitchenGame extends BaseScreen3D {
         bodyPosition.y += 50f;
         player.setBodyOff(new Vector3(0,-50,0));
         worldSystem.addCollision(player.getScale().cpy().scl(50),bodyPosition,1,player);
+        BaseActor3D modelActor3D1;
+        modelActor3D1 = new BreadCounter();
+        stage3D.addActor(modelActor3D1);
+        modelActor3D1.setPosition(700,000,100);
 
-
-        ro = new BaseActor3DGroup(){
-            private float angle = 0;
-            @Override
-            public void act(float delta) {
-                super.act(delta);
-                angle += delta*40;
-                ro.setFromAxis(0,1,0,angle);
-            }
-        };
-        ro.setPosition(310,10,130);
-        ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
-        ro.addActor3D(modelActor3D1);
-        modelActor3D1.setFromAxis(1,0,0,50);
-        stage3D.addActor(ro);
+//
+//        ro = new BaseActor3DGroup(){
+//            private float angle = 0;
+//            @Override
+//            public void act(float delta) {
+//                super.act(delta);
+//                angle += delta*40;
+//                ro.setFromAxis(0,1,0,angle);
+//            }
+//        };
+//        ro.setPosition(310,10,130);
+//        ModelActor3D modelActor3D1 = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
+//        ro.addActor3D(modelActor3D1);
+//        modelActor3D1.setFromAxis(1,0,0,50);
+//        stage3D.addActor(ro);
 
 
 //        testFood();

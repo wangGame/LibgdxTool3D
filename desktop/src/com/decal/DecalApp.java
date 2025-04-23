@@ -16,7 +16,6 @@ public class DecalApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-
         setScreen(new TestDecal());
     }
 }

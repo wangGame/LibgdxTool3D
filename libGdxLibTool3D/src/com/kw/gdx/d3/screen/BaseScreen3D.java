@@ -1,5 +1,6 @@
 package com.kw.gdx.d3.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.d3.stage.Stage3D;
@@ -13,8 +14,9 @@ public abstract class BaseScreen3D extends BaseScreen {
         super(game);
         this.stage3D = new Stage3D();
         InputMultiplexer multiplexer = getMultiplexer();
-        multiplexer.addProcessor(stage3D);
+//        multiplexer.addProcessor(stage3D);
         multiplexer.addProcessor(stage3D.getCamController());
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
