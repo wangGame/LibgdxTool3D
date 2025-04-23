@@ -160,7 +160,7 @@ public class BaseActor extends Group {
 
     public void loadImage(TextureRegion region) {
         if (region == null) {
-            Gdx.app.error(getClass().getSimpleName(), "Error: region is null. Are you sure the image '" + name + "' exists?");
+            Gdx.app.error(getClass().getSimpleName(), "Error: region is null. Are you sure the image  exists?");
         }
         setAnimation(new Animation(1f, region));
     }

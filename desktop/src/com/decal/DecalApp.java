@@ -9,19 +9,14 @@ import com.libGdx.test.base.LibGdxTestMain;
 
 public class DecalApp extends LibGdxTestMain {
     public static void main(String[] args) {
-
+        DecalApp app = new DecalApp();
+        app.start();
     }
-
 
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
 
-        Decal decal = Decal.newDecal(1, 1,
-                new TextureRegion(Asset.getAsset().getTexture("2d/gui/badlogic.jpg")));
-        decal.setPosition(10, 10, 10);
-        decal.setScale(3);
-
-
+        setScreen(new TestDecal());
     }
 }
