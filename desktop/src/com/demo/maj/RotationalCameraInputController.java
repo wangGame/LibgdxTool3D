@@ -85,12 +85,12 @@ public class RotationalCameraInputController extends InputAdapter {
 		return true;
 	}
 
-	@Override
-	public boolean scrolled(int amount) {
-		zoom += 0.15f * zoomSpeed * amount;
-		zoom = MathUtils.clamp(zoom, minZoom, maxZoom);
-		return super.scrolled(amount);
-	}
+//	@Override
+//	public boolean scrolled(int amount,int a) {
+//		zoom += 0.15f * zoomSpeed * amount;
+//		zoom = MathUtils.clamp(zoom, minZoom, maxZoom);
+//		return super.scrolled(amount);
+//	}
 
 	public void update() {
 		float delta = Gdx.graphics.getDeltaTime();

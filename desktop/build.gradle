@@ -13,17 +13,20 @@ dependencies {
 
     implementation ("com.badlogicgames.gdx:gdx-ai:1.8.2")
     implementation ("com.badlogicgames.gdx-controllers:gdx-controllers-core:2.2.1")
-    implementation files('libs/gdx-backend-lwjgl.jar')
-    implementation files('libs/gdx-backend-lwjgl-natives.jar')
-    implementation files('libs/gdx-natives.jar')
-    implementation 'com.github.wangGame.LibGdxTool:libGdx:release1.1.4'
-    implementation 'com.github.wangGame.LibGdxTool:libGdxLib:release1.1.4'
-    implementation 'com.github.wangGame.LibGdxTool:desktop:release1.1.4'
+//    implementation files('libs/gdx-backend-lwjgl.jar')
+//    implementation files('libs/gdx-backend-lwjgl-natives.jar')
+//    implementation files('libs/gdx-natives.jar')
+    implementation 'com.github.wangGame.LibGdxTool:libGdx:release2.0.1'
+    implementation 'com.github.wangGame.LibGdxTool:libGdxLib:release2.0.1'
+//    implementation 'com.github.wangGame.LibGdxTool:desktop:release2.0.1'
     implementation project(":libGdxLibTool3D")
     implementation 'junit:junit:4.12'
     implementation "com.github.tommyettinger:textratypist:0.6.3"
 
     implementation "com.badlogicgames.gdx:gdx-bullet-platform:1.13.1:natives-desktop"
+
+    implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:1.13.1"
+    implementation "com.badlogicgames.gdx:gdx-platform:1.13.1:natives-desktop"
 
 
 

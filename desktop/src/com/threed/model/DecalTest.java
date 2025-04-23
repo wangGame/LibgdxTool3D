@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -48,33 +49,33 @@ public class DecalTest extends ApplicationAdapter {
         camController = new CameraInputController(camera);
         Gdx.input.setInputProcessor(camController);
         TextureRegion[] textures = {
-                new TextureRegion(Asset.getAsset().getTexture("assets/shuoming.png")),
+                new TextureRegion(Asset.getAsset().getTexture("assets/Screenshot.png")),
                 new TextureRegion(Asset.getAsset().getTexture("assets/tile/mahjong_tile_2.png")),
                 new TextureRegion(Asset.getAsset().getTexture("assets/tile/mahjong_tile_3.png"))
         };
 
         Decal decal = Decal.newDecal(1, 1, textures[1]);
-        decal.setPosition(0, 0, 0);
+        decal.setPosition(0, -100, 0);
         decals.add(decal);
+        decal.setColor(Color.RED);
+
+//
+//        viewDir.set(cam.direction).scl(-1);    // direction that decals should be facing: opposite of camera view vector
+//        // (don't point the decals at the (perspective) camera because then the rectangles get skewed with horrible jaggies)
+//
+//
+//        decal.setPosition(new Vector3(-20,0,0));
+//        decal.setRotation(viewDir,Vector3.Y);
+//        decalBatch.add(decal);
+//        decalBatch.flush();
 
 
-        decal = Decal.newDecal(1, 1, textures[0], true);
-        decal.setPosition(0.5f, 0.5f, 1);
-        decals.add(decal);
 
-        decal = Decal.newDecal(1, 1, textures[0], true);
-        decal.setPosition(1, 1, -1);
-        decals.add(decal);
 
-        decal = Decal.newDecal(1, 1, textures[2]);
-        decal.setPosition(1.5f, 1.5f, -2);
-        decals.add(decal);
 
-        decal = Decal.newDecal(1, 1, textures[1]);
-        decal.setPosition(2, 2, -1.5f);
-        decals.add(decal);
     }
 
+    private Vector3 viewDir;
     @Override
     public void render() {
         Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -86,14 +87,7 @@ public class DecalTest extends ApplicationAdapter {
         camController.update();
         for (int i = 0; i < decals.size; i++) {
             Decal decal = decals.get(i);
-//            if (billboard) {
-                // billboarding for ortho cam :)
-// dir.set(-camera.direction.x, -camera.direction.y, -camera.direction.z);
-// decal.setRotation(dir, Vector3.Y);
-
-                // billboarding for perspective cam
-                decal.lookAt(camera.position, camera.up);
-//            }
+            decal.lookAt(camera.position, camera.up);
             batch.add(decal);
         }
         batch.flush();
