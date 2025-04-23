@@ -7,9 +7,6 @@ import com.kw.gdx.d3.actor.ModelActor3D;
 
 public abstract class CommonCounter extends BaseActor3DGroup {
     protected BaseActor3D modelActor3D;
-    public void transformKitchen(){
-
-    }
 
     public BaseActor3D getModelActor3D() {
         return modelActor3D;

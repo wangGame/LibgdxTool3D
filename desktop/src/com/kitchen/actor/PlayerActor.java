@@ -5,6 +5,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.food.BreadFood;
 
+import com.food.CabbageFood;
+import com.food.CheeseFood;
+import com.food.MeatFood;
+import com.food.TomatoFood;
+import com.kitchen.counter.CabbageCounter;
+import com.kitchen.counter.CheeseCounter;
+import com.kitchen.counter.MeatCounter;
+import com.kitchen.counter.TomatoCounter;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
@@ -63,12 +71,22 @@ public class PlayerActor extends BaseActor3DGroup {
         forWard.set(0,-1);
     }
 
-    public void pickPlate() {
+    public void pickPlate(int i) {
         if (pickPlate)return;
         this.pickPlate = true;
-        pickActor = new BreadFood();
+        if (i == 1) {
+            pickActor = new BreadFood();
+        }else if (i == 2){
+            pickActor = new CabbageFood();
+        }else if (i == 3){
+            pickActor = new CheeseFood();
+        }else if (i == 4){
+            pickActor = new MeatFood();
+        }else if (i == 5){
+            pickActor = new TomatoFood();
+        }
         addActor3D(pickActor);
-        pickActor.setPosition(pickV3.x,pickV3.y,pickV3.z);
+        pickActor.setPosition(pickV3.x, pickV3.y, pickV3.z);
     }
 
     public Vector2 getCurrentDir() {
