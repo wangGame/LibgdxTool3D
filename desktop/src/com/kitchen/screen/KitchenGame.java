@@ -3,6 +3,7 @@ package com.kitchen.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Model;
 
@@ -69,7 +70,6 @@ public class KitchenGame extends BaseScreen3D {
         stage3D.addActor(player);
         player.initPlayer();
         Vector3 bodyPosition = player.getPosition().cpy();
-        bodyPosition.y += 50f;
         player.setBodyOff(new Vector3(0,-50,0));
         worldSystem.addCollision(player.getScale().cpy().scl(50),bodyPosition,1,player);
 
@@ -125,37 +125,37 @@ public class KitchenGame extends BaseScreen3D {
 
         BaseActor3D breadActor3D1 = new BreadCounter();
         stage3D.addActor(breadActor3D1);
-        breadActor3D1.setPosition(90*-5,0,5*90);
+        breadActor3D1.setPosition(90*-5,50,5*90);
         breadActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(breadActor3D1.getScale().cpy().scl(50),breadActor3D1.getPosition().cpy(),0,breadActor3D1);
 
         BaseActor3D cabbageActor3D1 = new CabbageCounter();
         stage3D.addActor(cabbageActor3D1);
-        cabbageActor3D1.setPosition(90*-4,0,5*90);
+        cabbageActor3D1.setPosition(90*-4,50,5*90);
         cabbageActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(cabbageActor3D1.getScale().cpy().scl(50),cabbageActor3D1.getPosition().cpy(),0,cabbageActor3D1);
 
         BaseActor3D cheeseActor3D1 = new CheeseCounter();
         stage3D.addActor(cheeseActor3D1);
-        cheeseActor3D1.setPosition(90*-3,0,5*90);
+        cheeseActor3D1.setPosition(90*-3,50,5*90);
         cheeseActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(cheeseActor3D1.getScale().cpy().scl(50),cheeseActor3D1.getPosition().cpy(),0,cheeseActor3D1);
 
         BaseActor3D meatActor3D1 = new MeatCounter();
         stage3D.addActor(meatActor3D1);
-        meatActor3D1.setPosition(90*-2,0,5*90);
+        meatActor3D1.setPosition(90*-2,50,5*90);
         meatActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(meatActor3D1.getScale().cpy().scl(50),meatActor3D1.getPosition().cpy(),0,meatActor3D1);
 
         BaseActor3D tomatoActor3D1 = new TomatoCounter();
         stage3D.addActor(tomatoActor3D1);
-        tomatoActor3D1.setPosition(90*-1,0,5*90);
+        tomatoActor3D1.setPosition(90*-1,50,5*90);
         tomatoActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(tomatoActor3D1.getScale().cpy().scl(50),tomatoActor3D1.getPosition().cpy(),0,tomatoActor3D1);
 
         BaseActor3D cutCounter = new CutCounter();
         stage3D.addActor(cutCounter);
-        cutCounter.setPosition(90*0,0,5*90);
+        cutCounter.setPosition(90*0,50,5*90);
         cutCounter.setFromAxis(0,1,0,180);
         worldSystem.addCollision(cutCounter.getScale().cpy().scl(50),
                 cutCounter.getPosition().cpy(),0,cutCounter);
@@ -163,7 +163,7 @@ public class KitchenGame extends BaseScreen3D {
 
         BaseActor3D plateCounter = new PlateCounter();
         stage3D.addActor(plateCounter);
-        plateCounter.setPosition(90*1,0,5*90);
+        plateCounter.setPosition(90*1,50,5*90);
         plateCounter.setFromAxis(0,1,0,180);
         worldSystem.addCollision(plateCounter.getScale().cpy().scl(50),
                 plateCounter.getPosition().cpy(),0,plateCounter);
@@ -171,51 +171,51 @@ public class KitchenGame extends BaseScreen3D {
 
         BaseActor3D stoneCounter = new StoneCounter();
         stage3D.addActor(stoneCounter);
-        stoneCounter.setPosition(90*2,0,5*90);
+        stoneCounter.setPosition(90*2,50,5*90);
         stoneCounter.setFromAxis(0,1,0,180);
         worldSystem.addCollision(stoneCounter.getScale().cpy().scl(50),
                 stoneCounter.getPosition().cpy(),0,stoneCounter);
 
         BaseActor3D trashBinCounter = new TrashBinCounter();
         stage3D.addActor(trashBinCounter);
-        trashBinCounter.setPosition(90*3,0,5*90);
+        trashBinCounter.setPosition(90*3,50,5*90);
         trashBinCounter.setFromAxis(0,1,0,180);
         worldSystem.addCollision(trashBinCounter.getScale().cpy().scl(50),
                 trashBinCounter.getPosition().cpy(),0,trashBinCounter);
 
         ClearCounter clearCounter1 = new ClearCounter();
         stage3D.addActor(clearCounter1);
-        clearCounter1.setPosition(90*4,0,5*90);
+        clearCounter1.setPosition(90*4,50,5*90);
         worldSystem.addCollision(clearCounter1.getScale().cpy().scl(50),clearCounter1.getPosition().cpy(),0,clearCounter1);
 
         ClearCounter clearCounter2 = new ClearCounter();
         stage3D.addActor(clearCounter2);
-        clearCounter2.setPosition(90*5,0,5*90);
+        clearCounter2.setPosition(90*5,50,5*90);
         worldSystem.addCollision(clearCounter2.getScale().cpy().scl(50),clearCounter2.getPosition().cpy(),0,clearCounter2);
 
         ClearCounter clearCounter3 = new ClearCounter();
         stage3D.addActor(clearCounter3);
-        clearCounter3.setPosition(90*6,0,5*90);
+        clearCounter3.setPosition(90*6,50,5*90);
         worldSystem.addCollision(clearCounter3.getScale().cpy().scl(50),clearCounter3.getPosition().cpy(),0,clearCounter3);
 
         for (int i = -5; i <= 5; i++) {
             ClearCounter modelActor3D1 = new ClearCounter();
             stage3D.addActor(modelActor3D1);
-            modelActor3D1.setPosition(-6*90,0,i*90);
+            modelActor3D1.setPosition(-6*90,50,i*90);
             modelActor3D1.setFromAxis(0,1,0,90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
         for (int i = -5; i <= 5; i++) {
             ClearCounter modelActor3D1 = new ClearCounter();
             stage3D.addActor(modelActor3D1);
-            modelActor3D1.setPosition(6*90,0,i*90);
+            modelActor3D1.setPosition(6*90,50,i*90);
             modelActor3D1.setFromAxis(0,1,0,-90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
         for (int i = -5; i <= 5; i++) {
             ClearCounter modelActor3D1 = new ClearCounter();
             stage3D.addActor(modelActor3D1);
-            modelActor3D1.setPosition(i*90,0,-5*90);
+            modelActor3D1.setPosition(i*90,50,-5*90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
     }
