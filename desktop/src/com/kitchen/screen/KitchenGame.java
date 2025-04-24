@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g3d.Model;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.UBJsonReader;
 import com.food.CabbageFood;
 import com.food.CheeseFood;
 import com.food.MeatFood;
@@ -18,9 +20,12 @@ import com.kitchen.counter.CheeseCounter;
 import com.kitchen.counter.ClearCounter;
 import com.kitchen.counter.CommonCounter;
 import com.kitchen.counter.CutCounter;
+import com.kitchen.counter.DeliveryCounter;
 import com.kitchen.counter.MeatCounter;
+import com.kitchen.counter.PlateCounter;
 import com.kitchen.counter.StoneCounter;
 import com.kitchen.counter.TomatoCounter;
+import com.kitchen.counter.TrashBinCounter;
 import com.kitchen.manager.KitchenManager;
 import com.kw.gdx.BaseGame;
 import com.kw.gdx.asset.Asset;
@@ -65,7 +70,7 @@ public class KitchenGame extends BaseScreen3D {
         player.initPlayer();
         Vector3 bodyPosition = player.getPosition().cpy();
         bodyPosition.y += 50f;
-        player.setBodyOff(new Vector3(200,-50,0));
+        player.setBodyOff(new Vector3(0,-50,0));
         worldSystem.addCollision(player.getScale().cpy().scl(50),bodyPosition,1,player);
 
 
@@ -73,8 +78,14 @@ public class KitchenGame extends BaseScreen3D {
 //        stage3D.addActor(counter);
 
 
-        StoneCounter stoneCounter = new StoneCounter();
-        stage3D.addActor(stoneCounter);
+//        TrashBinCounter stoneCounter = new TrashBinCounter();
+//        stage3D.addActor(stoneCounter);
+
+//        UBJsonReader reader = new UBJsonReader();
+//        JsonValue parse = reader.parse(Gdx.files.internal("kitchen/model/Kitchen Counter_Blue.mat"));
+//        System.out.println(parse);
+
+
 //
 //        ro = new BaseActor3DGroup(){
 //            private float angle = 0;
@@ -94,7 +105,7 @@ public class KitchenGame extends BaseScreen3D {
 
 //        testFood();
 
-//        counterQia();
+        counterQia();
 
 //
 //        Decal decal = Decal.newDecal(new TextureRegion(
@@ -142,16 +153,63 @@ public class KitchenGame extends BaseScreen3D {
         tomatoActor3D1.setFromAxis(0,1,0,180);
         worldSystem.addCollision(tomatoActor3D1.getScale().cpy().scl(50),tomatoActor3D1.getPosition().cpy(),0,tomatoActor3D1);
 
+        BaseActor3D cutCounter = new CutCounter();
+        stage3D.addActor(cutCounter);
+        cutCounter.setPosition(90*0,0,5*90);
+        cutCounter.setFromAxis(0,1,0,180);
+        worldSystem.addCollision(cutCounter.getScale().cpy().scl(50),
+                cutCounter.getPosition().cpy(),0,cutCounter);
+
+
+        BaseActor3D plateCounter = new PlateCounter();
+        stage3D.addActor(plateCounter);
+        plateCounter.setPosition(90*1,0,5*90);
+        plateCounter.setFromAxis(0,1,0,180);
+        worldSystem.addCollision(plateCounter.getScale().cpy().scl(50),
+                plateCounter.getPosition().cpy(),0,plateCounter);
+
+
+        BaseActor3D stoneCounter = new StoneCounter();
+        stage3D.addActor(stoneCounter);
+        stoneCounter.setPosition(90*2,0,5*90);
+        stoneCounter.setFromAxis(0,1,0,180);
+        worldSystem.addCollision(stoneCounter.getScale().cpy().scl(50),
+                stoneCounter.getPosition().cpy(),0,stoneCounter);
+
+        BaseActor3D trashBinCounter = new TrashBinCounter();
+        stage3D.addActor(trashBinCounter);
+        trashBinCounter.setPosition(90*3,0,5*90);
+        trashBinCounter.setFromAxis(0,1,0,180);
+        worldSystem.addCollision(trashBinCounter.getScale().cpy().scl(50),
+                trashBinCounter.getPosition().cpy(),0,trashBinCounter);
+
+        ClearCounter clearCounter1 = new ClearCounter();
+        stage3D.addActor(clearCounter1);
+        clearCounter1.setPosition(90*4,0,5*90);
+        worldSystem.addCollision(clearCounter1.getScale().cpy().scl(50),clearCounter1.getPosition().cpy(),0,clearCounter1);
+
+        ClearCounter clearCounter2 = new ClearCounter();
+        stage3D.addActor(clearCounter2);
+        clearCounter2.setPosition(90*5,0,5*90);
+        worldSystem.addCollision(clearCounter2.getScale().cpy().scl(50),clearCounter2.getPosition().cpy(),0,clearCounter2);
+
+        ClearCounter clearCounter3 = new ClearCounter();
+        stage3D.addActor(clearCounter3);
+        clearCounter3.setPosition(90*6,0,5*90);
+        worldSystem.addCollision(clearCounter3.getScale().cpy().scl(50),clearCounter3.getPosition().cpy(),0,clearCounter3);
+
         for (int i = -5; i <= 5; i++) {
             ClearCounter modelActor3D1 = new ClearCounter();
             stage3D.addActor(modelActor3D1);
             modelActor3D1.setPosition(-6*90,0,i*90);
+            modelActor3D1.setFromAxis(0,1,0,90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
         for (int i = -5; i <= 5; i++) {
             ClearCounter modelActor3D1 = new ClearCounter();
             stage3D.addActor(modelActor3D1);
             modelActor3D1.setPosition(6*90,0,i*90);
+            modelActor3D1.setFromAxis(0,1,0,-90);
             worldSystem.addCollision(modelActor3D1.getScale().cpy().scl(50),modelActor3D1.getPosition().cpy(),0,modelActor3D1);
         }
         for (int i = -5; i <= 5; i++) {

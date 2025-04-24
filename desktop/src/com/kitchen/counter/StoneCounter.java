@@ -16,6 +16,6 @@ public class StoneCounter extends CommonCounter {
         ModelActor3D knifeModel = new ModelActor3D(Asset3D.getAsset3D()
                 .getModel("kitchen/model/Frying Pan.g3db"));
         addActor3D(knifeModel);
-        knifeModel.setPosition(0,105,10);
+        knifeModel.setPosition(0,95,-5);
     }
 }

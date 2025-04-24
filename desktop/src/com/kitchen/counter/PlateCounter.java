@@ -1,5 +1,6 @@
 package com.kitchen.counter;
 
+import com.kw.gdx.d3.actor.DecalActor;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 
@@ -8,6 +9,14 @@ public class PlateCounter extends CommonCounter {
         ModelActor3D baseCounter = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Kitchen Counter.g3db"));
         addActor3D(baseCounter);
 
+        DecalActor decalActor = new DecalActor("kitchen/Texture/CircleDashed.png");
+        addActor3D(decalActor);
+        decalActor.setPosition(0,90,0);
+        decalActor.setScale(0.5f,0.5f,0.5f);
+        decalActor.setFromAxis(1,0,0,90);
+    }
+
+    public void genPlate(){
 
     }
 }

@@ -121,10 +121,10 @@ public class WorldSystem {
 
     public void update(){
         world.stepSimulation(1f / 60f, 10);
-//        drawer.setDebugMode(btIDebugDraw.DebugDrawModes.DBG_MAX_DEBUG_DRAW_MODE);
-//        drawer.begin(cam1);
-//        world.debugDrawWorld();
-//        drawer.end();
+        drawer.setDebugMode(btIDebugDraw.DebugDrawModes.DBG_MAX_DEBUG_DRAW_MODE);
+        drawer.begin(cam1);
+        world.debugDrawWorld();
+        drawer.end();
     }
 
     public void setCam1(PerspectiveCamera cam1) {
@@ -160,7 +160,7 @@ public class WorldSystem {
         // 创建静态刚体（实际上就是创建一个不可移动的物体）
         btRigidBody staticRigidBody = new btRigidBody(rbInfo);
         staticRigidBody.setFriction(1f);
-        staticRigidBody.setDamping(0.97f,10);
+        staticRigidBody.setDamping(0.9999999f,100);
         // 将静态刚体添加到物理世界中
         world.addRigidBody(staticRigidBody);
         if (actor3D!=null) {

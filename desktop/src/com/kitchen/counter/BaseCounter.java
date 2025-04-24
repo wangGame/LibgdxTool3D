@@ -24,8 +24,7 @@ public class BaseCounter extends CommonCounter {
         singleDoor.setScale(1.5f,1.5f,1f);
         singleDoor.setEulerAngles(0,-90,-90);
 
-        Decal decal = Decal.newDecal(new TextureRegion(Asset.getAsset().getTexture(kitchen/*"kitchen/Texture/Bread.png"*/)),true);
-        DecalActor decalActor = new DecalActor(decal);
+        DecalActor decalActor = new DecalActor(kitchen);
         addActor3D(decalActor);
         decalActor.setFromAxis(1,0,0,90);
         decalActor.setScale(0.2f,0.2f,0.2f);

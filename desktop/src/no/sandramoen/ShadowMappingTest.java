@@ -65,7 +65,7 @@ public class ShadowMappingTest extends ApplicationAdapter {
 
         shadowBatch = new ModelBatch(new DepthShaderProvider());
 
-        Gdx.input.setInputProcessor(camController = new CameraInputController(cam));
+//        Gdx.input.setInputProcessor(camController = new CameraInputController(cam));
     }
 
     @Override

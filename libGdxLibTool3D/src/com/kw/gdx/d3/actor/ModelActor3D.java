@@ -117,6 +117,7 @@ public class ModelActor3D extends BaseActor3D {
     }
 
     public void setMaterialTexture(Texture texture) {
+
         for (Material material : modelInstance.materials) {
             boolean setTexture = false;
             for (Attribute attribute : material) {
