@@ -121,10 +121,10 @@ public class WorldSystem {
 
     public void update(){
         world.stepSimulation(1f / 60f, 10);
-        drawer.setDebugMode(btIDebugDraw.DebugDrawModes.DBG_MAX_DEBUG_DRAW_MODE);
-        drawer.begin(cam1);
-        world.debugDrawWorld();
-        drawer.end();
+//        drawer.setDebugMode(btIDebugDraw.DebugDrawModes.DBG_MAX_DEBUG_DRAW_MODE);
+//        drawer.begin(cam1);
+//        world.debugDrawWorld();
+//        drawer.end();
     }
 
     public void setCam1(PerspectiveCamera cam1) {

@@ -325,4 +325,15 @@ public class BaseActor3D {
     protected void drawDecal(DecalBatch decalBatch) {
 
     }
+
+
+    public void addBody(float collisionScale,float mass){
+        WorldSystem.getInstance().addCollision(getScale().cpy().scl(collisionScale),
+                getPosition().cpy(),mass,null);
+    }
+
+    public void addBody(float collisionScale,float mass,BaseActor3D actor3D){
+        WorldSystem.getInstance().addCollision(getScale().cpy().scl(collisionScale),
+                getPosition().cpy(),mass,actor3D);
+    }
 }

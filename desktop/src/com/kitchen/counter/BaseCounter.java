@@ -28,7 +28,7 @@ public class BaseCounter extends CommonCounter {
         addActor3D(decalActor);
         decalActor.setFromAxis(1,0,0,90);
         decalActor.setScale(0.2f,0.2f,0.2f);
-        decalActor.setPosition(0,100,20);
+        decalActor.setPosition(0,90,20);
 
     }
 

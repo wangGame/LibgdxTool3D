@@ -1,5 +1,6 @@
 package com.kitchen.actor;
 
+import com.Content;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -7,6 +8,7 @@ import com.food.BreadFood;
 
 import com.food.CabbageFood;
 import com.food.CheeseFood;
+import com.food.FoodGroup;
 import com.food.MeatFood;
 import com.food.TomatoFood;
 import com.kitchen.counter.CabbageCounter;
@@ -23,7 +25,7 @@ public class PlayerActor extends BaseActor3DGroup {
     private boolean pickPlate = false;
     private Vector3 moveV = new Vector3();
     private Vector3 pickV3;
-    private BaseActor3DGroup pickActor;
+    private FoodGroup pickActor;
     public PlayerActor(){
         speed = 39300;
         forWard = new Vector2();
@@ -74,15 +76,15 @@ public class PlayerActor extends BaseActor3DGroup {
     public void pickPlate(int i) {
         if (pickPlate)return;
         this.pickPlate = true;
-        if (i == 1) {
+        if (i == Content.BREAD) {
             pickActor = new BreadFood();
-        }else if (i == 2){
+        }else if (i == Content.CABBAGE){
             pickActor = new CabbageFood();
-        }else if (i == 3){
+        }else if (i == Content.CHEESE){
             pickActor = new CheeseFood();
-        }else if (i == 4){
+        }else if (i == Content.MEAT){
             pickActor = new MeatFood();
-        }else if (i == 5){
+        }else if (i == Content.TOMATO){
             pickActor = new TomatoFood();
         }
         addActor3D(pickActor);
@@ -93,11 +95,11 @@ public class PlayerActor extends BaseActor3DGroup {
         return forWard;
     }
 
-    public BaseActor3DGroup getPickActor() {
+    public FoodGroup getPickActor() {
         return pickActor;
     }
 
-    public void setPickActor(BaseActor3DGroup pickActor) {
+    public void setPickActor(FoodGroup pickActor) {
         this.pickActor = pickActor;
         if (pickActor == null){
             pickPlate = false;

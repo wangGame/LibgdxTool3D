@@ -1,5 +1,7 @@
 package com.kitchen.manager;
 
+import com.cube.Cube;
+import com.food.FoodGroup;
 import com.kitchen.actor.PlayerActor;
 import com.kitchen.counter.BaseCounter;
 import com.kitchen.counter.BreadCounter;
@@ -7,6 +9,7 @@ import com.kitchen.counter.CabbageCounter;
 import com.kitchen.counter.CheeseCounter;
 import com.kitchen.counter.ClearCounter;
 import com.kitchen.counter.CommonCounter;
+import com.kitchen.counter.CutCounter;
 import com.kitchen.counter.MeatCounter;
 import com.kitchen.counter.TomatoCounter;
 import com.kw.gdx.d3.actor.BaseActor3D;
@@ -27,7 +30,7 @@ public class KitchenManager {
         }else if (actor3D instanceof TomatoCounter){
             player.pickPlate(5);
         }else if (actor3D instanceof ClearCounter){
-            BaseActor3DGroup pickActor = player.getPickActor();
+            FoodGroup pickActor = player.getPickActor();
             BaseActor3D modelActor3D = actor3D.getModelActor3D();
             if (pickActor!=null){
                 if (modelActor3D==null){
@@ -35,6 +38,36 @@ public class KitchenManager {
                     player.remove3D(pickActor);
                     actor3D.setModelActor3D(pickActor);
                     actor3D.addActor3D(pickActor);
+                }
+            }
+        }else if (actor3D instanceof CutCounter){
+            //可以切你就放上去
+            FoodGroup pickActor = player.getPickActor();
+            if (actor3D.canCutCurrentFood(pickActor.getId())) {
+                BaseActor3D modelActor3D = actor3D.getModelActor3D();
+                if (pickActor!=null){
+                    if (modelActor3D==null){
+                        player.setPickActor(null);
+                        player.remove3D(pickActor);
+                        actor3D.setModelActor3D(pickActor);
+                        actor3D.addActor3D(pickActor);
+                    }
+                }else {
+                    if (modelActor3D!=null){
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void doKitchen(PlayerActor player, CommonCounter actor3D1) {
+        if (actor3D1 instanceof CutCounter){
+            BaseActor3DGroup pickActor = player.getPickActor();
+            BaseActor3D modelActor3D = actor3D1.getModelActor3D();
+            if (pickActor==null){
+                if (modelActor3D!=null){
+                    actor3D1.option();
                 }
             }
         }
