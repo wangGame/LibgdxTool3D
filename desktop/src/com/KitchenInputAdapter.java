@@ -38,12 +38,10 @@ public class KitchenInputAdapter extends InputAdapter {
                 }
             }
         }else if (Gdx.input.isKeyPressed(Input.Keys.C)){
-            System.out.println("ccc");
             BaseActor3D actor3D = checkPointCounter();
             if (actor3D!=null) {
                 if (actor3D instanceof CommonCounter) {
                     CommonCounter actor3D1 = (CommonCounter) (actor3D);
-//                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
                     kitchenGame.getManager().doKitchen(kitchenGame.getPlayer(),actor3D1);
                 }
             }

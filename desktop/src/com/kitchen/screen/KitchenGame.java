@@ -1,5 +1,6 @@
 package com.kitchen.screen;
 
+import com.KitchenInputAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -40,7 +41,6 @@ import com.kw.gdx.d3.world.WorldSystem;
 public class KitchenGame extends BaseScreen3D {
     private PlayerActor player;
     private KitchenManager manager;
-    BaseActor3DGroup ro;
     private float modelCollisionScale = 35;
     public KitchenGame(BaseGame game) {
         super(game);
@@ -49,8 +49,8 @@ public class KitchenGame extends BaseScreen3D {
     @Override
     public void initView() {
         super.initView();
+        getMultiplexer().addProcessor(new KitchenInputAdapter(this));
         manager = new KitchenManager();
-
         PerspectiveCamera camera = stage3D.getCamera();
         WorldSystem.getInstance().setCam1(camera);
         //bg
@@ -216,39 +216,39 @@ public class KitchenGame extends BaseScreen3D {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            player.leftMove();
-        }else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            player.rightMove();
-        }else if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            player.upMove();
-        }else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            player.downMove();
-        }else if (Gdx.input.isKeyPressed(Input.Keys.W)){
-            player.pickPlate(1);
-        }
+//        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+//            player.leftMove();
+//        }else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+//            player.rightMove();
+//        }else if (Gdx.input.isKeyPressed(Input.Keys.UP)){
+//            player.upMove();
+//        }else if (Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+//            player.downMove();
+//        }else if (Gdx.input.isKeyPressed(Input.Keys.W)){
+//            player.pickPlate(1);
+//        }
 
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
-            BaseActor3D actor3D = checkPointCounter();
-            if (actor3D!=null) {
-                if (actor3D instanceof CommonCounter) {
-                    CommonCounter actor3D1 = (CommonCounter) (actor3D);
-//                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
-                    manager.option(player,actor3D1);
-                }
-            }
-        }else if (Gdx.input.isKeyPressed(Input.Keys.C)){
-            System.out.println("ccc");
-            BaseActor3D actor3D = checkPointCounter();
-            if (actor3D!=null) {
-                if (actor3D instanceof CommonCounter) {
-                    CommonCounter actor3D1 = (CommonCounter) (actor3D);
-//                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
-                    manager.doKitchen(player,actor3D1);
-                }
-            }
-        }
+//        if (Gdx.input.isKeyJustPressed(Input.Keys.E)){
+//            BaseActor3D actor3D = checkPointCounter();
+//            if (actor3D!=null) {
+//                if (actor3D instanceof CommonCounter) {
+//                    CommonCounter actor3D1 = (CommonCounter) (actor3D);
+////                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
+//                    manager.option(player,actor3D1);
+//                }
+//            }
+//        }else if (Gdx.input.isKeyPressed(Input.Keys.C)){
+//            System.out.println("ccc");
+//            BaseActor3D actor3D = checkPointCounter();
+//            if (actor3D!=null) {
+//                if (actor3D instanceof CommonCounter) {
+//                    CommonCounter actor3D1 = (CommonCounter) (actor3D);
+////                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
+//                    manager.doKitchen(player,actor3D1);
+//                }
+//            }
+//        }
 
         super.render(delta);
         WorldSystem.getInstance().update();

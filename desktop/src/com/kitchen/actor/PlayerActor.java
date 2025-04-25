@@ -103,6 +103,8 @@ public class PlayerActor extends BaseActor3DGroup {
         this.pickActor = pickActor;
         if (pickActor == null){
             pickPlate = false;
+        }else {
+            pickActor.setPosition(pickV3.x, pickV3.y, pickV3.z);
         }
     }
 }

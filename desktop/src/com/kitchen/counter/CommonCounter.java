@@ -13,7 +13,7 @@ public abstract class CommonCounter extends BaseActor3DGroup {
         setBodyOff(new Vector3(0,-50,0));
     }
 
-    public BaseActor3D getModelActor3D() {
+    public FoodGroup getModelActor3D() {
         return modelActor3D;
     }
 

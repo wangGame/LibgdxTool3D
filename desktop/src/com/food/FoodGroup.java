@@ -8,4 +8,8 @@ public abstract class FoodGroup extends BaseActor3DGroup {
     public int getId() {
         return id;
     }
+
+    public void changeCutStatus(){
+
+    }
 }

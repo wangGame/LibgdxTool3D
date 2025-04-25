@@ -43,19 +43,29 @@ public class KitchenManager {
         }else if (actor3D instanceof CutCounter){
             //可以切你就放上去
             FoodGroup pickActor = player.getPickActor();
-            if (actor3D.canCutCurrentFood(pickActor.getId())) {
-                BaseActor3D modelActor3D = actor3D.getModelActor3D();
-                if (pickActor!=null){
-                    if (modelActor3D==null){
-                        player.setPickActor(null);
-                        player.remove3D(pickActor);
-                        actor3D.setModelActor3D(pickActor);
-                        actor3D.addActor3D(pickActor);
-                    }
-                }else {
-                    if (modelActor3D!=null){
+            if (pickActor!=null) {
+                if (actor3D.canCutCurrentFood(pickActor.getId())) {
+                    BaseActor3D modelActor3D = actor3D.getModelActor3D();
+                    if (pickActor != null) {
+                        if (modelActor3D == null) {
+                            player.setPickActor(null);
+                            player.remove3D(pickActor);
+                            actor3D.setModelActor3D(pickActor);
+                            actor3D.addActor3D(pickActor);
+                        }
+                    } else {
+                        if (modelActor3D != null) {
 
+                        }
                     }
+                }
+            }else {
+                if (actor3D.getModelActor3D()!=null) {
+                    FoodGroup modelActor3D = actor3D.getModelActor3D();
+                    actor3D.setModelActor3D(null);
+
+                    player.setPickActor(modelActor3D);
+                    player.addActor3D(modelActor3D);
                 }
             }
         }

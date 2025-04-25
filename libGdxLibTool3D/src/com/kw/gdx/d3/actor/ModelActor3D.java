@@ -75,6 +75,7 @@ public class ModelActor3D extends BaseActor3D {
     }
 
     public void draw(ModelBatch batch, Environment env) {
+        if (!isVisible)return;
         if (modelInstance != null) {
             if (!isCaremaClip()) return;
             Matrix4 matrix4 = calculateTransform();

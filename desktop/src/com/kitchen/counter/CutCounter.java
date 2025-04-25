@@ -36,6 +36,6 @@ public class CutCounter extends CommonCounter {
 
 
     public void option() {
-        int id = modelActor3D.getId();
+        modelActor3D.changeCutStatus();
     }
 }

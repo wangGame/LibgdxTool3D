@@ -42,6 +42,7 @@ public class BaseActor3D {
     protected boolean debug;
     //显示   所有的都加上碰撞检测？？
     protected btRigidBody body;
+    protected boolean isVisible;
 
     public BaseActor3D(){
         this(0,0,0);
@@ -59,6 +60,7 @@ public class BaseActor3D {
         this.boundingBoxTemp = new BoundingBox();
         this.checkCollisionV3 = new Vector3();
         this.isDity = true;
+        this.isVisible = true;
     }
 
     public Matrix4 getActorMatrix() {
@@ -335,5 +337,9 @@ public class BaseActor3D {
     public void addBody(float collisionScale,float mass,BaseActor3D actor3D){
         WorldSystem.getInstance().addCollision(getScale().cpy().scl(collisionScale),
                 getPosition().cpy(),mass,actor3D);
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }

@@ -8,6 +8,7 @@ import com.kw.gdx.d3.asset.Asset3D;
 public class BreadFood extends FoodGroup {
     private ModelActor3D breadUp;
     private ModelActor3D breadDown;
+
     public BreadFood() {
         this.id = Content.BREAD;
         breadDown = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/BreadBottom.g3db"));
