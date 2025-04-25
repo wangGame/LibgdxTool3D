@@ -27,23 +27,22 @@ import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
 public class Stage3D extends InputAdapter {
-    private boolean intervalFlag;
-    private int visibleCount = 0;
-    private Environment environment;
-    private PerspectiveCamera camera;
-    private BaseActor3DGroup gameRoot;
-    private ModelBatch modelBatch;
-    private float intervalCounter;
-    private final float INTERVAL_COUNTER_FREQUENCY = 1;
-    private CameraInputController camController;//视角控制器
-    private DirectionalShadowLight shadowLight;
-    private ModelBatch shadowBatch;
-    private RayBean rayBean = new RayBean();
-    private ShapeRenderer debugShapes;
-    private boolean isDebug;
-    private DecalBatch decalBatch;
+    protected Environment environment;
+    protected PerspectiveCamera camera;
+    protected BaseActor3DGroup gameRoot;
+    protected ModelBatch modelBatch;
+    protected float intervalCounter;
+    protected final float INTERVAL_COUNTER_FREQUENCY = 1;
+    protected CameraInputController camController;//视角控制器
+    protected DirectionalShadowLight shadowLight;
+    protected ModelBatch shadowBatch;
+    protected RayBean rayBean = new RayBean();
+    protected ShapeRenderer debugShapes;
+    protected boolean isDebug;
+    protected DecalBatch decalBatch;
 
     public Stage3D() {
+        environment = new Environment();
         initLight();
         initCamera();
         initModelBatch();
@@ -51,7 +50,7 @@ public class Stage3D extends InputAdapter {
         initRoot();
     }
 
-    private void initDecalBatch() {
+    protected void initDecalBatch() {
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
     }
 
@@ -69,7 +68,7 @@ public class Stage3D extends InputAdapter {
         debugShapes.end();
     }
 
-    private void initRoot() {
+    protected void initRoot() {
         gameRoot = new BaseActor3DGroup(0,0,0);
     }
 
@@ -77,7 +76,7 @@ public class Stage3D extends InputAdapter {
         return camController;
     }
 
-    private void initModelBatch() {
+    protected void initModelBatch() {
         DefaultShader.Config config = new DefaultShader.Config();
         config.numDirectionalLights = 1;
         config.numPointLights = 50;
@@ -87,7 +86,7 @@ public class Stage3D extends InputAdapter {
         this.shadowBatch = new ModelBatch(new DepthShaderProvider());
     }
 
-    private void initCamera() {
+    protected void initCamera() {
         camera = new PerspectiveCamera(23, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.position.set(0f, 1500, 1500f);
         camera.lookAt(0,0,0);
@@ -97,8 +96,8 @@ public class Stage3D extends InputAdapter {
         camController = new CameraInputController(camera);
     }
 
-    private void initLight() {
-        environment = new Environment();
+    protected void initLight() {
+
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         //投影
         environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
@@ -132,7 +131,6 @@ public class Stage3D extends InputAdapter {
         shadowLight.end();
 //        Gdx.gl.glClearColor(0, 0, 0, 1);
         modelBatch.begin(camera);
-        visibleCount = 0;
         gameRoot.draw(modelBatch,environment);
         modelBatch.end();
 //        debug();
@@ -221,12 +219,12 @@ public class Stage3D extends InputAdapter {
         camera.direction.rotate(side, angle);
     }
 
-    private void setIntervalFlag(float dt) {
+    protected void setIntervalFlag(float dt) {
         if (intervalCounter > INTERVAL_COUNTER_FREQUENCY) {
-            intervalFlag = true;
+
             intervalCounter = 0;
         } else {
-            intervalFlag = false;
+
             intervalCounter += dt;
         }
     }
