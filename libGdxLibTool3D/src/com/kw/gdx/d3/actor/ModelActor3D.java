@@ -59,7 +59,7 @@ public class ModelActor3D extends BaseActor3D {
 
     public void drawShadow(ModelBatch batch, Environment environment) {
         if (modelInstance != null) {
-            if (!isCaremaClip()) return;
+//            if (!isCaremaClip()) return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D != null) {
                 Matrix4 pM = parent3D.getActorMatrix();
@@ -77,7 +77,7 @@ public class ModelActor3D extends BaseActor3D {
     public void draw(ModelBatch batch, Environment env) {
         if (!isVisible)return;
         if (modelInstance != null) {
-            if (!isCaremaClip()) return;
+//            if (!isCaremaClip()) return;
             Matrix4 matrix4 = calculateTransform();
             if (parent3D != null) {
                 Matrix4 pM = parent3D.getActorMatrix();

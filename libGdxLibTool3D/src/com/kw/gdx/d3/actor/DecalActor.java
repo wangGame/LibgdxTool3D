@@ -18,6 +18,7 @@ public class DecalActor extends BaseActor3D{
     private Vector3 positionV3 = new Vector3();
     private Quaternion rotationP = new Quaternion();
     private Vector3 scaleV3 = new Vector3();
+    private Quaternion temp = new Quaternion();
     @Override
     protected void drawDecal(DecalBatch decalBatch) {
         super.drawDecal(decalBatch);
@@ -26,9 +27,11 @@ public class DecalActor extends BaseActor3D{
         actorMatrix1.getTranslation(positionV3);
         actorMatrix1.getRotation(rotationP);
         actorMatrix1.getScale(scaleV3);
+        temp.set(rotationP);
+        temp.mul(rotation);
+        decal.setRotation(temp);
         decal.setPosition(positionV3.add(getPosition()));
         decal.setScale(scaleV3.x*getScale().x,scaleV3.y*getScale().y);
-        decal.setRotation(rotationP.mul(rotation));
         decalBatch.add(decal);
     }
 }

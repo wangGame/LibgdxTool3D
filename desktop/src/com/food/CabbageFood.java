@@ -12,7 +12,7 @@ public class CabbageFood extends FoodGroup {
         this.id = Content.CABBAGE;
         noCutCabbage = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Cabbage.g3db"));
         addActor3D(noCutCabbage);
-        setScale(2,2,2);
+
         cutCabbage = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Cabbage slice_shaped.g3db"));
         addActor3D(cutCabbage);
         cutCabbage.setVisible(false);

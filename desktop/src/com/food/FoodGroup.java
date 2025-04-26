@@ -6,7 +6,7 @@ import com.kw.gdx.d3.actor.BaseActor3DGroup;
 
 public abstract class FoodGroup extends BaseActor3DGroup {
     protected int id;
-    private Array<FoodGroup> foodGroups;
+    protected Array<FoodGroup> foodGroups;
     private FoodGroup pickActor;
     public int getId() {
         return id;
@@ -16,13 +16,13 @@ public abstract class FoodGroup extends BaseActor3DGroup {
 
     }
 
-    public boolean pickPlate(int i) {
+    public FoodGroup pickPlate(int i) {
         if (foodGroups == null){
             foodGroups = new Array<>();
         }
         for (FoodGroup foodGroup : foodGroups) {
             if (foodGroup.getId() == i) {
-                return false;
+                return null;
             }
         }
         if (i == Content.BREAD) {
@@ -40,6 +40,6 @@ public abstract class FoodGroup extends BaseActor3DGroup {
         }
         foodGroups.add(pickActor);
         addActor3D(pickActor);
-        return true;
+        return pickActor;
     }
 }

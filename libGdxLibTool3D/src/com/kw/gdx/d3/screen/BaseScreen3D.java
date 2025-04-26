@@ -28,9 +28,10 @@ public abstract class BaseScreen3D extends BaseScreen {
     public void render(float delta) {
         //模型在下  ui在上
         //stage3D绘制是否对ui的act有影响？
+
         stage3D.act(delta);
         stage3D.draw();
-
+        super.render(delta);
 //        super.render(delta);
     }
 }

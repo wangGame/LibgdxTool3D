@@ -11,6 +11,7 @@ import com.kitchen.counter.CheeseCounter;
 import com.kitchen.counter.ClearCounter;
 import com.kitchen.counter.CommonCounter;
 import com.kitchen.counter.CutCounter;
+import com.kitchen.counter.DeliveryCounter;
 import com.kitchen.counter.MeatCounter;
 import com.kitchen.counter.PlateCounter;
 import com.kitchen.counter.TomatoCounter;
@@ -42,6 +43,12 @@ public class KitchenManager {
                         player.remove3D(pickActor);
                         actor3D.setModelActor3D(pickActor);
                         actor3D.addActor3D(pickActor);
+                    }else {
+                        if (modelActor3D instanceof PlateGroup){
+                            modelActor3D.pickPlate(pickActor.getId());
+                            pickActor.remove();
+                            player.setPickActor(null);
+                        }
                     }
                 }else {
                     if (modelActor3D!=null) {
@@ -87,6 +94,23 @@ public class KitchenManager {
                 FoodGroup pickActor = player.getPickActor();
                 player.remove3D(pickActor);
                 player.setPickActor(null);
+            }else if (actor3D.getModelActor3D() instanceof PlateGroup) {
+                if (player.getPickActor()!=null) {
+                    FoodGroup pickActor = player.getPickActor();
+                    FoodGroup modelActor3D = actor3D.getModelActor3D();
+//                    if (actor3D instanceof BreadCounter) {
+//                        modelActor3D.pickPlate(1);
+//                    } else if (actor3D instanceof CabbageCounter) {
+//                        modelActor3D.pickPlate(2);
+//                    } else if (actor3D instanceof CheeseCounter) {
+//                        modelActor3D.pickPlate(3);
+//                    } else if (actor3D instanceof MeatCounter) {
+//                        modelActor3D.pickPlate(4);
+//                    } else if (actor3D instanceof TomatoCounter) {
+//                        modelActor3D.pickPlate(5);
+//                    }
+                    modelActor3D.pickPlate(pickActor.getId());
+                }
             }
         }else {
             FoodGroup pickActor = player.getPickActor();
@@ -110,7 +134,7 @@ public class KitchenManager {
                         actor3D.addActor3D(pickActor);
                     } else {
                         int id = modelActor3D.getId();
-                        if (pickActor.pickPlate(id)) {
+                        if (pickActor.pickPlate(id)!=null) {
                             modelActor3D.remove();
                             actor3D.setModelActor3D(null);
                         }
@@ -118,6 +142,12 @@ public class KitchenManager {
                 }else if (actor3D instanceof TrashBinCounter){
                     player.remove3D(pickActor);
                     player.setPickActor(null);
+                }else if (actor3D instanceof DeliveryCounter){
+                    player.setPickActor(null);
+                    player.remove3D(pickActor);
+//                    actor3D.setModelActor3D(pickActor);
+//                    actor3D.addActor3D(pickActor);
+                    actor3D.option();
                 }
             }
         }
