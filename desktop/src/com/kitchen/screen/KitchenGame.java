@@ -61,7 +61,7 @@ public class KitchenGame extends BaseScreen3D {
     public void initView() {
         super.initView();
         this.orderView = new OrderView();
-//        addActor(orderView);
+        addActor(orderView);
         getMultiplexer().addProcessor(new KitchenInputAdapter(this));
         manager = new KitchenManager();
         PerspectiveCamera camera = stage3D.getCamera();
@@ -186,12 +186,12 @@ public class KitchenGame extends BaseScreen3D {
         Model model = Asset3D.getAsset3D().getModel("kitchen/model/table.g3db");
         ModelActor3D modelActor3D = new ModelActor3D(model);
         stage3D.addActor(modelActor3D);
-        modelActor3D.setScale(190,0.01f,190);
+        modelActor3D.setScale(90,0.01f,90);
         Texture woodTexture = Asset.getAsset().getTexture("kitchen/Texture/ButtonBackground.png");
         woodTexture.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         woodTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         modelActor3D.setMaterialTexture(woodTexture);
-        modelActor3D.setPosition(0,-0.5f,-190);
+        modelActor3D.setPosition(0,-0.5f,-90);
         modelActor3D.addBody(5,0);
         {
             {
