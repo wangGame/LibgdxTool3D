@@ -18,7 +18,6 @@ import com.kitchen.counter.TomatoCounter;
 import com.kitchen.counter.TrashBinCounter;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
-import com.kw.gdx.d3.actor.ModelActor3D;
 
 public class KitchenManager {
 
@@ -41,6 +40,7 @@ public class KitchenManager {
                     if (modelActor3D == null) {
                         player.setPickActor(null);
                         player.remove3D(pickActor);
+                        pickActor.remove();
                         actor3D.setModelActor3D(pickActor);
                         actor3D.addActor3D(pickActor);
                     }else {
@@ -53,6 +53,7 @@ public class KitchenManager {
                 }else {
                     if (modelActor3D!=null) {
                         actor3D.setModelActor3D(null);
+                        modelActor3D.remove();
                         player.setPickActor(modelActor3D);
                         player.addActor3D(modelActor3D);
 
@@ -133,9 +134,8 @@ public class KitchenManager {
                         actor3D.setModelActor3D(pickActor);
                         actor3D.addActor3D(pickActor);
                     } else {
-                        int id = modelActor3D.getId();
-                        if (pickActor.pickPlate(id)!=null) {
-                            modelActor3D.remove();
+
+                        if (pickActor.pickPlate(modelActor3D)!=null) {
                             actor3D.setModelActor3D(null);
                         }
                     }

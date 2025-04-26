@@ -87,7 +87,7 @@ public class Stage3D extends InputAdapter {
     }
 
     protected void initCamera() {
-        camera = new PerspectiveCamera(20, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera = new PerspectiveCamera(26, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         camera.position.set(0f, 1200, 1200f);
         camera.lookAt(0,0,0);
 

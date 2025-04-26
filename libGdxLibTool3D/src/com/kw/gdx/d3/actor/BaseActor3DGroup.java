@@ -89,6 +89,7 @@ public class BaseActor3DGroup extends BaseActor3D{
 //    }
 
     public void addActor3D(BaseActor3D ba) {
+        ba.remove();
         actor3DS.add(ba);
         ba.setParent3D(this);
         ba.setStage3D(stage3D);

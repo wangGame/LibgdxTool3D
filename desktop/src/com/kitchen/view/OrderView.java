@@ -16,22 +16,21 @@ public class OrderView extends Group {
     private Table table;
 
     public OrderView(){
-        setSize(1000,Constant.GAMEHIGHT);
+        setSize(Constant.GAMEWIDTH,400);
         Image shadow = Layer.getShadow();
-        shadow.setSize(1000,Constant.GAMEHIGHT);
+        shadow.setSize(getWidth(),getHeight());
         addActor(shadow);
-        shadow.setColor(Color.BLACK);
-        shadow.getColor().a = 0.2f;
+        shadow.setColor(Color.WHITE);
+        shadow.getColor().a = 0.4f;
         table = new Table();
         scrollPane = new ScrollPane(table);
         addActor(scrollPane);
-        scrollPane.setSize(1000, Constant.GAMEHIGHT);
-        setDebug(true);
+        scrollPane.setSize(getWidth(),getHeight());
+
 
         for (int i = 0; i < 10; i++) {
             int random = MathUtils.random(4)+1;
-            table.add(new OrderItem(random));
-            table.row();
+            table.add(new OrderItem(random)).pad(20);
         }
         table.pack();
     }

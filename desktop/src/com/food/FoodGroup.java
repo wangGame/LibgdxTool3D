@@ -16,6 +16,23 @@ public abstract class FoodGroup extends BaseActor3DGroup {
 
     }
 
+    public FoodGroup pickPlate(FoodGroup foodGroupTa){
+        if (foodGroups == null){
+            foodGroups = new Array<>();
+        }
+        for (FoodGroup foodGroup : foodGroups) {
+            if (foodGroup.getId() == foodGroupTa.getId()) {
+                return null;
+            }
+        }
+        pickActor = foodGroupTa;
+        foodGroups.add(pickActor);
+        foodGroupTa.remove();
+        addActor3D(pickActor);
+        pickActor.setPosition(0,5,0);
+        return pickActor;
+    }
+
     public FoodGroup pickPlate(int i) {
         if (foodGroups == null){
             foodGroups = new Array<>();

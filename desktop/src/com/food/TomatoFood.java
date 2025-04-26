@@ -25,4 +25,9 @@ public class TomatoFood extends FoodGroup {
         nuCut.setVisible(false);
         cut.setVisible(true);
     }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+    }
 }
