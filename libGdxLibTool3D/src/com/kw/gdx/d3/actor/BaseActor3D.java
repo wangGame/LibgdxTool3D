@@ -204,7 +204,8 @@ public class BaseActor3D {
 
     public void remove() {
         if (stage3D!=null) {
-            stage3D.removeActor(this);
+            parent3D.remove3D(this);
+            setStage3D(null);
         }
     }
 

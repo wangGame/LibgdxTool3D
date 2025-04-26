@@ -13,7 +13,7 @@ public class TestApp extends LibGdxTestMain {
     @Override
     public void useShow(Stage stage) {
         super.useShow(stage);
-        //开启
+        //开启S
         Bullet.init(true);
     }
 }

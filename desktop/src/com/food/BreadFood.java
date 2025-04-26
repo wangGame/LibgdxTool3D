@@ -18,4 +18,12 @@ public class BreadFood extends FoodGroup {
         breadUp.setPosition(5,4,0);
         setScale(2,2,2);
     }
+
+    public ModelActor3D getBreadDown() {
+        return breadDown;
+    }
+
+    public ModelActor3D getBreadUp() {
+        return breadUp;
+    }
 }

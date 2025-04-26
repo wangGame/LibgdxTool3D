@@ -37,6 +37,7 @@ import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 import com.kw.gdx.d3.world.WorldSystem;
+import com.order.HanBaoBao;
 
 public class KitchenGame extends BaseScreen3D {
     private PlayerActor player;
@@ -71,6 +72,9 @@ public class KitchenGame extends BaseScreen3D {
         player.setBodyOff(new Vector3(0,-50,0));
         player.addBody(50,1,player);
 
+
+//        HanBaoBao hanBaoBao = new HanBaoBao();
+//        stage3D.addActor(hanBaoBao);
 
 //        CutCounter counter = new CutCounter();
 //        stage3D.addActor(counter);
@@ -252,18 +256,6 @@ public class KitchenGame extends BaseScreen3D {
 
         super.render(delta);
         WorldSystem.getInstance().update();
-    }
-
-    private BaseActor3D checkPointCounter() {
-        Vector3 position = player.getPosition();
-        Vector2 currentDir = player.getCurrentDir();
-        Vector3 startV3 = position.cpy();
-        startV3.y = 50;
-        Vector3 endV3 = startV3.cpy();
-        endV3.x += currentDir.x*60;
-        endV3.z -= currentDir.y*60;
-        BaseActor3D actor3D = WorldSystem.getInstance().rayTest(startV3, endV3);
-        return actor3D;
     }
 
     public PlayerActor getPlayer() {
