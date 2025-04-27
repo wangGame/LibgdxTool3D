@@ -167,8 +167,6 @@ public class KitchenManager {
                     player.setPickActor(null);
                     player.remove3D(pickActor);
                     actor3D.setModelActor3D(pickActor);
-//                    actor3D.addActor3D(pickActor);
-//                    actor3D.option();
                 }
             }
         }

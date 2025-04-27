@@ -53,6 +53,8 @@ public class OrderView extends Group {
                 }
             }
             System.out.println("出餐成功");
+            table.removeActorAt(0,true);
+            foodsId.removeIndex(0);
         }
     }
 }

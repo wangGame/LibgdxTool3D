@@ -29,21 +29,4 @@ public class PlateCounter extends CommonCounter {
         plateGroup.setPosition(topV3);
     }
 
-    public void genPlate(){
-
-    }
-
-    @Override
-    public void option() {
-        super.option();
-
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-//        if (plateGroups.size<5){
-//
-//        }
-    }
 }
