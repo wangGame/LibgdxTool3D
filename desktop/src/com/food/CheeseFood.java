@@ -1,29 +1,29 @@
 package com.food;
 
 import com.Content;
-import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 
 public class CheeseFood extends FoodGroup {
-    private BaseActor3D noCutCheese;
-    private BaseActor3D cutCheese;
+    private ModelActor3D unCutFood;
+    private ModelActor3D cutFood;
     public CheeseFood(){
         id = Content.CHEESE;
-        noCutCheese = new ModelActor3D(Asset3D.getAsset3D()
+        unCutFood = new ModelActor3D(Asset3D.getAsset3D()
                 .getModel("kitchen/model/Cheese block.g3db"));
-        addActor3D(noCutCheese);
+        addActor3D(unCutFood);
         setScale(2,2,2);
-        cutCheese = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Cheese slice.g3db"));
-        addActor3D(cutCheese);
-        cutCheese.setVisible(false);
+        cutFood = new ModelActor3D(Asset3D.getAsset3D()
+                .getModel("kitchen/model/Cheese slice.g3db"));
+        addActor3D(cutFood);
+        cutFood.setVisible(false);
     }
 
     @Override
     public void changeCutStatus() {
         super.changeCutStatus();
-        cutCheese.setVisible(true);
-        noCutCheese.setVisible(false);
+        cutFood.setVisible(true);
+        unCutFood.setVisible(false);
     }
 }

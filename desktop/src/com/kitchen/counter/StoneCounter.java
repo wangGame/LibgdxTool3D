@@ -1,10 +1,18 @@
 package com.kitchen.counter;
 
+import com.Content;
+import com.badlogic.gdx.utils.Array;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 
 public class StoneCounter extends CommonCounter {
     public StoneCounter(){
+
+        this.canOptionFood = new Array<>();
+        canOptionFood.add(Content.MEAT);
+//        canOptionFood.add(Content.CHEESE);
+//        canOptionFood.add(Content.TOMATO);
+
         ModelActor3D baseCounter = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Kitchen Counter.g3db"));
         addActor3D(baseCounter);
 
@@ -17,5 +25,11 @@ public class StoneCounter extends CommonCounter {
                 .getModel("kitchen/model/Frying Pan.g3db"));
         addActor3D(knifeModel);
         knifeModel.setPosition(0,95,-5);
+    }
+
+    @Override
+    public void option() {
+        super.option();
+        modelActor3D.changeCutStatus();
     }
 }

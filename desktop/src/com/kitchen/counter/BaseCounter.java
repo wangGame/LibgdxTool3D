@@ -17,6 +17,7 @@ public class BaseCounter extends CommonCounter {
         addActor3D(baseCounter);
         holeCounter = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Counter_hole.g3db"));
         addActor3D(holeCounter);
+
         singleDoor = new ModelActor3D(Asset3D.getAsset3D().getModel("kitchen/model/Single door.g3db"));
         addActor3D(singleDoor);
         singleDoor.setPosition(-55,85,-30);
@@ -28,7 +29,7 @@ public class BaseCounter extends CommonCounter {
         addActor3D(decalActor);
         decalActor.setFromAxis(1,0,0,90);
         decalActor.setScale(0.2f,0.2f,0.2f);
-        decalActor.setPosition(0,90,20);
+        decalActor.setPosition(0,90,-10);
 
     }
 

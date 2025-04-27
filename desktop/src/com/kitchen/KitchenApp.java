@@ -4,13 +4,14 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.physics.bullet.Bullet;
 import com.kitchen.screen.KitchenGame;
+import com.kitchen.screen.LoadingScreen;
 import com.kw.gdx.BaseGame;
 
 public class KitchenApp extends BaseGame {
     @Override
     public void create() {
         super.create();
-        setScreen(KitchenGame.class);
+        setScreen(LoadingScreen.class);
     }
 
     public static void main(String[] args) {

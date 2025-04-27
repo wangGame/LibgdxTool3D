@@ -16,6 +16,15 @@ public class BreadFood extends FoodGroup {
         addActor3D(breadDown);
         addActor3D(breadUp);
         breadUp.setPosition(5,4,0);
-        setScale(2,2,2);
+        breadUp.setScale(1.5f,1.5f,1.5f);
+        breadDown.setScale(1.5f,1.5f,1.5f);
+    }
+
+    public ModelActor3D getBreadDown() {
+        return breadDown;
+    }
+
+    public ModelActor3D getBreadUp() {
+        return breadUp;
     }
 }

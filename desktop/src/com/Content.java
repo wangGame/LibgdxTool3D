@@ -7,4 +7,6 @@ public interface Content {
     int MEAT = 4;
     int TOMATO = 5;
 
+    int PLATE = 6;//盘子
+
 }

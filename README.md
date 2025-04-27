@@ -163,3 +163,7 @@ public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 - world  可以改变x y z
 
 本仓库如何使用这类功能
+
+## 总
+
+感觉如果真的做3D换个引擎，啥都有，如果自己玩，那没问题。

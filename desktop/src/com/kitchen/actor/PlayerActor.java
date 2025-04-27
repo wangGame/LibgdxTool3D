@@ -10,6 +10,7 @@ import com.food.CabbageFood;
 import com.food.CheeseFood;
 import com.food.FoodGroup;
 import com.food.MeatFood;
+import com.food.PlateGroup;
 import com.food.TomatoFood;
 import com.kitchen.counter.CabbageCounter;
 import com.kitchen.counter.CheeseCounter;
@@ -26,6 +27,7 @@ public class PlayerActor extends BaseActor3DGroup {
     private Vector3 moveV = new Vector3();
     private Vector3 pickV3;
     private FoodGroup pickActor;
+
     public PlayerActor(){
         speed = 39300;
         forWard = new Vector2();
@@ -74,7 +76,9 @@ public class PlayerActor extends BaseActor3DGroup {
     }
 
     public void pickPlate(int i) {
-        if (pickPlate)return;
+        if (pickPlate){
+            return;
+        }
         this.pickPlate = true;
         if (i == Content.BREAD) {
             pickActor = new BreadFood();
@@ -86,6 +90,8 @@ public class PlayerActor extends BaseActor3DGroup {
             pickActor = new MeatFood();
         }else if (i == Content.TOMATO){
             pickActor = new TomatoFood();
+        }else if (i == Content.PLATE){
+            pickActor = new PlateGroup();
         }
         addActor3D(pickActor);
         pickActor.setPosition(pickV3.x, pickV3.y, pickV3.z);
@@ -104,6 +110,7 @@ public class PlayerActor extends BaseActor3DGroup {
         if (pickActor == null){
             pickPlate = false;
         }else {
+            pickPlate = true;
             pickActor.setPosition(pickV3.x, pickV3.y, pickV3.z);
         }
     }
