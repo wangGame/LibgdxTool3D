@@ -27,9 +27,9 @@ public class BaseCounter extends CommonCounter {
 
         DecalActor decalActor = new DecalActor(kitchen);
         addActor3D(decalActor);
-        decalActor.setFromAxis(1,0,0,90);
+        decalActor.setFromAxis(1,0,0,-90);
         decalActor.setScale(0.2f,0.2f,0.2f);
-        decalActor.setPosition(0,90,-10);
+        decalActor.setPosition(0,90,-5);
 
     }
 

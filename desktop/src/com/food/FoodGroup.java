@@ -44,6 +44,7 @@ public abstract class FoodGroup extends BaseActor3DGroup {
         }
         if (i == Content.BREAD) {
             pickActor = new BreadFood();
+            pickActor.setScale(1.5f,1.5f,1.5f);
         }else if (i == Content.CABBAGE){
             pickActor = new CabbageFood();
         }else if (i == Content.CHEESE){

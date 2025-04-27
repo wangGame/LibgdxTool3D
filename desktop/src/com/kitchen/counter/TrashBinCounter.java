@@ -9,10 +9,5 @@ public class TrashBinCounter extends CommonCounter {
         ModelActor3D baseCounter = new ModelActor3D(Asset3D.getAsset3D()
                 .getModel("kitchen/model/Trash bin.g3db"));
         addActor3D(baseCounter);
-
-    }
-
-    public void genPlate(){
-
     }
 }

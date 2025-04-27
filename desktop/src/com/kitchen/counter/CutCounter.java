@@ -23,7 +23,7 @@ public class CutCounter extends CommonCounter {
         ModelActor3D boardModel = new ModelActor3D(Asset3D.getAsset3D()
                 .getModel("kitchen/model/Chopping Board.g3db"));
         addActor3D(boardModel);
-        boardModel.setPosition(-10,85,0);
+        boardModel.setPosition(0,85,0);
 
         ModelActor3D knifeModel = new ModelActor3D(Asset3D.getAsset3D()
                 .getModel("kitchen/model/knife.g3db"));

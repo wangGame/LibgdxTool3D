@@ -7,7 +7,7 @@ import com.kw.gdx.d3.asset.Asset3D;
 
 public class StoneCounter extends CommonCounter {
     public StoneCounter(){
-
+        top.set(0,95,0);
         this.canOptionFood = new Array<>();
         canOptionFood.add(Content.MEAT);
 //        canOptionFood.add(Content.CHEESE);

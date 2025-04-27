@@ -24,7 +24,7 @@ public class PlateCounter extends CommonCounter {
         PlateGroup plateGroup = new PlateGroup();
         addActor3D(plateGroup);
         plateGroup.setScale(1.5f,1.5f,1.5f);
-        topV3 = new Vector3(0,90,0);
+        topV3 = new Vector3(0,85,0);
 //        this.plateGroups = new Array<>();
         plateGroup.setPosition(topV3);
     }

@@ -9,7 +9,9 @@ import com.kw.gdx.d3.actor.BaseActor3DGroup;
 public abstract class CommonCounter extends BaseActor3DGroup {
     public Array<Integer> canOptionFood;
     protected FoodGroup modelActor3D;
+    protected Vector3 top;
     public CommonCounter(){
+        top = new Vector3(-5,88,0);
         setBodyOff(new Vector3(0,-50,0));
     }
 
@@ -20,7 +22,7 @@ public abstract class CommonCounter extends BaseActor3DGroup {
     public void setModelActor3D(FoodGroup modelActor3D) {
         this.modelActor3D = modelActor3D;
         if (modelActor3D!=null){
-            modelActor3D.setPosition(-5,95,0);
+            modelActor3D.setPosition(-5,88,0);
         }
     }
 

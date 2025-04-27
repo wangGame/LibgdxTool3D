@@ -155,7 +155,6 @@ public class KitchenManager {
                         actor3D.setModelActor3D(pickActor);
                         actor3D.addActor3D(pickActor);
                     } else {
-
                         if (pickActor.pickPlate(modelActor3D)!=null) {
                             actor3D.setModelActor3D(null);
                         }
