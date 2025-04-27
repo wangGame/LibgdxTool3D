@@ -1,5 +1,7 @@
 package com.kitchen.counter;
 
+import com.badlogic.gdx.utils.Array;
+import com.food.FoodGroup;
 import com.kitchen.view.OrderView;
 import com.kw.gdx.asset.Asset;
 import com.kw.gdx.d3.actor.ModelActor3D;
@@ -19,8 +21,9 @@ public class DeliveryCounter extends CommonCounter{
     }
 
     @Override
-    public void option() {
-        super.option();
-
+    public void setModelActor3D(FoodGroup modelActor3D) {
+        super.setModelActor3D(modelActor3D);
+        Array<FoodGroup> foodGroups = modelActor3D.getFoodGroups();
+        view.checkFoods(foodGroups);
     }
 }

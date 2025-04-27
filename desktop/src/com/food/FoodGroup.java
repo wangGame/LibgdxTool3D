@@ -59,4 +59,8 @@ public abstract class FoodGroup extends BaseActor3DGroup {
         addActor3D(pickActor);
         return pickActor;
     }
+
+    public Array<FoodGroup> getFoodGroups() {
+        return foodGroups;
+    }
 }

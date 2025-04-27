@@ -1,6 +1,5 @@
 package com.kitchen.counter;
 
-import com.badlogic.gdx.graphics.g3d.Model;
 import com.kw.gdx.d3.actor.ModelActor3D;
 import com.kw.gdx.d3.asset.Asset3D;
 

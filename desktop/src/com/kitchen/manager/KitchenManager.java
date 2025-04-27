@@ -14,6 +14,7 @@ import com.kitchen.counter.CutCounter;
 import com.kitchen.counter.DeliveryCounter;
 import com.kitchen.counter.MeatCounter;
 import com.kitchen.counter.PlateCounter;
+import com.kitchen.counter.StoneCounter;
 import com.kitchen.counter.TomatoCounter;
 import com.kitchen.counter.TrashBinCounter;
 import com.kw.gdx.d3.actor.BaseActor3D;
@@ -112,6 +113,26 @@ public class KitchenManager {
 //                    }
                     modelActor3D.pickPlate(pickActor.getId());
                 }
+            }else if (actor3D instanceof StoneCounter){
+                FoodGroup pickActor = player.getPickActor();
+                if (pickActor!=null) {
+                    BaseActor3D modelActor3D = actor3D.getModelActor3D();
+                    if (modelActor3D == null) {
+                        if (actor3D.canCutCurrentFood(pickActor.getId())) {
+                            player.setPickActor(null);
+                            player.remove3D(pickActor);
+                            actor3D.setModelActor3D(pickActor);
+                            actor3D.addActor3D(pickActor);
+                        }
+                    }
+                }else {
+                    if (actor3D.getModelActor3D()!=null) {
+                        FoodGroup modelActor3D = actor3D.getModelActor3D();
+                        actor3D.setModelActor3D(null);
+                        player.setPickActor(modelActor3D);
+                        player.addActor3D(modelActor3D);
+                    }
+                }
             }
         }else {
             FoodGroup pickActor = player.getPickActor();
@@ -145,9 +166,9 @@ public class KitchenManager {
                 }else if (actor3D instanceof DeliveryCounter){
                     player.setPickActor(null);
                     player.remove3D(pickActor);
-//                    actor3D.setModelActor3D(pickActor);
+                    actor3D.setModelActor3D(pickActor);
 //                    actor3D.addActor3D(pickActor);
-                    actor3D.option();
+//                    actor3D.option();
                 }
             }
         }
@@ -155,6 +176,14 @@ public class KitchenManager {
 
     public void doKitchen(PlayerActor player, CommonCounter actor3D1) {
         if (actor3D1 instanceof CutCounter){
+            BaseActor3DGroup pickActor = player.getPickActor();
+            BaseActor3D modelActor3D = actor3D1.getModelActor3D();
+            if (pickActor==null){
+                if (modelActor3D!=null){
+                    actor3D1.option();
+                }
+            }
+        }else if (actor3D1 instanceof StoneCounter){
             BaseActor3DGroup pickActor = player.getPickActor();
             BaseActor3D modelActor3D = actor3D1.getModelActor3D();
             if (pickActor==null){
