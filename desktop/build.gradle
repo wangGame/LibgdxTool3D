@@ -24,6 +24,7 @@ dependencies {
     implementation "com.badlogicgames.gdx:gdx-backend-lwjgl:1.13.1"
     implementation "com.badlogicgames.gdx:gdx-platform:1.13.1:natives-desktop"
     implementation project(":kitchen")
+    implementation project(":pixwar")
 }
 
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"

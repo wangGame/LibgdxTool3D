@@ -5,4 +5,5 @@ pluginManagement {
 }
 include 'desktop',
         "libGdxLibTool3D",
-        "kitchen"
+        "kitchen",
+        "pixwar"

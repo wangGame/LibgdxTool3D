@@ -1,7 +1,5 @@
 package com.kitchen.manager;
 
-import com.kitchen.food.FoodGroup;
-import com.kitchen.food.PlateGroup;
 import com.kitchen.actor.PlayerActor;
 import com.kitchen.counter.BreadCounter;
 import com.kitchen.counter.CabbageCounter;
@@ -15,6 +13,8 @@ import com.kitchen.counter.PlateCounter;
 import com.kitchen.counter.StoneCounter;
 import com.kitchen.counter.TomatoCounter;
 import com.kitchen.counter.TrashBinCounter;
+import com.kitchen.food.FoodGroup;
+import com.kitchen.food.PlateGroup;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
 

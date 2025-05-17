@@ -6,7 +6,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kitchen.counter.CommonCounter;
-import com.kitchen.screen.KitchenGame;
+import com.kitchen.KitchenGame;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.world.WorldSystem;
 
