@@ -16,6 +16,5 @@ public class LoadingScreen extends BaseScreen3D {
         stage3D.addActor(terrain);
         terrain.setPosition(-100,100,10);
         terrain.setScale(5,5,5);
-
     }
 }

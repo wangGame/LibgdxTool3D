@@ -1,6 +1,5 @@
 package com.pixwar.terrain;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -26,7 +25,6 @@ import com.pixwar.setting.Settings;
 import com.kw.gdx.d3.actor.BaseActor3D;
 
 public class Terrain extends BaseActor3D {
-
     public static final int MAP_SIZE = 129;     // grid size
     public static final float SCALE  = Settings.worldSize;       // terrain size
     public static final float AMPLITUDE  = 20f;
