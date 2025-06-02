@@ -14,8 +14,8 @@ public abstract class BaseScreen3D extends BaseScreen {
         super(game);
         this.stage3D = new Stage3D();
         InputMultiplexer multiplexer = getMultiplexer();
-        multiplexer.addProcessor(stage3D);
-        multiplexer.addProcessor(stage3D.getCamController());
+//        multiplexer.addProcessor(stage3D);
+//        multiplexer.addProcessor(stage3D.getCamController());
         Gdx.input.setInputProcessor(multiplexer);
     }
 

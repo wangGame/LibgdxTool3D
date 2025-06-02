@@ -6,4 +6,5 @@ pluginManagement {
 include 'desktop',
         "libGdxLibTool3D",
         "kitchen",
-        "pixwar"
+        "pixwar",
+        "titlerotation"
