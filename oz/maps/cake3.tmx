@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-down" width="350" height="28" tilewidth="8" tileheight="8" nextobjectid="371">
+ <tileset firstgid="1" source="tilemap.tsx"/>
+ <objectgroup name="objects">
+  <object id="23" gid="47" x="0" y="200" width="224" height="8"/>
+  <object id="45" gid="16" x="64" y="192" width="8" height="8"/>
+  <object id="47" gid="16" x="88" y="192" width="8" height="8"/>
+  <object id="55" gid="47" x="224" y="192" width="160" height="8"/>
+  <object id="56" gid="47" x="400" y="200" width="120" height="8"/>
+  <object id="57" gid="47" x="576" y="192" width="128" height="8"/>
+  <object id="69" gid="48" x="184" y="152" width="80" height="8"/>
+  <object id="70" gid="48" x="528" y="136" width="48" height="8"/>
+  <object id="71" gid="48" x="488" y="168" width="120" height="8"/>
+  <object id="73" gid="48" x="1784" y="72" width="96" height="8"/>
+  <object id="75" gid="48" x="1344" y="216" width="24" height="8"/>
+  <object id="84" gid="47" x="1464" y="168" width="160" height="8"/>
+  <object id="90" gid="47" x="2064" y="208" width="408" height="8"/>
+  <object id="93" gid="47" x="2496" y="184" width="304" height="8"/>
+  <object id="97" gid="48" x="2272" y="160" width="48" height="8"/>
+  <object id="98" gid="48" x="2320" y="168" width="16" height="8"/>
+  <object id="99" gid="48" x="2336" y="176" width="16" height="8"/>
+  <object id="100" gid="48" x="2432" y="176" width="16" height="8"/>
+  <object id="101" gid="48" x="2448" y="168" width="16" height="8"/>
+  <object id="102" gid="48" x="2464" y="160" width="32" height="8"/>
+  <object id="103" gid="48" x="2376" y="120" width="24" height="8"/>
+  <object id="104" gid="48" x="2352" y="184" width="80" height="8"/>
+  <object id="105" gid="48" x="2448" y="96" width="120" height="8"/>
+  <object id="118" type="block" gid="12" x="2648" y="176" width="8" height="8"/>
+  <object id="119" type="block" gid="12" x="2656" y="168" width="8" height="8"/>
+  <object id="120" type="block" gid="12" x="2664" y="160" width="8" height="8"/>
+  <object id="121" type="block" gid="12" x="2672" y="152" width="8" height="8"/>
+  <object id="122" type="block" gid="12" x="2680" y="144" width="8" height="8"/>
+  <object id="123" type="block" gid="12" x="2688" y="136" width="8" height="8"/>
+  <object id="124" type="block" gid="12" x="2696" y="128" width="8" height="8"/>
+  <object id="125" type="block" gid="12" x="2704" y="120" width="8" height="8"/>
+  <object id="126" type="block" gid="12" x="2712" y="176" width="8" height="64"/>
+  <object id="138" gid="79" x="184" y="144" width="8" height="8">
+   <properties>
+    <property name="path" value="path1"/>
+   </properties>
+  </object>
+  <object id="143" gid="79" x="96" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="144" gid="79" x="112" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="145" gid="79" x="128" y="192" width="8" height="8">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="146" gid="80" x="176" y="192" width="8" height="16">
+   <properties>
+    <property name="path" value="path2"/>
+   </properties>
+  </object>
+  <object id="151" type="block" gid="12" x="64" y="192" width="64" height="8"/>
+  <object id="152" type="block" gid="12" x="72" y="184" width="48" height="8"/>
+  <object id="153" type="block" gid="12" x="80" y="176" width="32" height="8"/>
+  <object id="154" type="block" gid="12" x="88" y="168" width="16" height="8"/>
+  <object id="155" gid="109" x="8" y="192" width="8" height="8"/>
+  <object id="156" type="block" gid="12" x="-8" y="192" width="8" height="176"/>
+  <object id="157" name="entry" gid="51" x="20" y="94" width="16" height="24" rotation="-180"/>
+  <object id="158" gid="51" x="2800" y="176" width="16" height="16" rotation="-90">
+   <properties>
+    <property name="goto" value="house:exit"/>
+   </properties>
+  </object>
+  <object id="159" type="block" gid="12" x="2784" y="160" width="8" height="160"/>
+  <object id="162" gid="112" x="548" y="92" width="8" height="8"/>
+  <object id="163" type="super-gift" gid="144" x="1888" y="72" width="16" height="16"/>
+  <object id="164" name="secret" gid="51" x="1784" y="48" width="16" height="16" rotation="-270"/>
+  <object id="165" type="block" gid="12" x="1792" y="48" width="8" height="48"/>
+  <object id="166" gid="145" x="1892" y="92" width="8" height="8"/>
+  <object id="167" gid="51" x="1432" y="64" width="16" height="16" rotation="-450">
+   <properties>
+    <property name="goto" value="secret"/>
+   </properties>
+  </object>
+  <object id="168" gid="48" x="1344" y="72" width="72" height="8"/>
+  <object id="169" type="block" gid="12" x="1416" y="48" width="8" height="48"/>
+  <object id="170" type="block" gid="12" x="704" y="128" width="184" height="128"/>
+  <object id="171" type="block" gid="12" x="976" y="176" width="184" height="176"/>
+  <object id="172" type="block" gid="12" x="704" y="224" width="224" height="56"/>
+  <object id="173" type="block" gid="12" x="960" y="224" width="296" height="24"/>
+  <object id="175" gid="48" x="1352" y="144" width="128" height="8"/>
+  <object id="176" gid="47" x="1368" y="216" width="88" height="8"/>
+  <object id="177" type="block" gid="12" x="1456" y="208" width="8" height="64"/>
+  <object id="178" gid="47" x="1464" y="192" width="256" height="8"/>
+  <object id="179" gid="47" x="1768" y="192" width="256" height="8"/>
+  <object id="180" type="block" gid="12" x="2488" y="184" width="8" height="8"/>
+  <object id="181" type="block" gid="12" x="2480" y="192" width="8" height="8"/>
+  <object id="182" type="block" gid="12" x="2472" y="200" width="8" height="8"/>
+  <object id="183" gid="145" x="1892" y="108" width="8" height="8"/>
+  <object id="184" gid="145" x="1892" y="124" width="8" height="8"/>
+  <object id="185" gid="145" x="1892" y="140" width="8" height="8"/>
+  <object id="186" gid="145" x="1892" y="156" width="8" height="8"/>
+  <object id="187" name="a" gid="81" x="728" y="168" width="24" height="24"/>
+  <object id="188" name="c" gid="81" x="784" y="168" width="24" height="24"/>
+  <object id="189" name="b" gid="81" x="840" y="168" width="24" height="24"/>
+  <object id="190" name="a" gid="81" x="1024" y="200" width="24" height="24"/>
+  <object id="191" name="a" gid="81" x="1060" y="200" width="24" height="24"/>
+  <object id="192" name="c" gid="81" x="1096" y="200" width="24" height="24"/>
+  <object id="193" gid="143" x="920" y="148" width="8" height="8"/>
+  <object id="194" gid="143" x="936" y="132" width="8" height="8"/>
+  <object id="195" gid="143" x="952" y="144" width="8" height="8"/>
+  <object id="196" gid="143" x="960" y="164" width="8" height="8"/>
+  <object id="197" gid="143" x="964" y="188" width="8" height="8"/>
+  <object id="198" gid="140" x="756" y="164" width="8" height="8"/>
+  <object id="199" gid="140" x="772" y="164" width="8" height="8"/>
+  <object id="200" gid="140" x="812" y="164" width="8" height="8"/>
+  <object id="201" gid="140" x="828" y="164" width="8" height="8"/>
+  <object id="202" gid="140" x="1140" y="188" width="8" height="8"/>
+  <object id="203" gid="140" x="1156" y="188" width="8" height="8"/>
+  <object id="204" gid="140" x="1172" y="188" width="8" height="8"/>
+  <object id="205" gid="140" x="1188" y="188" width="8" height="8"/>
+  <object id="206" gid="140" x="1188" y="172" width="8" height="8"/>
+  <object id="207" gid="140" x="1204" y="188" width="8" height="8"/>
+  <object id="208" gid="140" x="1204" y="172" width="8" height="8"/>
+  <object id="209" gid="140" x="1236" y="172" width="8" height="8"/>
+  <object id="210" gid="140" x="1220" y="188" width="8" height="8"/>
+  <object id="211" gid="140" x="1236" y="188" width="8" height="8"/>
+  <object id="212" gid="140" x="1220" y="172" width="8" height="8"/>
+  <object id="214" type="block" gid="12" x="208" y="192" width="16" height="16"/>
+  <object id="215" type="block" gid="12" x="320" y="184" width="16" height="16"/>
+  <object id="216" gid="79" x="200" y="144" width="8" height="8">
+   <properties>
+    <property name="path" value="path1"/>
+   </properties>
+  </object>
+  <object id="217" gid="49" x="1272" y="208" width="56" height="24">
+   <properties>
+    <property name="moveup" type="float" value="12"/>
+   </properties>
+  </object>
+  <object id="231" gid="83" x="336" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path4"/>
+   </properties>
+  </object>
+  <object id="232" gid="83" x="240" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path3"/>
+   </properties>
+  </object>
+  <object id="233" gid="83" x="1368" y="136" width="8" height="8">
+   <properties>
+    <property name="path" value="path9"/>
+   </properties>
+  </object>
+  <object id="235" gid="83" x="1392" y="136" width="8" height="8">
+   <properties>
+    <property name="path" value="path9"/>
+   </properties>
+  </object>
+  <object id="236" gid="83" x="1832" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path12"/>
+   </properties>
+  </object>
+  <object id="237" gid="83" x="1848" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path12"/>
+   </properties>
+  </object>
+  <object id="238" gid="83" x="1864" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path12"/>
+   </properties>
+  </object>
+  <object id="239" gid="83" x="1952" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path12"/>
+   </properties>
+  </object>
+  <object id="240" gid="83" x="1968" y="184" width="8" height="8">
+   <properties>
+    <property name="path" value="path12"/>
+   </properties>
+  </object>
+  <object id="241" gid="83" x="2104" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="242" gid="83" x="2160" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="243" gid="83" x="2280" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="244" gid="80" x="2208" y="200" width="8" height="16">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="245" gid="79" x="2144" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="246" gid="79" x="2224" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="247" gid="79" x="2240" y="200" width="8" height="8">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="248" gid="82" x="2336" y="200" width="16" height="16">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="249" gid="82" x="2416" y="200" width="16" height="16">
+   <properties>
+    <property name="path" value="path13"/>
+   </properties>
+  </object>
+  <object id="250" gid="83" x="2472" y="88" width="8" height="8">
+   <properties>
+    <property name="path" value="path14"/>
+   </properties>
+  </object>
+  <object id="251" gid="83" x="2528" y="88" width="8" height="8">
+   <properties>
+    <property name="path" value="path14"/>
+   </properties>
+  </object>
+  <object id="268" gid="145" x="1396" y="204" width="8" height="8"/>
+  <object id="269" gid="141" x="1716" y="172" width="8" height="8"/>
+  <object id="274" gid="145" x="1408" y="204" width="8" height="8"/>
+  <object id="275" gid="145" x="1420" y="204" width="8" height="8"/>
+  <object id="276" gid="145" x="1432" y="204" width="8" height="8"/>
+  <object id="277" gid="145" x="1444" y="204" width="8" height="8"/>
+  <object id="278" gid="145" x="1408" y="188" width="8" height="8"/>
+  <object id="279" gid="145" x="1396" y="188" width="8" height="8"/>
+  <object id="280" gid="145" x="1432" y="172" width="8" height="8"/>
+  <object id="281" gid="145" x="1444" y="188" width="8" height="8"/>
+  <object id="282" gid="145" x="1432" y="188" width="8" height="8"/>
+  <object id="283" gid="145" x="1420" y="172" width="8" height="8"/>
+  <object id="284" gid="145" x="1420" y="188" width="8" height="8"/>
+  <object id="290" gid="145" x="1444" y="172" width="8" height="8"/>
+  <object id="291" gid="140" x="1472" y="156" width="8" height="8"/>
+  <object id="292" gid="140" x="1492" y="156" width="8" height="8"/>
+  <object id="293" gid="140" x="1516" y="156" width="8" height="8"/>
+  <object id="294" gid="140" x="1540" y="156" width="8" height="8"/>
+  <object id="295" gid="140" x="1564" y="156" width="8" height="8"/>
+  <object id="296" gid="140" x="1588" y="156" width="8" height="8"/>
+  <object id="297" gid="140" x="1612" y="156" width="8" height="8"/>
+  <object id="298" gid="141" x="1740" y="156" width="8" height="8"/>
+  <object id="299" gid="141" x="1764" y="172" width="8" height="8"/>
+  <object id="300" gid="145" x="1396" y="172" width="8" height="8"/>
+  <object id="301" gid="145" x="1408" y="172" width="8" height="8"/>
+  <object id="302" gid="112" x="1468" y="180" width="8" height="8"/>
+  <object id="303" gid="143" x="2284" y="140" width="8" height="8"/>
+  <object id="304" gid="142" x="2384" y="96" width="8" height="8"/>
+  <object id="305" gid="140" x="2364" y="164" width="8" height="8"/>
+  <object id="306" gid="144" x="2028" y="172" width="8" height="8"/>
+  <object id="307" gid="144" x="2060" y="180" width="8" height="8"/>
+  <object id="308" gid="144" x="2048" y="164" width="8" height="8"/>
+  <object id="309" gid="142" x="2124" y="172" width="8" height="8"/>
+  <object id="310" gid="142" x="2172" y="172" width="8" height="8"/>
+  <object id="311" gid="142" x="2220" y="172" width="8" height="8"/>
+  <object id="312" gid="143" x="2300" y="140" width="8" height="8"/>
+  <object id="313" gid="143" x="2484" y="140" width="8" height="8"/>
+  <object id="314" gid="143" x="2468" y="140" width="8" height="8"/>
+  <object id="315" gid="143" x="2324" y="148" width="8" height="8"/>
+  <object id="316" gid="143" x="2340" y="156" width="8" height="8"/>
+  <object id="317" gid="143" x="2436" y="156" width="8" height="8"/>
+  <object id="318" gid="143" x="2452" y="148" width="8" height="8"/>
+  <object id="319" gid="140" x="2380" y="164" width="8" height="8"/>
+  <object id="320" gid="140" x="2396" y="164" width="8" height="8"/>
+  <object id="321" gid="140" x="2412" y="164" width="8" height="8"/>
+  <object id="322" gid="145" x="2492" y="76" width="8" height="8"/>
+  <object id="323" gid="145" x="2508" y="76" width="8" height="8"/>
+  <object id="324" gid="145" x="2524" y="76" width="8" height="8"/>
+  <object id="325" gid="145" x="2524" y="64" width="8" height="8"/>
+  <object id="326" gid="145" x="2524" y="52" width="8" height="8"/>
+  <object id="327" gid="145" x="2492" y="64" width="8" height="8"/>
+  <object id="328" gid="145" x="2492" y="52" width="8" height="8"/>
+  <object id="329" gid="145" x="2508" y="52" width="8" height="8"/>
+  <object id="330" gid="140" x="2508" y="64" width="8" height="8"/>
+  <object id="332" gid="141" x="2652" y="140" width="8" height="8"/>
+  <object id="339" gid="145" x="2772" y="116" width="8" height="8"/>
+  <object id="340" gid="145" x="2772" y="128" width="8" height="8"/>
+  <object id="341" gid="145" x="2772" y="140" width="8" height="8"/>
+  <object id="342" gid="145" x="2772" y="152" width="8" height="8"/>
+  <object id="343" gid="145" x="2772" y="164" width="8" height="8"/>
+  <object id="346" gid="140" x="2468" y="180" width="8" height="8"/>
+  <object id="347" gid="140" x="2316" y="180" width="8" height="8"/>
+  <object id="348" gid="145" x="500" y="148" width="8" height="8"/>
+  <object id="349" gid="141" x="60" y="164" width="8" height="8"/>
+  <object id="350" gid="143" x="532" y="108" width="8" height="8"/>
+  <object id="351" gid="142" x="324" y="152" width="8" height="8"/>
+  <object id="352" gid="144" x="492" y="180" width="8" height="8"/>
+  <object id="353" gid="140" x="252" y="124" width="8" height="8"/>
+  <object id="354" gid="145" x="588" y="148" width="8" height="8"/>
+  <object id="355" gid="143" x="564" y="108" width="8" height="8"/>
+  <object id="356" gid="142" x="212" y="164" width="8" height="8"/>
+  <object id="357" gid="141" x="124" y="164" width="8" height="8"/>
+  <object id="358" gid="141" x="92" y="140" width="8" height="8"/>
+  <object id="359" gid="140" x="220" y="124" width="8" height="8"/>
+  <object id="360" gid="140" x="188" y="124" width="8" height="8"/>
+  <object id="361" gid="144" x="508" y="180" width="8" height="8"/>
+  <object id="362" gid="140" x="2636" y="156" width="8" height="8"/>
+  <object id="364" gid="142" x="2668" y="124" width="8" height="8"/>
+  <object id="365" gid="143" x="2684" y="108" width="8" height="8"/>
+  <object id="366" gid="144" x="2700" y="92" width="8" height="8"/>
+  <object id="367" gid="145" x="2716" y="84" width="8" height="8"/>
+  <object id="368" name="debug" gid="51" x="1232" y="0" width="16" height="16" rotation="-180">
+   <properties>
+    <property name="debug" value="yes"/>
+   </properties>
+  </object>
+  <object id="369" gid="48" x="2336" y="136" width="24" height="8"/>
+  <object id="370" type="super-gift" gid="145" x="2604" y="60" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup name="paths">
+  <object id="141" name="path2" x="48" y="192">
+   <polyline points="80,0 152,0"/>
+  </object>
+  <object id="142" name="path1" x="120" y="160">
+   <polyline points="64,-16 136,-16"/>
+  </object>
+  <object id="218" name="path-floor-a" x="1272" y="192">
+   <polyline points="0,0 0,-104"/>
+  </object>
+  <object id="219" name="path3" x="224" y="184">
+   <polyline points="0,0 88,0"/>
+  </object>
+  <object id="220" name="path4" x="336" y="184">
+   <polyline points="0,0 40,0"/>
+  </object>
+  <object id="221" name="path5" x="400" y="192">
+   <polyline points="0,0 112,0"/>
+  </object>
+  <object id="222" name="path6" x="488" y="160">
+   <polyline points="0,0 112,0"/>
+  </object>
+  <object id="223" name="path7" x="528" y="128">
+   <polyline points="0,0 40,0"/>
+  </object>
+  <object id="224" name="path8" x="576" y="184">
+   <polyline points="0,0 120,0"/>
+  </object>
+  <object id="225" name="path9" x="1352" y="136">
+   <polyline points="0,0 120,0"/>
+  </object>
+  <object id="226" name="path10" x="1464" y="160">
+   <polyline points="0,0 152,0"/>
+  </object>
+  <object id="227" name="path11" x="1464" y="184">
+   <polyline points="0,0 248,0"/>
+  </object>
+  <object id="228" name="path12" x="1768" y="184">
+   <polyline points="0,0 248,0"/>
+  </object>
+  <object id="229" name="path13" x="2064" y="200">
+   <polyline points="0,0 400,0"/>
+  </object>
+  <object id="230" name="path14" x="2448" y="88">
+   <polyline points="0,0 112,0"/>
+  </object>
+  <object id="252" name="path15" x="2488" y="176">
+   <polyline points="0,0 152,0"/>
+  </object>
+  <object id="253" gid="82" x="2568" y="176" width="16" height="16">
+   <properties>
+    <property name="path" value="path15"/>
+   </properties>
+  </object>
+  <object id="254" gid="79" x="2592" y="176" width="8" height="8">
+   <properties>
+    <property name="path" value="path15"/>
+   </properties>
+  </object>
+  <object id="255" gid="79" x="2608" y="176" width="8" height="8">
+   <properties>
+    <property name="path" value="path15"/>
+   </properties>
+  </object>
+  <object id="256" gid="79" x="2624" y="176" width="8" height="8">
+   <properties>
+    <property name="path" value="path15"/>
+   </properties>
+  </object>
+  <object id="257" gid="79" x="520" y="160" width="8" height="8">
+   <properties>
+    <property name="path" value="path6"/>
+   </properties>
+  </object>
+  <object id="258" gid="79" x="568" y="160" width="8" height="8">
+   <properties>
+    <property name="path" value="path6"/>
+   </properties>
+  </object>
+  <object id="259" gid="82" x="432" y="192" width="16" height="16">
+   <properties>
+    <property name="path" value="path5"/>
+   </properties>
+  </object>
+  <object id="260" gid="82" x="616" y="184" width="16" height="16">
+   <properties>
+    <property name="path" value="path8"/>
+   </properties>
+  </object>
+  <object id="261" gid="82" x="1640" y="184" width="16" height="16">
+   <properties>
+    <property name="path" value="path11"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="helpers" visible="0">
+  <object id="213" name="screen" x="36" y="64" width="240" height="144"/>
+ </objectgroup>
+</map>

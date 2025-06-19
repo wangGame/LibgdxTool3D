@@ -26,6 +26,15 @@ dependencies {
     implementation project(":pixwar")
     implementation project(":kitchen")
     implementation project(":titlerotation")
+    implementation "com.github.mgsx-dev.gdx-gltf:gltf:2.2.1"
+
+    compile "com.badlogicgames.gdx:gdx-controllers:1.9.10:sources"
+    compile "com.badlogicgames.gdx:gdx-controllers-gwt:1.9.10"
+    compile "com.badlogicgames.gdx:gdx-controllers-gwt:1.9.10:sources"
+
+    compile "com.badlogicgames.gdx:gdx-controllers-desktop:1.9.10"
+    compile "com.badlogicgames.gdx:gdx-controllers-platform:1.9.10:natives-desktop"
+
 }
 
 project.ext.mainClassName = "com.tony.puzzle.DesktopLauncher"
