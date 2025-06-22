@@ -12,10 +12,10 @@ import com.kw.gdx.constant.Constant;
 import com.kw.gdx.d3.screen.BaseScreen3D;
 import com.kw.gdx.d3.world.WorldSystem;
 
-public class KitchenGame extends BaseScreen3D {
+public class KitchenScreen extends BaseScreen3D {
     private OrderView orderView;
     private GameView gameView;
-    public KitchenGame(BaseGame game) {
+    public KitchenScreen(BaseGame game) {
         super(game);
     }
 

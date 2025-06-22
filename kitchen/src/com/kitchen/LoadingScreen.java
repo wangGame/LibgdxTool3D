@@ -49,7 +49,7 @@ public class LoadingScreen extends BaseScreen3D {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 super.clicked(event, x, y);
-                setScreen(KitchenGame.class);
+                setScreen(KitchenScreen.class);
             }
         });
     }

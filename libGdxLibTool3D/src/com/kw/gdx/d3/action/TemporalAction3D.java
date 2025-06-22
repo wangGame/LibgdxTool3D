@@ -8,19 +8,19 @@ abstract public class TemporalAction3D extends Action3D {
     private Interpolation interpolation;
     private boolean reverse, began, complete;
 
-    public TemporalAction3D () {
+    public TemporalAction3D() {
     }
 
-    public TemporalAction3D (float duration) {
+    public TemporalAction3D(float duration) {
         this.duration = duration;
     }
 
-    public TemporalAction3D (float duration, Interpolation interpolation) {
+    public TemporalAction3D(float duration, Interpolation interpolation) {
         this.duration = duration;
         this.interpolation = interpolation;
     }
 
-    public boolean act (float delta) {
+    public boolean act(float delta) {
         if (complete) return true;
         Pool pool = getPool();
         setPool(null); // Ensure this action can't be returned to the pool while executing.
@@ -41,75 +41,94 @@ abstract public class TemporalAction3D extends Action3D {
         }
     }
 
-    /** Called the first time {@link #act(float)} is called. This is a good place to query the {@link #actor actor's} starting
-     * state. */
-    protected void begin () {
+    /**
+     * Called the first time {@link #act(float)} is called. This is a good place to query the {@link #actor actor's} starting
+     * state.
+     */
+    protected void begin() {
     }
 
-    /** Called the last time {@link #act(float)} is called. */
-    protected void end () {
+    /**
+     * Called the last time {@link #act(float)} is called.
+     */
+    protected void end() {
     }
 
-    /** Called each frame.
+    /**
+     * Called each frame.
+     *
      * @param percent The percentage of completion for this action, growing from 0 to 1 over the duration. If
-     *           {@link #setReverse(boolean) reversed}, this will shrink from 1 to 0. */
-    abstract protected void update (float percent);
+     *                {@link #setReverse(boolean) reversed}, this will shrink from 1 to 0.
+     */
+    abstract protected void update(float percent);
 
-    /** Skips to the end of the transition. */
-    public void finish () {
+    /**
+     * Skips to the end of the transition.
+     */
+    public void finish() {
         time = duration;
     }
 
-    public void restart () {
+    public void restart() {
         time = 0;
         began = false;
         complete = false;
     }
 
-    public void reset () {
+    public void reset() {
         super.reset();
         reverse = false;
         interpolation = null;
     }
 
-    /** Gets the transition time so far. */
-    public float getTime () {
+    /**
+     * Gets the transition time so far.
+     */
+    public float getTime() {
         return time;
     }
 
-    /** Sets the transition time so far. */
-    public void setTime (float time) {
+    /**
+     * Sets the transition time so far.
+     */
+    public void setTime(float time) {
         this.time = time;
     }
 
-    public float getDuration () {
+    public float getDuration() {
         return duration;
     }
 
-    /** Sets the length of the transition in seconds. */
-    public void setDuration (float duration) {
+    /**
+     * Sets the length of the transition in seconds.
+     */
+    public void setDuration(float duration) {
         this.duration = duration;
     }
 
-    public Interpolation getInterpolation () {
+    public Interpolation getInterpolation() {
         return interpolation;
     }
 
-    public void setInterpolation (Interpolation interpolation) {
+    public void setInterpolation(Interpolation interpolation) {
         this.interpolation = interpolation;
     }
 
-    public boolean isReverse () {
+    public boolean isReverse() {
         return reverse;
     }
 
-    /** When true, the action's progress will go from 100% to 0%. */
-    public void setReverse (boolean reverse) {
+    /**
+     * When true, the action's progress will go from 100% to 0%.
+     */
+    public void setReverse(boolean reverse) {
         this.reverse = reverse;
     }
 
-    /** Returns true after {@link #act(float)} has been called where time >= duration. */
-    public boolean isComplete () {
+    /**
+     * Returns true after {@link #act(float)} has been called where time >= duration.
+     */
+    public boolean isComplete() {
         return complete;
     }
 }

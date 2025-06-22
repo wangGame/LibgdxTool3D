@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalLight;
 import com.badlogic.gdx.graphics.g3d.environment.DirectionalShadowLight;
 import com.badlogic.gdx.graphics.g3d.environment.PointLight;
-import com.badlogic.gdx.graphics.g3d.environment.ShadowMap;
 import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.g3d.utils.CameraInputController;
 import com.badlogic.gdx.graphics.g3d.utils.DefaultShaderProvider;
@@ -22,10 +21,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
-import com.kw.gdx.d3.bean.RayBean;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.actor.BaseActor3DGroup;
+import com.kw.gdx.d3.bean.RayBean;
 
+/**
+ * 建议复写
+ */
 public class Stage3D extends InputAdapter {
     protected Environment environment;
     protected PerspectiveCamera camera;
@@ -54,7 +56,7 @@ public class Stage3D extends InputAdapter {
         decalBatch = new DecalBatch(new CameraGroupStrategy(camera));
     }
 
-    public void debug(){
+    public void debug() {
         if (isDebug) {
             if (debugShapes == null) {
                 debugShapes = new ShapeRenderer();
@@ -69,7 +71,7 @@ public class Stage3D extends InputAdapter {
     }
 
     protected void initRoot() {
-        gameRoot = new BaseActor3DGroup(0,0,0);
+        gameRoot = new BaseActor3DGroup(0, 0, 0);
     }
 
     public CameraInputController getCamController() {
@@ -87,8 +89,8 @@ public class Stage3D extends InputAdapter {
     }
 
     protected void initCamera() {
-        camera = new PerspectiveCamera(26, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        camera.position.set(0f, 0, 1200f);
+        camera = new PerspectiveCamera(20, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        camera.position.set(0f, 1200, 1200f);
         camera.lookAt(0,0,0);
 
         camera.near = 0.3f;
@@ -97,13 +99,9 @@ public class Stage3D extends InputAdapter {
     }
 
     protected void initLight() {
-
         environment.set(new ColorAttribute(ColorAttribute.AmbientLight, 1f, 1f, 1f, 1f));//环境光
         //投影
-        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024,
-                300f, 300f, 1f, 100f)).
-                set(0.8f, 0.8f, 0.8f, -1f, -.8f,
-                        -.2f));
+        environment.add((shadowLight = new DirectionalShadowLight(1024, 1024, 300f, 300f, 1f, 100f)).set(0.8f, 0.8f, 0.8f, -1f, -.8f, -.2f));
 //        environment.shadowMap = (ShadowMap) shadowLight;
         DirectionalLight set = new DirectionalLight().set(1f, 1f, 1f, 30, -30, 1);
         float intensity = 0.2f;
@@ -132,13 +130,13 @@ public class Stage3D extends InputAdapter {
 //        shadowLight.end();
 //        Gdx.gl.glClearColor(0, 0, 0, 1);
         modelBatch.begin(camera);
-        gameRoot.draw(modelBatch,environment);
+        gameRoot.draw(modelBatch, environment);
         modelBatch.end();
 //        debug();
         drawDecal();
     }
 
-    public void drawDecal(){
+    public void drawDecal() {
 
         camera.update();
         gameRoot.drawDecal(decalBatch);
@@ -231,14 +229,14 @@ public class Stage3D extends InputAdapter {
     }
 
 
-    public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         rayBean.reset();
-        Ray ray = camera.getPickRay(screenX,screenY);
+        Ray ray = camera.getPickRay(screenX, screenY);
         //这个是root
-        getRoot().checkCollisions(ray,rayBean);
+        getRoot().checkCollisions(ray, rayBean);
         BaseActor3D baseActor3D = rayBean.getBaseActor3D();
-        if (rayBean.getBaseActor3D()!=null) {
-            baseActor3D.touchUp(rayBean.getVector3(),pointer,button);
+        if (rayBean.getBaseActor3D() != null) {
+            baseActor3D.touchUp(rayBean.getVector3(), pointer, button);
             return true;
         }
         return false;

@@ -8,7 +8,9 @@ public abstract class Action3D implements Pool.Poolable {
     /** The actor this action targets, or null if a target has not been set. */
     protected BaseActor3D target;
     private Pool pool;
+
     abstract public boolean act (float delta);
+
     public void restart () {
     }
 
@@ -22,9 +24,11 @@ public abstract class Action3D implements Pool.Poolable {
             }
         }
     }
+
     public BaseActor3D getActor () {
-            return actor;
-        }
+        return actor;
+    }
+
     public void setTarget (BaseActor3D target) {
         this.target = target;
     }
@@ -32,16 +36,19 @@ public abstract class Action3D implements Pool.Poolable {
     public BaseActor3D getTarget () {
         return target;
     }
+
     public void reset () {
         actor = null;
         target = null;
         pool = null;
         restart();
     }
+
     public Pool getPool () {
             return pool;
         }
-    public void setPool (Pool pool) {
+
+        public void setPool (Pool pool) {
         this.pool = pool;
     }
 

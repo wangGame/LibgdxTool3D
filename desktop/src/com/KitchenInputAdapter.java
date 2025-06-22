@@ -6,35 +6,35 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.kitchen.counter.CommonCounter;
-import com.kitchen.KitchenGame;
+import com.kitchen.KitchenScreen;
 import com.kw.gdx.d3.actor.BaseActor3D;
 import com.kw.gdx.d3.world.WorldSystem;
 
 public class KitchenInputAdapter extends InputAdapter {
-    private KitchenGame kitchenGame;
-    public KitchenInputAdapter(KitchenGame kitchenGame){
-        this.kitchenGame = kitchenGame;
+    private KitchenScreen kitchenScreen;
+    public KitchenInputAdapter(KitchenScreen kitchenScreen){
+        this.kitchenScreen = kitchenScreen;
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == Input.Keys.LEFT){
-            kitchenGame.getPlayer().leftMove();
+            kitchenScreen.getPlayer().leftMove();
         }else if (keycode == Input.Keys.RIGHT){
-            kitchenGame.getPlayer().rightMove();
+            kitchenScreen.getPlayer().rightMove();
         }else if (Input.Keys.UP==keycode){
-            kitchenGame.getPlayer().upMove();
+            kitchenScreen.getPlayer().upMove();
         }else if (Input.Keys.DOWN == keycode){
-            kitchenGame.getPlayer().downMove();
+            kitchenScreen.getPlayer().downMove();
         }else if (Input.Keys.W == keycode){
-            kitchenGame.getPlayer().pickPlate(1);
+            kitchenScreen.getPlayer().pickPlate(1);
         }else if (keycode == Input.Keys.E){
             BaseActor3D actor3D = checkPointCounter();
             if (actor3D!=null) {
                 if (actor3D instanceof CommonCounter) {
                     CommonCounter actor3D1 = (CommonCounter) (actor3D);
 //                ((ModelActor3D)(actor3D)).setMaterialTexture(Asset.getAsset().getTexture("shuoming.png"));
-                    kitchenGame.getManager().option(kitchenGame.getPlayer(),actor3D1);
+                    kitchenScreen.getManager().option(kitchenScreen.getPlayer(),actor3D1);
                 }
             }
         }else if (Gdx.input.isKeyPressed(Input.Keys.C)){
@@ -42,7 +42,7 @@ public class KitchenInputAdapter extends InputAdapter {
             if (actor3D!=null) {
                 if (actor3D instanceof CommonCounter) {
                     CommonCounter actor3D1 = (CommonCounter) (actor3D);
-                    kitchenGame.getManager().doKitchen(kitchenGame.getPlayer(),actor3D1);
+                    kitchenScreen.getManager().doKitchen(kitchenScreen.getPlayer(),actor3D1);
                 }
             }
         }
@@ -51,8 +51,8 @@ public class KitchenInputAdapter extends InputAdapter {
 
 
     private BaseActor3D checkPointCounter() {
-        Vector3 position = kitchenGame.getPlayer().getPosition();
-        Vector2 currentDir = kitchenGame.getPlayer().getCurrentDir();
+        Vector3 position = kitchenScreen.getPlayer().getPosition();
+        Vector2 currentDir = kitchenScreen.getPlayer().getCurrentDir();
         Vector3 startV3 = position.cpy();
         startV3.y = 50;
         Vector3 endV3 = startV3.cpy();
